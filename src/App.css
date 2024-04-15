@@ -1,0 +1,16 @@
+:root {
+  --black: #353535;
+  --sea-green: #3c6e71;
+  --white: #ffffff;
+  --dark-gray: #495057;
+  --light-gray: #d9d9d9;
+  --royal-blue: #284b63;
+  --neon-green: #b5e48c;
+  --neon-yellow: #d9ed92;
+  --sky-blue: #caf0f8;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+}
