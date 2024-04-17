@@ -4,14 +4,12 @@ import styles from "./Navbar.module.css";
 
 import { BsSearch } from "react-icons/bs";
 import { BsCart4 } from "react-icons/bs";
-import { BsList } from "react-icons/bs";
+import { BsChevronDown } from "react-icons/bs";
 
 const Navbar = () => {
   const [letterVisible, setLetterVisible] = useState({});
 
-  const addSearchBorder = () => {
-
-  }
+  const addSearchBorder = () => {};
 
   return (
     <>
@@ -19,7 +17,12 @@ const Navbar = () => {
         <a className={styles.logo}>Afterlife</a>
         <div className={styles.search_container}>
           <form className={styles.search}>
-            <input type="text" id={styles.search_bar} onFocus={addSearchBorder}></input>
+            <input
+              type="text"
+              id={styles.search_bar}
+              onFocus={addSearchBorder}
+              placeholder="Search for anything"
+            ></input>
             <button type="submit" id={styles.search_button}>
               <BsSearch className={styles.search_icon} size={24} />
             </button>
@@ -27,7 +30,10 @@ const Navbar = () => {
         </div>
         <ul className={styles.nav_list}>
           <li className={styles.list_item}>
-            <a className={styles.list_link}><BsList size={28} />Shop</a>
+            <a className={styles.list_link}>
+              <BsChevronDown size={16} />
+              &nbsp;Shop
+            </a>
             <div className={styles.dropdown}>
               <a>Men&apos;s Clothing</a>
               <a>Women&apos;s Clothing</a>
@@ -36,7 +42,9 @@ const Navbar = () => {
             </div>
           </li>
           <li className={styles.list_item} id={styles.shopping_cart}>
-            <a><BsCart4 /></a>
+            <a>
+              <BsCart4 />
+            </a>
           </li>
         </ul>
       </nav>
