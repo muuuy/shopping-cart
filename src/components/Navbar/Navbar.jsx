@@ -4,6 +4,7 @@ import styles from "./Navbar.module.css";
 
 import { BsSearch } from "react-icons/bs";
 import { BsCart4 } from "react-icons/bs";
+import { BsList } from "react-icons/bs";
 
 const Navbar = () => {
   const [letterVisible, setLetterVisible] = useState({});
@@ -26,7 +27,7 @@ const Navbar = () => {
         </div>
         <ul className={styles.nav_list}>
           <li className={styles.list_item}>
-            <a className={styles.list_link}>Shop</a>
+            <a className={styles.list_link}><BsList size={28} />Shop</a>
             <div className={styles.dropdown}>
               <a>Men&apos;s Clothing</a>
               <a>Women&apos;s Clothing</a>

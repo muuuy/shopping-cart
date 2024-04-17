@@ -101,10 +101,6 @@
     border-radius: 0 40px 40px 0;
 }
 
-#search_button .search_icon {
-    transition: none;
-}
-
 #shopping_cart {
     text-align: center;
     padding: 6px;
@@ -120,6 +116,12 @@
     color: white;
 }
 
+.list_link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /*-----------------------------=DROPDOWN=-----------------------------*/
 .list_item:hover .dropdown {
     display: block;
@@ -128,7 +130,8 @@
 .dropdown {
     position: absolute;
     display: none;
-    background-color: white;
+    padding: 0 20px;
+    background-color: var(--dark-gray);
     border: 1px solid black;
 }
 
