@@ -15,9 +15,9 @@
     justify-content: center;
     align-items: center;
     gap: 32px;
-    position: absolute;
+    /* position: absolute; */
     width: 100%;
-    height: auto;
+    height: 80px;
     border-bottom: 1px solid var(--light-gray);
     z-index: 100;
 
@@ -58,9 +58,12 @@
 
 /*-----------------------------=NAVBAR LIST=-----------------------------*/
 .search_container {
-    border: 1px solid red;
     border-radius: 400px;
     overflow: hidden;
+}
+
+.search_container {
+    transition: border 0.4s ease;
 }
 
 .search {
@@ -96,7 +99,7 @@
     transition: transform 0.4s ease, border-radius 0.4s ease;
 }
 
-#search_button:hover {
+.search:hover #search_button {
     transform: scale(1);
     border-radius: 0 40px 40px 0;
 }
@@ -114,6 +117,7 @@
 #shopping_cart:hover {
     background-color: var(--light-gray);
     color: black;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .list_link {
@@ -130,7 +134,6 @@
 .dropdown {
     position: absolute;
     display: none;
-    /* padding: 0 24px; */
     margin-right: 12px;
     color: black;
     background-color: var(--white);
@@ -147,4 +150,5 @@
 
 .dropdown a:hover {
     background-color: var(--light-gray);
+    transition: background-color 0.3s ease;
 }

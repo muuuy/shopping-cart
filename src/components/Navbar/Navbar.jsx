@@ -7,20 +7,27 @@ import { BsCart4 } from "react-icons/bs";
 import { BsChevronDown } from "react-icons/bs";
 
 const Navbar = () => {
-  const [letterVisible, setLetterVisible] = useState({});
+  const [outline, setOutline] = useState('1px solid black');
 
-  const addSearchBorder = () => {};
+  const addSearchBorder = () => {
+    setOutline('1px solid var(--neon-green)')
+  };
+
+  const removeSearchBorder = () => {
+    setOutline('1px solid black');
+  }
 
   return (
     <>
       <nav className={styles.nav_container}>
         <a className={styles.logo}>Afterlife</a>
-        <div className={styles.search_container}>
+        <div className={styles.search_container} style={{border: outline}}>
           <form className={styles.search}>
             <input
               type="text"
               id={styles.search_bar}
               onFocus={addSearchBorder}
+              onBlur={removeSearchBorder}
               placeholder="Search for anything"
             ></input>
             <button type="submit" id={styles.search_button}>
