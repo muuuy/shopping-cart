@@ -1,6 +1,7 @@
 import './App.css'
 
 import Navbar  from './components/Navbar/Navbar'
+import SaleBanner from './components/SaleBanner/SaleBanner'
 
 function App() {
 
@@ -8,7 +9,7 @@ function App() {
     <>
       <Navbar />
       <div className='container'>
-
+        <SaleBanner />
       </div>
     </>
   )

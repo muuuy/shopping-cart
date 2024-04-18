@@ -1,0 +1,40 @@
+.sales_container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 40px;
+    width: 100%;
+    height: 320px;
+    background: rgb(180,15,45);
+    background: linear-gradient(90deg, rgba(180,15,45,1) 0%, rgba(255,77,109,1) 50%, rgba(180,15,45,1) 100%);
+    cursor: pointer;
+}
+
+.sales_topic {
+    font-size: 100px;
+}
+
+.sales_desc {
+    font-size: 40px;
+    margin-top: 12px;
+}
+
+.sales_link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    margin: 40px;
+}
+
+.sales_link:hover .arrow {
+    transform: translateX(16px);
+    transition: transform 1s ease;
+}
+
+.sales_disclaimer {
+    font-size: 12px;
+}

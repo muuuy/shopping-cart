@@ -2,9 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap');
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
     list-style: none;
 }
 
@@ -15,12 +12,10 @@
     justify-content: center;
     align-items: center;
     gap: 32px;
-    /* position: absolute; */
     width: 100%;
     height: 80px;
-    border-bottom: 1px solid var(--light-gray);
+    border-bottom: 1px solid var(--neon-green);
     z-index: 100;
-
     color: white;
     background-color: black;
 }
