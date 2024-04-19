@@ -6,7 +6,7 @@
     align-items: center;
     top: 40px;
     width: 100%;
-    height: 320px;
+    height: 280px;
     background: rgb(180,15,45);
     background: linear-gradient(90deg, rgba(180,15,45,1) 0%, rgba(255,77,109,1) 50%, rgba(180,15,45,1) 100%);
     cursor: pointer;
@@ -17,8 +17,7 @@
 }
 
 .sales_desc {
-    font-size: 40px;
-    margin-top: 12px;
+    font-size: 32px;
 }
 
 .sales_link {
@@ -27,7 +26,7 @@
     align-items: center;
     gap: 8px;
     font-weight: 500;
-    margin: 40px;
+    margin: 36px;
 }
 
 .sales_link:hover .arrow {

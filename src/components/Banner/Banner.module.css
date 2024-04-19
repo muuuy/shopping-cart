@@ -1,0 +1,7 @@
+.banner_container {
+    height: 50px;
+    width: 50px;
+    background-color: white;
+    position: relative;
+    top: 50px;
+}

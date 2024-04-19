@@ -1,15 +1,14 @@
 import styles from "./SaleBanner.module.css";
 
 const SaleBanner = () => {
-
-    const handleClick = () => {
-        window.location.href='/shopping-cart/src/pages/Shop/Shop.jsx'
-    }
+  const handleClick = () => {
+    window.location.href = "/shopping-cart/src/pages/Shop/Shop.jsx";
+  };
 
   return (
     <>
       <div className={styles.sales_container} onClick={handleClick}>
-        <h1 className={styles.sales_topic}>Big Sale!</h1>
+        <h1 className={styles.sales_topic}>Special Sale!</h1>
         <h2 className={styles.sales_desc}>Up to 30% Off</h2>
         <h3 className={styles.sales_link}>
           <a>Save Now</a>

@@ -134,6 +134,7 @@
     background-color: var(--white);
     border: 4px solid black;
     border-top: 16px solid black;
+    z-index: 101;
 }
 
 .dropdown a {
