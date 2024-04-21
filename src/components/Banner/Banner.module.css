@@ -3,5 +3,13 @@
     width: 50px;
     background-color: white;
     position: relative;
-    top: 50px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 52px;
+    justify-content: center;
+    text-align: center;
 }
