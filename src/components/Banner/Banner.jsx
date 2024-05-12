@@ -9,8 +9,8 @@ const Banner = () => {
   return (
     <>
       <div className={styles.container}>
-        <h1 style={{ margin: "32px", fontStyle: 'italic', fontWeight: '500' }}>
-          Categories to explore
+        <h1 style={{ margin: "32px", fontStyle: 'italic', fontWeight: '900' }}>
+          CATEGORIES TO EXPLORE
         </h1>
         <div
           style={{

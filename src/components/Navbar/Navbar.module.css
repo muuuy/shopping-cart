@@ -23,11 +23,22 @@
 .logo {
     font-family: "Teko", sans-serif;
     font-style: italic;
-    font-size: 48px;
+    font-size: 28px;
     font-weight: 800;
     margin-left: 2%;
     color: var(--neon-green);
     cursor: pointer;
+}
+
+.logo_img {
+    position: relative;
+    top: 4px;
+}
+
+.logo:hover {
+    color: var(--pastel-red);
+    transform: scale(1.2);
+    transition: transform 1s ease-out, color 1s ease-out;
 }
 
 /*-----------------------------=NAVBAR LIST=-----------------------------*/
@@ -112,13 +123,33 @@
 #shopping_cart:hover {
     background-color: var(--light-gray);
     color: black;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.1s ease, color 0.1s ease;
 }
 
 .list_link {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.shop_arrow {
+    transform: rotate(-90deg);
+}
+
+#shop_link {
+    padding: 8px;
+    border-radius: 32px;
+}
+
+#shop_link:hover .shop_arrow {
+    transform: rotate(0deg);
+    transition: transform 0.8s ease-out;
+}
+
+#shop_link:hover {
+    background-color: white;
+    color: black;
+    transition: background-color 0.1s ease, color 0.1s ease;
 }
 
 /*-----------------------------=DROPDOWN=-----------------------------*/

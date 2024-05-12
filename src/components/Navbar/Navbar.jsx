@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import styles from "./Navbar.module.css";
 
+import { BsHurricane } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
 import { BsCart4 } from "react-icons/bs";
 import { BsChevronDown } from "react-icons/bs";
@@ -20,7 +21,7 @@ const Navbar = () => {
   return (
     <>
       <nav className={styles.nav_container}>
-        <a className={styles.logo}>Afterlife</a>
+        <a className={styles.logo}><BsHurricane className={styles.logo_img} />BLACK MARKET</a>
         <div className={styles.search_container} style={{border: outline}}>
           <form className={styles.search}>
             <input
@@ -37,9 +38,9 @@ const Navbar = () => {
         </div>
         <ul className={styles.nav_list}>
           <li className={styles.list_item}>
-            <a className={styles.list_link}>
-              <BsChevronDown size={16} />
-              &nbsp;Shop
+            <a className={styles.list_link} id={styles.shop_link}>
+              <BsChevronDown size={16} className={styles.shop_arrow} />
+              &nbsp;SHOP
             </a>
             <div className={styles.dropdown}>
               <a>Men&apos;s Clothing</a>
