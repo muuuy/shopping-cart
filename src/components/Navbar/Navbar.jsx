@@ -7,35 +7,47 @@ import { BsSearch } from "react-icons/bs";
 import { BsCart4 } from "react-icons/bs";
 import { BsChevronDown } from "react-icons/bs";
 
-const Navbar = () => {
-  const [outline, setOutline] = useState('1px solid black');
+const SearchBar = () => {
+  const [outline, setOutline] = useState("1px solid black");
 
   const addSearchBorder = () => {
-    setOutline('1px solid var(--neon-green)')
+    setOutline("1px solid var(--neon-green)");
   };
 
   const removeSearchBorder = () => {
-    setOutline('1px solid black');
-  }
+    setOutline("1px solid black");
+  };
+
+  return (
+    <>
+      <div className={styles.search_container} style={{ border: outline }}>
+        <form className={styles.search}>
+          <input
+            type="text"
+            id={styles.search_bar}
+            onFocus={addSearchBorder}
+            onBlur={removeSearchBorder}
+            placeholder="Search"
+          ></input>
+          <button type="submit" id={styles.search_button}>
+            <BsSearch className={styles.search_icon} size={24} />
+          </button>
+        </form>
+      </div>
+    </>
+  );
+};
+
+const Navbar = () => {
 
   return (
     <>
       <nav className={styles.nav_container}>
-        <a className={styles.logo}><BsHurricane className={styles.logo_img} />BLACK MARKET</a>
-        <div className={styles.search_container} style={{border: outline}}>
-          <form className={styles.search}>
-            <input
-              type="text"
-              id={styles.search_bar}
-              onFocus={addSearchBorder}
-              onBlur={removeSearchBorder}
-              placeholder="Search for anything"
-            ></input>
-            <button type="submit" id={styles.search_button}>
-              <BsSearch className={styles.search_icon} size={24} />
-            </button>
-          </form>
-        </div>
+        <a className={styles.logo}>
+          <BsHurricane className={styles.logo_img} />
+          BLACK MARKET
+        </a>
+        <SearchBar />
         <ul className={styles.nav_list}>
           <li className={styles.list_item}>
             <a className={styles.list_link} id={styles.shop_link}>
