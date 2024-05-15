@@ -13,6 +13,14 @@
     flex-direction: column;
 }
 
+#banner_header {
+    margin: 32px;
+    font-style: italic;
+    font-weight: 900;
+    text-decoration: underline;
+    color: var(--neon-green);
+}
+
 .banner_img {
     width: 200px;
     height: 200px;
