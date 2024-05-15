@@ -1,0 +1,47 @@
+#home_page {
+    background-color: var(--dark-gray);
+}
+
+/*-----------------------------=INFO BANNER=-----------------------------*/
+.info_banner {
+    display: flex;
+    background-color: var(--dark-gray);
+    margin: 20px 60px;
+}
+
+#info_image {
+    display: flex;
+    width: 50%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.info_text {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: black;
+    color: white;
+    width: 50%;
+    height: 300px;
+    border: 2px solid white;
+}
+
+.info_text h1 {
+    margin: 20px;
+    font-weight: 900;
+    text-align: center;
+    font-size: 36px;
+}
+
+.info_text p {
+    margin: 20px;
+    font-size: 16px;
+    font-weight: 700;
+    overflow: scroll;
+}
+
+.info_text p::-webkit-scrollbar {
+    display: none;
+}
