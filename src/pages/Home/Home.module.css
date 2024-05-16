@@ -5,7 +5,9 @@
 /*-----------------------------=INFO BANNER=-----------------------------*/
 .info_banner {
     display: flex;
-    background-color: var(--dark-gray);
+    border: 4px solid black;
+    border-radius: 32px;
+    overflow: hidden;
     margin: 20px 60px;
 }
 
@@ -21,18 +23,21 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    background-color: black;
-    color: white;
+    background-color: var(--pastel-blue);
     width: 50%;
     height: 300px;
-    border: 2px solid white;
 }
 
 .info_text h1 {
     margin: 20px;
     font-weight: 900;
     text-align: center;
-    font-size: 36px;
+    font-size: 32px;
+}
+
+.sliver {
+    width: 80%;
+    border: 1px solid black;
 }
 
 .info_text p {

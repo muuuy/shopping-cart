@@ -14,7 +14,7 @@
     gap: 32px;
     width: 100%;
     height: 80px;
-    border-bottom: 1px solid var(--neon-green);
+    border-bottom: 1px solid var(--pastel-red);
     z-index: 100;
     color: white;
     background-color: black;
@@ -27,7 +27,7 @@
     font-size: 28px;
     font-weight: 800;
     margin-left: 2%;
-    color: var(--neon-green);
+    color: var(--pastel-red);
     cursor: pointer;
 }
 
@@ -37,7 +37,7 @@
 }
 
 .logo:hover {
-    color: var(--pastel-red);
+    color: var(--pastel-yellow);
     transform: scale(1.2);
     transition: transform 1s ease-out, color 1s ease-out;
 }
@@ -66,6 +66,7 @@
 /*-----------------------------=NAVBAR LIST=-----------------------------*/
 .search_container {
     border-radius: 400px;
+    display: flex;
     overflow: hidden;
     width: 40%;
     transition: border 0.4s ease;
@@ -98,7 +99,7 @@
     height: 100%;
     width: 50px;
     border: none;
-    background-color: var(--neon-green);
+    background-color: var(--pastel-red);
     cursor: pointer;
     border-radius: inherit;
     transition: transform 0.4s ease, border-radius 0.4s ease;

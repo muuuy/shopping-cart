@@ -11,7 +11,7 @@ const SearchBar = () => {
   const [outline, setOutline] = useState("1px solid black");
 
   const addSearchBorder = () => {
-    setOutline("1px solid var(--neon-green)");
+    setOutline("1px solid var(--pastel-red)");
   };
 
   const removeSearchBorder = () => {

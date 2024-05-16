@@ -17,6 +17,7 @@ const InfoBanner = () => {
         <img src={controllers} id={styles.info_image}></img>
         <div className={styles.info_text}>
           <h1>DISCOVER, BUY, PLAY: YOUR ULTIMATE VIDEO GAME MARKETPLACE</h1>
+          <div className={styles.sliver}></div>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim

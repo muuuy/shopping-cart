@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
   --black: #353535;
@@ -7,9 +8,8 @@
   --dark-gray: #495057;
   --light-gray: #d9d9d9;
   --royal-blue: #023047;
-  --neon-green: #b9fbc0;
-  --neon-yellow: #d9ed92;
-  --sky-blue: #a2d2ff;
+  --pastel-yellow: #FDFD96;
+  --pastel-blue: #acd8d9;
   --pastel-red: #ff4d6d;
 }
 
@@ -17,7 +17,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Roboto Condensed", sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .container {  

@@ -17,7 +17,6 @@
     font-style: italic;
     font-weight: 900;
     text-decoration: underline;
-    color: var(--neon-green);
 }
 
 .banner_img {
@@ -44,5 +43,5 @@
 
 .banner_img:hover ~ .img_desc {
     text-decoration: underline;
-    color: var(--neon-green)
+    color: var(--pastel-blue)
 }
