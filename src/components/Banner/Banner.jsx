@@ -11,7 +11,8 @@ const BannerItem = ({ imgSrc, category }) => {
   return (
     <>
       <div className={styles.banner_container}>
-        <img src={imgSrc} className={styles.banner_img}></img>
+        <div className={styles.banner_img} style={{backgroundImage: `url(${imgSrc})`}}></div>
+        {/* <img src={imgSrc} className={styles.banner_img}></img> */}
         <h2 className={styles.img_desc}>{category}</h2>
       </div>
     </>

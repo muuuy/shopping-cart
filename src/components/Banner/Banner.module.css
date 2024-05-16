@@ -22,11 +22,10 @@
 .banner_img {
     width: 200px;
     height: 200px;
-    overflow: hidden;
-    object-fit: cover;
-    object-position: center;
     border-radius: 50%;
     cursor: pointer;
+    background-size: cover;
+    background-position: center;
 }
 
 .banner_img:hover {

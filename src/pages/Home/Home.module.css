@@ -15,7 +15,8 @@
     display: flex;
     width: 50%;
     height: 300px;
-    object-fit: cover;
+    background-size: cover;
+    background-position: center;
 }
 
 .info_text {

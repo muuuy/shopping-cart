@@ -14,7 +14,7 @@ const InfoBanner = () => {
   return (
     <>
       <div className={styles.info_banner}>
-        <img src={controllers} id={styles.info_image}></img>
+        <div id={styles.info_image} style={{backgroundImage: `url(${controllers})`}}></div>
         <div className={styles.info_text}>
           <h1>DISCOVER, BUY, PLAY: YOUR ULTIMATE VIDEO GAME MARKETPLACE</h1>
           <div className={styles.sliver}></div>
