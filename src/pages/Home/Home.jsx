@@ -17,7 +17,7 @@ const InfoBanner = () => {
       <div className={styles.info_banner}>
         <div
           id={styles.info_image}
-          style={{ backgroundImage: `url(${controllers})` }}
+          style={{ backgroundImage: `url("${controllers}")` }}
         ></div>
 
         <div className={styles.info_text}>
@@ -62,7 +62,6 @@ const Home = () => {
       />
       <Navbar />
       <InfoBanner />
-
       <div className="container">
         <SaleBanner />
         <Banner />
