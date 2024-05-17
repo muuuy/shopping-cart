@@ -46,6 +46,22 @@ const InfoBanner = () => {
   );
 };
 
+const Explore = () => {
+  useEffect(() => {
+    fetch('https://fakestoreapi.com/products/20')
+            .then(res=>res.json())
+            .then(json=>console.log(json))
+  }, []);
+
+  return (
+    <>
+    <div className={styles.explore_container}>
+
+    </div>
+    </>
+  );
+};
+
 const Home = () => {
   return (
     <div id={styles.home_page}>
@@ -67,6 +83,7 @@ const Home = () => {
         <Banner />
         <ItemCard />
       </div>
+      <Explore />
     </div>
   );
 };
