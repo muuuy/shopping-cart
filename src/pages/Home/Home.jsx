@@ -46,23 +46,32 @@ const InfoBanner = () => {
   );
 };
 
-const Explore = () => {
-  useEffect(() => {
-    fetch('https://fakestoreapi.com/products/20')
+const Explore = () => { //category, description, id, image, price, rating[rate, count], title
+  const [item, setItem] = useState(null);
+
+  useEffect(() => { //MAX ID = 20
+    fetch('https://fakestoreapi.com/products/1')
             .then(res=>res.json())
-            .then(json=>console.log(json))
+            .then(json=>setItem(json))
+            .catch(error=>console.log(error))
   }, []);
+
 
   return (
     <>
-    <div className={styles.explore_container}>
-
-    </div>
+    {item !== null && (
+      <div className={styles.explore_container}>
+        <p>{item.description}</p>
+        <img src={item.image} alt={item.description} />
+        <p>{item.price}</p>
+      </div>
+    )}
     </>
   );
 };
 
 const Home = () => {
+
   return (
     <div id={styles.home_page}>
       <HelmetProvider>
@@ -82,8 +91,8 @@ const Home = () => {
         <SaleBanner />
         <Banner />
         <ItemCard />
+        <Explore />
       </div>
-      <Explore />
     </div>
   );
 };

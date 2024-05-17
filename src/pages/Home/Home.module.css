@@ -1,4 +1,5 @@
 #home_page {
+    height: 100%;
     background-color: var(--dark-gray);
 }
 
@@ -50,6 +51,20 @@
 
 .info_text p::-webkit-scrollbar {
     display: none;
+}
+
+/*-----------------------------=INFO BANNER=-----------------------------*/
+.explore_container {
+    position: relative;
+    flex-direction: column;
+    top: 60px;
+    display: flex;
+    color: white;
+    background-color: var(--dark-gray);
+}
+
+.explore_container img {
+    transform: scale(0.4);
 }
 
 @media screen and (max-width: 1600px) {
