@@ -7,7 +7,7 @@ import SaleBanner from "../../components/SaleBanner/SaleBanner";
 import Banner from "../../components/Banner/Banner";
 import ItemCard from "../../components/ItemCard/ItemCard";
 
-import controllers from "../../assets/infoBanner/game_controllers.jpg";
+import DragonPokemon from "../../assets/infoBanner/pokemon_info.jpg";
 
 import styles from "./Home.module.css";
 
@@ -17,28 +17,24 @@ const InfoBanner = () => {
       <div className={styles.info_banner}>
         <div
           id={styles.info_image}
-          style={{ backgroundImage: `url("${controllers}")` }}
+          style={{ backgroundImage: `url("${DragonPokemon}")` }}
         ></div>
 
         <div className={styles.info_text}>
-          <h1>DISCOVER, BUY, AND PLAY: YOUR ULTIMATE VIDEO GAME MARKETPLACE</h1>
+          <h1>
+            DISCOVER, BUY, AND BATTLE: YOUR ONE STOP SHOP FOR ALL POKEMON GOODS
+          </h1>
           <div className={styles.sliver}></div>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur.
+            Explore our extensive collection of essential items for trainers,
+            featuring everything from berries to Poké Balls. We have it all to
+            support your journey! Whether you&apos;re looking to stock up on vital
+            supplies or gather crucial information, we&apos;ve got you covered.
             <br></br>
             <br></br>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            Discover detailed insights on Pokémon, including their habitats,
+            evolutions, and more. Equip yourself with the best resources to
+            become the ultimate Pokémon Master!
           </p>
         </div>
       </div>
@@ -46,37 +42,37 @@ const InfoBanner = () => {
   );
 };
 
-const Explore = () => { //category, description, id, image, price, rating[rate, count], title
+const Explore = () => {
+  //category, description, id, image, price, rating[rate, count], title
   const [item, setItem] = useState(null);
 
-  useEffect(() => { //MAX ID = 20
-    fetch('https://fakestoreapi.com/products/1')
-            .then(res=>res.json())
-            .then(json=>setItem(json))
-            .catch(error=>console.log(error))
+  useEffect(() => {
+    //MAX ID = 20
+    // fetch('https://fakestoreapi.com/products/1')
+    //         .then(res=>res.json())
+    //         .then(json=>setItem(json))
+    //         .catch(error=>console.log(error))
   }, []);
-
 
   return (
     <>
-    {item !== null && (
-      <div className={styles.explore_container}>
-        <p>{item.description}</p>
-        <img src={item.image} alt={item.description} />
-        <p>{item.price}</p>
-      </div>
-    )}
+      {item !== null && (
+        <div className={styles.explore_container}>
+          <p>{item.description}</p>
+          <img src={item.image} alt={item.description} />
+          <p>{item.price}</p>
+        </div>
+      )}
     </>
   );
 };
 
 const Home = () => {
-
   return (
     <div id={styles.home_page}>
       <HelmetProvider>
         <Helmet>
-          <title>BLACK MARKET</title>
+          <title>POKE STOP</title>
         </Helmet>
       </HelmetProvider>
 

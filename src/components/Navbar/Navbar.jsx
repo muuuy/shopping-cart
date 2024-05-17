@@ -45,7 +45,7 @@ const Navbar = () => {
       <nav className={styles.nav_container}>
         <a className={styles.logo}>
           <BsHurricane className={styles.logo_img} />
-          BLACK MARKET
+          POKE STOP
         </a>
         <SearchBar />
         <ul className={styles.nav_list}>
