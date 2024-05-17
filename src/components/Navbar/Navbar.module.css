@@ -9,7 +9,7 @@
 .nav_container {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     gap: 32px;
     width: 100%;
@@ -29,6 +29,7 @@
     margin-left: 2%;
     color: var(--pastel-red);
     cursor: pointer;
+    padding: 8px;
 }
 
 .logo_img {
@@ -76,7 +77,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 4px;
+    margin: 2px;
     height: 48px;
     width: 100%;
     border: 2px solid black;
