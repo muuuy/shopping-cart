@@ -1,10 +1,13 @@
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import { useState, useEffect } from "react";
 import Favicon from "react-favicon";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 import Navbar from "../../components/Navbar/Navbar";
 import SaleBanner from "../../components/SaleBanner/SaleBanner";
 import Banner from "../../components/Banner/Banner";
 import ItemCard from "../../components/ItemCard/ItemCard";
+import CardSkeleton from "../../components/CardSkeleton/CardSkeleton";
 
 import controllers from "../../assets/infoBanner/game_controllers.jpg";
 
@@ -14,7 +17,11 @@ const InfoBanner = () => {
   return (
     <>
       <div className={styles.info_banner}>
-        <div id={styles.info_image} style={{backgroundImage: `url(${controllers})`}}></div>
+        <div
+          id={styles.info_image}
+          style={{ backgroundImage: `url(${controllers})` }}
+        ></div>
+
         <div className={styles.info_text}>
           <h1>DISCOVER, BUY, PLAY: YOUR ULTIMATE VIDEO GAME MARKETPLACE</h1>
           <div className={styles.sliver}></div>
@@ -57,6 +64,7 @@ const Home = () => {
       />
       <Navbar />
       <InfoBanner />
+
       <div className="container">
         <SaleBanner />
         <Banner />
