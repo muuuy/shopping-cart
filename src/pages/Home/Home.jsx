@@ -1,8 +1,5 @@
-import { Helmet, HelmetProvider } from "react-helmet-async";
-import { useState, useEffect } from "react";
-import Favicon from "react-favicon";
+import { useState, useEffect, useMemo } from "react";
 
-import Navbar from "../../components/Navbar/Navbar";
 import SaleBanner from "../../components/SaleBanner/SaleBanner";
 import Banner from "../../components/Banner/Banner";
 import ItemCard from "../../components/ItemCard/ItemCard";
@@ -15,11 +12,7 @@ const InfoBanner = () => {
   return (
     <>
       <div className={styles.info_banner}>
-        <div
-          id={styles.info_image}
-          style={{ backgroundImage: `url("${DragonPokemon}")` }}
-        ></div>
-
+        <img rel='preload' loading='lazy' alt='Info Banner Image' src={DragonPokemon} id={styles.info_image}></img>
         <div className={styles.info_text}>
           <h1>
             DISCOVER, BUY, AND BATTLE: YOUR ONE STOP SHOP FOR ALL POKEMON GOODS
@@ -28,8 +21,9 @@ const InfoBanner = () => {
           <p>
             Explore our extensive collection of essential items for trainers,
             featuring everything from berries to Poké Balls. We have it all to
-            support your journey! Whether you&apos;re looking to stock up on vital
-            supplies or gather crucial information, we&apos;ve got you covered.
+            support your journey! Whether you&apos;re looking to stock up on
+            vital supplies or gather crucial information, we&apos;ve got you
+            covered.
             <br></br>
             <br></br>
             Discover detailed insights on Pokémon, including their habitats,
@@ -47,19 +41,35 @@ const Explore = () => {
   const [item, setItem] = useState(null);
 
   useEffect(() => {
-    //MAX ID = 20
-    // fetch('https://fakestoreapi.com/products/1')
-    //         .then(res=>res.json())
-    //         .then(json=>setItem(json))
-    //         .catch(error=>console.log(error))
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    fetch("https://fakestoreapi.com/products/2", { signal })
+      .then((res) => res.json())
+      .then((data) => {
+        setItem(data);
+      })
+      .catch((err) => {
+        if (err.name === "AbortError") {
+          console.log("cancelled!");
+        } else {
+          console.log("error");
+        }
+      });
+
+    return () => {
+      console.log("cancelled!");
+      controller.abort();
+    };
   }, []);
+
+  const memoizedItem = useMemo(() => item, [item]);
 
   return (
     <>
       {item !== null && (
         <div className={styles.explore_container}>
           <p>{item.description}</p>
-          <img src={item.image} alt={item.description} />
           <p>{item.price}</p>
         </div>
       )}
@@ -70,20 +80,8 @@ const Explore = () => {
 const Home = () => {
   return (
     <div id={styles.home_page}>
-      <HelmetProvider>
-        <Helmet>
-          <title>POKE STOP</title>
-        </Helmet>
-      </HelmetProvider>
-
-      <Favicon
-        url={
-          "https://cdn.pixabay.com/photo/2017/03/16/21/18/logo-2150297_640.png"
-        }
-      />
-      <Navbar />
-      <InfoBanner />
       <div className="container">
+      <InfoBanner />
         <SaleBanner />
         <Banner />
         <ItemCard />

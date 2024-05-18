@@ -1,10 +1,30 @@
 import "./App.css";
-import Home from './pages/Home/Home'
+import { Helmet, HelmetProvider } from "react-helmet-async";
+import Favicon from "react-favicon";
+
+import Home from "./pages/Home/Home";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   return (
     <>
-      <Home />
+      <HelmetProvider>
+        <Helmet>
+          <title>POKE STOP</title>
+        </Helmet>
+      </HelmetProvider>
+
+      <Favicon
+        url={
+          "https://cdn.pixabay.com/photo/2017/03/16/21/18/logo-2150297_640.png"
+        }
+      />
+
+      <div id="web-container">
+        <Navbar />
+        <Home />
+      </div>
+      
     </>
   );
 }

@@ -11,6 +11,8 @@
   --pastel-yellow: #FDFD96;
   --pastel-blue: #acd8d9;
   --pastel-red: #ff4d6d;
+  --gold: #e5b76c;
+  --dark-red: #b80d1d;
 }
 
 * {
@@ -20,11 +22,19 @@
   font-family: "Montserrat", sans-serif;
 }
 
-.container {  
+#web-container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--light-gray);
+}
+
+.container {
   color: white;
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 80px);
-  width: 100%;
+  max-width: 1480px;
   background-color: var(--dark-gray);
 }
