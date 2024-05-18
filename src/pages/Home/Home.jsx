@@ -2,7 +2,6 @@ import { useState, useEffect, useMemo } from "react";
 
 import SaleBanner from "../../components/SaleBanner/SaleBanner";
 import Banner from "../../components/Banner/Banner";
-import ItemCard from "../../components/ItemCard/ItemCard";
 
 import DragonPokemon from "../../assets/infoBanner/pokemon_info.jpg";
 
@@ -44,7 +43,7 @@ const Explore = () => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    fetch("https://pokeapi.co/api/v2/pokemon/ditto", { signal })
+    fetch("https://pokeapi.co/api/v2/pokemon/charizard", { signal })
       .then((res) => res.json())
       .then((data) => {
         setItem(data);
@@ -79,7 +78,6 @@ const Home = () => {
       <InfoBanner />
         <SaleBanner />
         <Banner />
-        <ItemCard />
         <Explore />
       </div>
     </div>

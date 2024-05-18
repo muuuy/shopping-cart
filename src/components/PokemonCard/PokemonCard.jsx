@@ -1,14 +1,46 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "./PokemonCard.module.css";
 import PropTypes from "prop-types";
 
+const TypeCard = ({ types = "none" }) => {
+
+  const capitalizeWord = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  return (
+    <>
+      {types.length === 1 ? (
+        <div className={styles[types[0]]}>{capitalizeWord(types[0])}</div>
+      ) : (
+        <div className={styles.type_container}>
+          <div className={styles[types[0]]}>{capitalizeWord(types[0])}</div>
+          <div className={styles[types[1]]}>{capitalizeWord(types[1])}</div>
+        </div>
+      )}
+    </>
+  );
+};
+
 const PokemonCard = ({ pokemon }) => {
+  const [types, setTypes] = useState([]);
+
   useEffect(() => {
-    // Cleanup function if needed
+    const populateTypes = () => {
+      const typeNames = pokemon.types.map((type) => type.type.name);
+      setTypes(prev => typeNames);
+    };
+
+    populateTypes();
+
     return () => {
       // Perform cleanup actions here if needed
     };
-  }, []);
+  });
+
+  const capitalizeWord = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   return (
     <div className={styles.pokemon_container}>
@@ -20,13 +52,17 @@ const PokemonCard = ({ pokemon }) => {
       />
       <div className={styles.pokemon_desc}>
         <p className={styles.pokemon_id}>#{pokemon.id}</p>
-        <h1>{pokemon.name}</h1>
+        <p className={styles.pokemon_name}>{capitalizeWord(pokemon.name)}</p>
         <div>
-          Types: {pokemon.types.map((type) => type.type.name).join(", ")}
+          <TypeCard types={types} />
         </div>
       </div>
     </div>
   );
+};
+
+TypeCard.propTypes = {
+  types: PropTypes.array.isRequired,
 };
 
 PokemonCard.propTypes = {
