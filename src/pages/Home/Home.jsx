@@ -7,6 +7,7 @@ import ItemCard from "../../components/ItemCard/ItemCard";
 import DragonPokemon from "../../assets/infoBanner/pokemon_info.jpg";
 
 import styles from "./Home.module.css";
+import PokemonCard from "../../components/PokemonCard/PokemonCard";
 
 const InfoBanner = () => {
   return (
@@ -37,14 +38,13 @@ const InfoBanner = () => {
 };
 
 const Explore = () => {
-  //category, description, id, image, price, rating[rate, count], title
   const [item, setItem] = useState(null);
 
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    fetch("https://fakestoreapi.com/products/2", { signal })
+    fetch("https://pokeapi.co/api/v2/pokemon/ditto", { signal })
       .then((res) => res.json())
       .then((data) => {
         setItem(data);
@@ -63,15 +63,10 @@ const Explore = () => {
     };
   }, []);
 
-  const memoizedItem = useMemo(() => item, [item]);
-
   return (
     <>
       {item !== null && (
-        <div className={styles.explore_container}>
-          <p>{item.description}</p>
-          <p>{item.price}</p>
-        </div>
+        <PokemonCard pokemon={item} />
       )}
     </>
   );
