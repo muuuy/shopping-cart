@@ -1,4 +1,5 @@
 import "./App.css";
+import { useState } from 'react';
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Favicon from "react-favicon";
 
@@ -6,6 +7,8 @@ import Home from "./pages/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
 
 function App() {
+  const [userInput, setUserInput] = useState('charizard');
+
   return (
     <>
       <HelmetProvider>
@@ -21,8 +24,8 @@ function App() {
       />
 
       <div id="web-container">
-        <Navbar />
-        <Home />
+        <Navbar setInput={setUserInput} />
+        <Home userInput={userInput} />
       </div>
       
     </>

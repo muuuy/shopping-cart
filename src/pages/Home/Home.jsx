@@ -1,4 +1,5 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
+import PropTypes from 'prop-types';
 
 import SaleBanner from "../../components/SaleBanner/SaleBanner";
 import Banner from "../../components/Banner/Banner";
@@ -36,14 +37,14 @@ const InfoBanner = () => {
   );
 };
 
-const Explore = () => {
+const Explore = ({ input = '' }) => {
   const [item, setItem] = useState(null);
 
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    fetch("https://pokeapi.co/api/v2/pokemon/charizard", { signal })
+    fetch(`https://pokeapi.co/api/v2/pokemon/${input}`, { signal })
       .then((res) => res.json())
       .then((data) => {
         setItem(data);
@@ -57,7 +58,7 @@ const Explore = () => {
       });
 
     return () => {
-      console.log("cancelled!");
+      console.log("fetch pokemon cancelled!");
       controller.abort();
     };
   }, []);
@@ -71,17 +72,25 @@ const Explore = () => {
   );
 };
 
-const Home = () => {
+const Home = ({ userInput }) => {
   return (
     <div id={styles.home_page}>
       <div className="container">
       <InfoBanner />
         <SaleBanner />
         <Banner />
-        <Explore />
+        <Explore input={userInput} />
       </div>
     </div>
   );
 };
+
+Explore.propTypes = {
+  input: PropTypes.string.isRequired,
+}
+
+Home.propTypes = {
+  userInput: PropTypes.string.isRequired,
+}
 
 export default Home;

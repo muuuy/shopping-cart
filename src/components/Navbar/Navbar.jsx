@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import styles from "./Navbar.module.css";
 
@@ -7,8 +7,9 @@ import { BsSearch } from "react-icons/bs";
 import { BsCart4 } from "react-icons/bs";
 import { BsChevronDown } from "react-icons/bs";
 
-const SearchBar = () => {
+const SearchBar = ({ setSearchValue }) => {
   const [outline, setOutline] = useState("1px solid black");
+  const [input, setInput] = useState('');
 
   const addSearchBorder = () => {
     setOutline("1px solid var(--pastel-red)");
@@ -18,6 +19,15 @@ const SearchBar = () => {
     setOutline("1px solid black");
   };
 
+  const handleInput = (event) => {
+    setInput((prev) => event.target.value);
+    setSearchValue((prev) => event.target.value);
+  }
+
+  useEffect(() => {
+    console.log(input);
+  }, [input])
+
   return (
     <>
       <div className={styles.search_container} style={{ border: outline }}>
@@ -25,6 +35,8 @@ const SearchBar = () => {
           <input
             type="text"
             id={styles.search_bar}
+            value={input}
+            onChange={handleInput}
             onFocus={addSearchBorder}
             onBlur={removeSearchBorder}
             placeholder="Search"
@@ -38,7 +50,7 @@ const SearchBar = () => {
   );
 };
 
-const Navbar = () => {
+const Navbar = ({ setInput }) => {
 
   return (
     <>
@@ -47,7 +59,7 @@ const Navbar = () => {
           <BsHurricane className={styles.logo_img} />
           POKE STOP
         </a>
-        <SearchBar />
+        <SearchBar setSearchValue={setInput} />
         <ul className={styles.nav_list}>
           <li className={styles.list_item}>
             <a className={styles.list_link} id={styles.shop_link}>

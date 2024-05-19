@@ -2,9 +2,12 @@ import { useState, useEffect } from "react";
 import styles from "./PokemonCard.module.css";
 import PropTypes from "prop-types";
 
-const TypeCard = ({ types = "none" }) => {
+const TypeCard = ({ types = [] }) => {
 
   const capitalizeWord = (string) => {
+    if(typeof string !== 'string') {
+      return '';
+    }
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
@@ -36,7 +39,7 @@ const PokemonCard = ({ pokemon }) => {
     return () => {
       // Perform cleanup actions here if needed
     };
-  });
+  }, []);
 
   const capitalizeWord = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
