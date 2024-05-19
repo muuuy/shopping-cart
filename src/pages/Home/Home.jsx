@@ -50,6 +50,8 @@ const Explore = ({ input = "" }) => {
     const controller = new AbortController();
     const signal = controller.signal;
 
+    console.log('explore component:', input);
+
     fetch(`https://pokeapi.co/api/v2/pokemon/${input}`, { signal })
       .then((res) => res.json())
       .then((data) => {
@@ -67,12 +69,21 @@ const Explore = ({ input = "" }) => {
       console.log("fetch pokemon cancelled!");
       controller.abort();
     };
-  }, []);
+  }, [input]);
+
+  useEffect(() => {
+    console.log(item);
+  }, [item]);
 
   return <>{item !== null && <PokemonCard pokemon={item} />}</>;
 };
 
 const Home = ({ userInput }) => {
+
+  useEffect(() => {
+    console.log('homehomehome', userInput);
+  }, [userInput]);
+
   return (
     <div id={styles.home_page}>
       <div className="container">

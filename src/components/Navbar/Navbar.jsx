@@ -9,7 +9,7 @@ import { BsChevronDown } from "react-icons/bs";
 
 const SearchBar = ({ setSearchValue }) => {
   const [outline, setOutline] = useState("1px solid black");
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
 
   const addSearchBorder = () => {
     setOutline("1px solid var(--pastel-red)");
@@ -21,17 +21,22 @@ const SearchBar = ({ setSearchValue }) => {
 
   const handleInput = (event) => {
     setInput((prev) => event.target.value);
-    setSearchValue((prev) => event.target.value);
-  }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('submitted:', input);
+    setSearchValue(input);
+  };
 
   useEffect(() => {
     console.log(input);
-  }, [input])
+  }, [input]);
 
   return (
     <>
       <div className={styles.search_container} style={{ border: outline }}>
-        <form className={styles.search}>
+        <form className={styles.search} onSubmit={handleSubmit}>
           <input
             type="text"
             id={styles.search_bar}
@@ -51,7 +56,6 @@ const SearchBar = ({ setSearchValue }) => {
 };
 
 const Navbar = ({ setInput }) => {
-
   return (
     <>
       <nav className={styles.nav_container}>

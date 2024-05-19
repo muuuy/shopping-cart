@@ -14,7 +14,10 @@ const TypeCard = ({ types = [] }) => {
   return (
     <>
       {types.length === 1 ? (
-        <div className={styles[types[0]]}>{capitalizeWord(types[0])}</div>
+        <div className={styles.type_container}>
+          <div className={styles[types[0]]}>{capitalizeWord(types[0])}</div>
+        </div>
+        
       ) : (
         <div className={styles.type_container}>
           <div className={styles[types[0]]}>{capitalizeWord(types[0])}</div>
@@ -34,12 +37,13 @@ const PokemonCard = ({ pokemon }) => {
       setTypes(prev => typeNames);
     };
 
+    console.log('hahahaha', pokemon);
     populateTypes();
 
     return () => {
       // Perform cleanup actions here if needed
     };
-  }, []);
+  }, [pokemon]);
 
   const capitalizeWord = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
