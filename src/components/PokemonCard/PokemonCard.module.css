@@ -1,5 +1,5 @@
 .pokemon_container {
-    border: 2px solid red;
+    border: 2px solid black;
     display: flex;
     flex-direction: row;
     width: 240px;
@@ -13,6 +13,7 @@
 .pokemon_img {
     height: 100px;
     background-color: white;
+    border-right: 2px solid black;
 }
 
 .pokemon_desc {

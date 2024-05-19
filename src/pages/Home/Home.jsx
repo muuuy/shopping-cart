@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import SaleBanner from "../../components/SaleBanner/SaleBanner";
 import Banner from "../../components/Banner/Banner";
@@ -13,7 +13,13 @@ const InfoBanner = () => {
   return (
     <>
       <div className={styles.info_banner}>
-        <img rel='preload' loading='lazy' alt='Info Banner Image' src={DragonPokemon} id={styles.info_image}></img>
+        <img
+          rel="preload"
+          loading="lazy"
+          alt="Info Banner Image"
+          src={DragonPokemon}
+          id={styles.info_image}
+        ></img>
         <div className={styles.info_text}>
           <h1>
             DISCOVER, BUY, AND BATTLE: YOUR ONE STOP SHOP FOR ALL POKEMON GOODS
@@ -37,7 +43,7 @@ const InfoBanner = () => {
   );
 };
 
-const Explore = ({ input = '' }) => {
+const Explore = ({ input = "" }) => {
   const [item, setItem] = useState(null);
 
   useEffect(() => {
@@ -63,20 +69,14 @@ const Explore = ({ input = '' }) => {
     };
   }, []);
 
-  return (
-    <>
-      {item !== null && (
-        <PokemonCard pokemon={item} />
-      )}
-    </>
-  );
+  return <>{item !== null && <PokemonCard pokemon={item} />}</>;
 };
 
 const Home = ({ userInput }) => {
   return (
     <div id={styles.home_page}>
       <div className="container">
-      <InfoBanner />
+        <InfoBanner />
         <SaleBanner />
         <Banner />
         <Explore input={userInput} />
@@ -87,10 +87,10 @@ const Home = ({ userInput }) => {
 
 Explore.propTypes = {
   input: PropTypes.string.isRequired,
-}
+};
 
 Home.propTypes = {
   userInput: PropTypes.string.isRequired,
-}
+};
 
 export default Home;

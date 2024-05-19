@@ -7,7 +7,7 @@ import Home from "./pages/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
 
 function App() {
-  const [userInput, setUserInput] = useState('charizard');
+  const [userInput, setUserInput] = useState('gengar');
 
   return (
     <>
