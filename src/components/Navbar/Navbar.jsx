@@ -26,7 +26,6 @@ const SearchBar = ({ setSearchValue }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('submitted:', input);
     
     setSearchValue(input.toLowerCase());
   };

@@ -9,10 +9,6 @@ import Navbar from "./components/Navbar/Navbar";
 function App() {
   const [userInput, setUserInput] = useState('pikachu');
 
-  useEffect(() => {
-    console.log('app.jsx: ', userInput);
-  }, [userInput])
-
   return (
     <>
       <HelmetProvider>

@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import styles from "./PokemonCard.module.css";
 import PropTypes from "prop-types";
 
+// 1025 Pokemon Total
+
 const TypeCard = ({ types = [] }) => {
 
   const capitalizeWord = (string) => {
@@ -30,6 +32,7 @@ const TypeCard = ({ types = [] }) => {
 
 const PokemonCard = ({ pokemon }) => {
   const [types, setTypes] = useState([]);
+  const costs = [500.00, 2000.00, 100000.00];
 
   useEffect(() => {
     const populateTypes = () => {
@@ -37,12 +40,9 @@ const PokemonCard = ({ pokemon }) => {
       setTypes(prev => typeNames);
     };
 
-    console.log('hahahaha', pokemon);
     populateTypes();
 
-    return () => {
-      // Perform cleanup actions here if needed
-    };
+    return () => {};
   }, [pokemon]);
 
   const capitalizeWord = (string) => {
@@ -63,6 +63,7 @@ const PokemonCard = ({ pokemon }) => {
         <div>
           <TypeCard types={types} />
         </div>
+        <p className={styles.pokemon_cost}>￥{(Math.round(costs[0] * 100) / 100).toFixed(2)}</p>
       </div>
     </div>
   );

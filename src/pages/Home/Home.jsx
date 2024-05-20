@@ -50,8 +50,6 @@ const Explore = ({ input = "" }) => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    console.log('explore component:', input);
-
     fetch(`https://pokeapi.co/api/v2/pokemon/${input}`, { signal })
       .then((res) => res.json())
       .then((data) => {
@@ -71,26 +69,67 @@ const Explore = ({ input = "" }) => {
     };
   }, [input]);
 
-  useEffect(() => {
-    console.log(item);
-  }, [item]);
-
   return <>{item !== null && <PokemonCard pokemon={item} />}</>;
 };
 
-const Home = ({ userInput }) => {
+const PokemonBanner = () => {
+  const [randNums, setRandNums] = useState([]);
 
   useEffect(() => {
-    console.log('homehomehome', userInput);
-  }, [userInput]);
+    const generateRandomNumbers = () => {
+      const newRandNums = [];
 
+      for (let i = 0; i < 5; i++) {
+        let randomNumber;
+
+        do {
+          randomNumber = Math.floor(Math.random() * 1025) + 1;
+        } while (newRandNums.includes(randomNumber));
+
+        newRandNums.push(randomNumber);
+      }
+
+      console.log(newRandNums);
+      return newRandNums;
+    };
+
+    setRandNums(generateRandomNumbers());
+  }, []);
+
+  return (
+    <>
+      <div className={styles.pokeBanner_container}>
+        <h2 className={styles.pokeBanner_header}>Shop for Pokemon Info!</h2>
+        <div>
+          <div className={styles.pokeBanner_item}>
+            <Explore input={randNums[0]} />
+          </div>
+          <div className={styles.pokeBanner_item}>
+            <Explore input={randNums[1]} />
+          </div>
+          <div className={styles.pokeBanner_item}>
+            <Explore input={randNums[2]} />
+          </div>
+          <div className={styles.pokeBanner_item}>
+            <Explore input={randNums[3]} />
+          </div>
+          <div className={styles.pokeBanner_item}>
+            <Explore input={randNums[4]} />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+const Home = ({ userInput }) => {
   return (
     <div id={styles.home_page}>
       <div className="container">
         <InfoBanner />
         <SaleBanner />
         <Banner />
-        <Explore input={userInput} />
+        <PokemonBanner />
       </div>
     </div>
   );
