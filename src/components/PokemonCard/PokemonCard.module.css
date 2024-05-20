@@ -2,7 +2,7 @@
     border: 2px solid black;
     display: flex;
     flex-direction: row;
-    width: 240px;
+    width: 300px;
     justify-content: center;
     align-items: center;
     border-radius: 20px;
@@ -20,6 +20,7 @@
     background-color: var(--light-gray);
     display: flex;
     height: 100px;
+    flex: 1 0 0;
     justify-content: center;
     flex-direction: column;
     padding: 12px;

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
 import styles from "./Navbar.module.css";
 
@@ -26,7 +27,8 @@ const SearchBar = ({ setSearchValue }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('submitted:', input);
-    setSearchValue(input);
+    
+    setSearchValue(input.toLowerCase());
   };
 
   useEffect(() => {
@@ -87,5 +89,13 @@ const Navbar = ({ setInput }) => {
     </>
   );
 };
+
+Navbar.propTypes = {
+  setInput: PropTypes.func.isRequired,
+}
+
+SearchBar.propTypes = {
+  setSearchValue: PropTypes.func.isRequired,
+}
 
 export default Navbar;
