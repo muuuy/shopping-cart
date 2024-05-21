@@ -9,8 +9,11 @@
 
 .item_sprite {
     width: 100%;
+    min-height: 298px;
     background-color: white;
-    border-bottom: 2px solid black;;
+    border-bottom: 2px solid black;
+    text-align: center;
+    color: black;
 }
 
 .item_description {

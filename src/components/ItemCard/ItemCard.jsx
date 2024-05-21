@@ -2,6 +2,8 @@ import styles from "./ItemCard.module.css";
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
+//2159 TOTAL ITEMS
+
 const ItemCard = ({ item }) => {
   // useEffect(() => {
 

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { v4 as uuidv4 } from "uuid";
 
 import SaleBanner from "../../components/SaleBanner/SaleBanner";
 import Banner from "../../components/Banner/Banner";
@@ -54,7 +55,7 @@ const Explore = ({ input = null, type = null }) => {
     }
 
     if (input === null) {
-      console.error('Invalid input:', input);
+      console.error("Invalid input:", input);
       return;
     }
 
@@ -151,6 +152,47 @@ const PokemonBanner = () => {
   );
 };
 
+const ItemBanner = () => {
+  const [randNums, setRandNums] = useState([]);
+
+  useEffect(() => {
+    const generateRandomNumbers = () => {
+      const newRandNums = [];
+
+      for (let i = 0; i < 7; i++) {
+        let randomNumber;
+
+        do {
+          randomNumber = Math.floor(Math.random() * 2159) + 1;
+        } while (newRandNums.includes(randomNumber));
+
+        newRandNums.push(randomNumber);
+      }
+
+      console.log(newRandNums);
+      return newRandNums;
+    };
+
+    setRandNums(generateRandomNumbers());
+  }, []);
+
+  return (
+    <>
+      <div className={styles.itemBanner_container}>
+        <h2 className={styles.itemBanner_header}>Shop for Items!</h2>
+        <div>
+          {randNums.length > 0 &&
+            randNums.map((num) => (
+              <div className={styles.itemBanner_item} key={uuidv4()}>
+                <Explore input={num} type="item" />
+              </div>
+            ))}
+        </div>
+      </div>
+    </>
+  );
+};
+
 const Home = ({ userInput, itemType }) => {
   return (
     <div id={styles.home_page}>
@@ -159,7 +201,8 @@ const Home = ({ userInput, itemType }) => {
         <SaleBanner />
         <Banner />
         <PokemonBanner />
-        <Explore input="master-ball" type="item" />
+        <ItemBanner />
+        <Explore input={userInput} type={itemType} />
       </div>
     </div>
   );
