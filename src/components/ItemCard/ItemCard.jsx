@@ -1,4 +1,4 @@
-import styles from './ItemCard.module.css';
+import styles from "./ItemCard.module.css";
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
@@ -8,9 +8,18 @@ const ItemCard = ({ item }) => {
   // })
 
   return (
-    <>
-      <img src={item.sprites.default} className={styles.item_sprite} alt="Item"></img>
-    </>
+    <div className={styles.item_container}>
+      <img
+        src={item.sprites.default}
+        className={styles.item_sprite}
+        alt="Item"
+        loading="lazy"
+      ></img>
+      <div className={styles.item_description}>
+        <p className={styles.item_name}>{item.name.replace(/-/g, ' ')}</p>
+        <p>￥500.00</p>
+      </div>
+    </div>
   );
 };
 

@@ -1,3 +1,26 @@
+.item_container {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid black;
+}
+
 .item_sprite {
-    width: 240px;
+    width: 100%;
+    background-color: white;
+    border-bottom: 2px solid black;;
+}
+
+.item_description {
+    width: 100%;
+    background-color: var(--light-gray);
+    color: black;
+    padding: 12px;
+}
+
+.item_name {
+    font-weight: 900;
+    font-size: 24px;
 }

@@ -134,3 +134,9 @@
 .fairy {
     background-color: var(--fairy);
 }
+
+@media screen and (max-width: 1480px) {
+    .pokemon_container {
+        width: 200px;
+    }
+}
