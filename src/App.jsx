@@ -8,6 +8,11 @@ import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   const [userInput, setUserInput] = useState('pikachu');
+  const [itemType, setItemType] = useState('pokemon');
+
+  useEffect(() => {
+    console.log(itemType);
+  }, [itemType])
 
   return (
     <>
@@ -24,8 +29,8 @@ function App() {
       />
 
       <div id="web-container">
-        <Navbar setInput={setUserInput} />
-        <Home userInput={userInput} />
+        <Navbar setInput={setUserInput} setType={setItemType} />
+        <Home userInput={userInput} itemType={itemType} />
       </div>
       
     </>

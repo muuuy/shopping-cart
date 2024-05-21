@@ -44,46 +44,55 @@ const InfoBanner = () => {
   );
 };
 
-const Explore = ({ input = "" }) => {
+const Explore = ({ input = null, type = null }) => {
   const [item, setItem] = useState(null);
-  const [itemType, setItemType] = useState("");
 
   useEffect(() => {
+    if (!type || (type !== "pokemon" && type !== "item")) {
+      console.error("Invalid type:", type);
+      return;
+    }
+
+    if (input === null) {
+      console.error('Invalid input:', input);
+      return;
+    }
+
     const controller = new AbortController();
     const signal = controller.signal;
 
-    fetch(`https://pokeapi.co/api/v2/pokemon/${input}`, { signal }) //Pokemon Data
-      .then((res) => res.json())
+    fetch(`https://pokeapi.co/api/v2/${type}/${input}`, { signal })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Pokemon not found");
+        }
+        return res.json();
+      })
       .then((data) => {
         setItem(data);
-        setItemType("Pokemon");
       })
       .catch((err) => {
-        console.log('Pokemon doesnt exist:', err);
-
-        fetch(`https://pokeapi.co/api/v2/item/${input}`, { signal }) //Item Data
-          .then((itemRes) => itemRes.json())
-          .then((itemData) => {
-            setItem(itemData);
-            setItemType("Item");
-          })
-          .catch((err) => {
-            console.log("Item doesnt exist:", err);
-          });
+        if (err.name === "AbortError") {
+          console.log("cancelled!");
+        } else {
+          console.error(`Error fetching ${type}:`, err);
+        }
       });
 
     return () => {
-      console.log("fetch pokemon cancelled!");
+      console.log("fetch cancelled!");
       controller.abort();
     };
-  }, [input]);
+  }, [input, type]);
+
+  if (!item) {
+    return null; // or loading indicator
+  }
 
   return (
     <>
-      {item !== null && itemType === "Pokemon" && (
-        <PokemonCard pokemon={item} />
-      )}
-      {item !== null && itemType === "Item" && <ItemCard item={item} />}
+      {type === "pokemon" && <PokemonCard pokemon={item} />}
+      {type === "item" && <ItemCard item={item} />}
     </>
   );
 };
@@ -117,28 +126,32 @@ const PokemonBanner = () => {
       <div className={styles.pokeBanner_container}>
         <h2 className={styles.pokeBanner_header}>Shop for Pokemon Info!</h2>
         <div>
-          <div className={styles.pokeBanner_item}>
-            <Explore input={randNums[0]} />
-          </div>
-          <div className={styles.pokeBanner_item}>
-            <Explore input={randNums[1]} />
-          </div>
-          <div className={styles.pokeBanner_item}>
-            <Explore input={randNums[2]} />
-          </div>
-          <div className={styles.pokeBanner_item}>
-            <Explore input={randNums[3]} />
-          </div>
-          <div className={styles.pokeBanner_item}>
-            <Explore input={randNums[4]} />
-          </div>
+          {randNums.length > 0 && (
+            <>
+              <div className={styles.pokeBanner_item}>
+                <Explore input={randNums[0]} type="pokemon" />
+              </div>
+              <div className={styles.pokeBanner_item}>
+                <Explore input={randNums[1]} type="pokemon" />
+              </div>
+              <div className={styles.pokeBanner_item}>
+                <Explore input={randNums[2]} type="pokemon" />
+              </div>
+              <div className={styles.pokeBanner_item}>
+                <Explore input={randNums[3]} type="pokemon" />
+              </div>
+              <div className={styles.pokeBanner_item}>
+                <Explore input={randNums[4]} type="pokemon" />
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>
   );
 };
 
-const Home = ({ userInput }) => {
+const Home = ({ userInput, itemType }) => {
   return (
     <div id={styles.home_page}>
       <div className="container">
@@ -146,18 +159,20 @@ const Home = ({ userInput }) => {
         <SaleBanner />
         <Banner />
         <PokemonBanner />
-        <Explore input="master-ball" />
+        <Explore input="master-ball" type="item" />
       </div>
     </div>
   );
 };
 
 Explore.propTypes = {
-  input: PropTypes.string.isRequired,
+  input: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  type: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 Home.propTypes = {
   userInput: PropTypes.string.isRequired,
+  itemType: PropTypes.string.isRequired,
 };
 
 export default Home;

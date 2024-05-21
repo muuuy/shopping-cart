@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { v4 as uuidv4 } from "uuid";
 
 import styles from "./Navbar.module.scss";
 
@@ -26,7 +27,7 @@ const SearchBar = ({ setSearchValue }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
+
     setSearchValue(input.toLowerCase());
   };
 
@@ -56,7 +57,22 @@ const SearchBar = ({ setSearchValue }) => {
   );
 };
 
-const Navbar = ({ setInput }) => {
+const Navbar = ({ setInput, setType }) => {
+  const options = [
+    { value: "pokemon", label: "Pokemon" },
+    { value: "item", label: "Items" },
+    { value: "berry", label: "Berry" },
+    { value: "move", label: "Moves" },
+    { value: "machine", label: "TMs" },
+  ];
+
+  const [selectedType, setSelectedType] = useState(options[0].value);
+
+  const handleChange = (event) => {
+    setType(event.target.value);
+    setSelectedType(event.target.value);
+  };
+
   return (
     <>
       <nav className={styles.nav_container}>
@@ -65,6 +81,15 @@ const Navbar = ({ setInput }) => {
           POKE STOP
         </a>
         <SearchBar setSearchValue={setInput} />
+        <div className={styles.select_menu}>
+          <select onChange={handleChange} value={selectedType}>
+            {options.map((option) => (
+              <option value={option.value} key={uuidv4()}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
         <ul className={styles.nav_list}>
           <li className={styles.list_item}>
             <a className={styles.list_link} id={styles.shop_link}>
@@ -91,10 +116,11 @@ const Navbar = ({ setInput }) => {
 
 Navbar.propTypes = {
   setInput: PropTypes.func.isRequired,
-}
+  setType: PropTypes.func.isRequired,
+};
 
 SearchBar.propTypes = {
   setSearchValue: PropTypes.func.isRequired,
-}
+};
 
 export default Navbar;

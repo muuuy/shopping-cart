@@ -111,6 +111,7 @@
     border-radius: 0 40px 40px 0;
 }
 
+/*-----------------------------=SHOPPING CART=-----------------------------*/
 #shopping_cart {
     text-align: center;
     padding: 6px;
@@ -179,4 +180,20 @@
 .dropdown a:hover {
     background-color: var(--light-gray);
     transition: background-color 0.3s ease;
+}
+
+/*-----------------------------=SELECT MENU=-----------------------------*/
+.select_menu {
+    position: absolute;
+    left: 70.75%;
+    height: 40px;
+}
+
+.select_menu > select {
+    color: white;
+    background-color: black;
+    height: 100%;
+    font-weight: 800;
+    outline: none;
+    border: none;
 }
