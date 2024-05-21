@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import styles from "./PokemonCard.module.css";
+import styles from "./PokemonCard.module.scss";
 import PropTypes from "prop-types";
 
 // 1025 Pokemon Total

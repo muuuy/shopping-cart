@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-import styles from "./Navbar.module.css";
+import styles from "./Navbar.module.scss";
 
 import { BsHurricane } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";

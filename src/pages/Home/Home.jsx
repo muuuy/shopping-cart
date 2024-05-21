@@ -8,6 +8,7 @@ import DragonPokemon from "../../assets/infoBanner/pokemon_info.jpg";
 
 import styles from "./Home.module.css";
 import PokemonCard from "../../components/PokemonCard/PokemonCard";
+import ItemCard from "../../components/ItemCard/ItemCard";
 
 const InfoBanner = () => {
   return (
@@ -45,22 +46,30 @@ const InfoBanner = () => {
 
 const Explore = ({ input = "" }) => {
   const [item, setItem] = useState(null);
+  const [itemType, setItemType] = useState("");
 
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    fetch(`https://pokeapi.co/api/v2/pokemon/${input}`, { signal })
+    fetch(`https://pokeapi.co/api/v2/pokemon/${input}`, { signal }) //Pokemon Data
       .then((res) => res.json())
       .then((data) => {
         setItem(data);
+        setItemType("Pokemon");
       })
       .catch((err) => {
-        if (err.name === "AbortError") {
-          console.log("cancelled!");
-        } else {
-          console.log("error");
-        }
+        console.log('Pokemon doesnt exist:', err);
+
+        fetch(`https://pokeapi.co/api/v2/item/${input}`, { signal }) //Item Data
+          .then((itemRes) => itemRes.json())
+          .then((itemData) => {
+            setItem(itemData);
+            setItemType("Item");
+          })
+          .catch((err) => {
+            console.log("Item doesnt exist:", err);
+          });
       });
 
     return () => {
@@ -69,7 +78,14 @@ const Explore = ({ input = "" }) => {
     };
   }, [input]);
 
-  return <>{item !== null && <PokemonCard pokemon={item} />}</>;
+  return (
+    <>
+      {item !== null && itemType === "Pokemon" && (
+        <PokemonCard pokemon={item} />
+      )}
+      {item !== null && itemType === "Item" && <ItemCard item={item} />}
+    </>
+  );
 };
 
 const PokemonBanner = () => {
@@ -130,6 +146,7 @@ const Home = ({ userInput }) => {
         <SaleBanner />
         <Banner />
         <PokemonBanner />
+        <Explore input="master-ball" />
       </div>
     </div>
   );

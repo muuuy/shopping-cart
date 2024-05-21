@@ -5,7 +5,7 @@ import womensClothing from "../../assets/banner/womens_clothing.jpg";
 
 import PropTypes from 'prop-types';
 
-import styles from "./Banner.module.css";
+import styles from "./Banner.module.scss";
 
 const BannerItem = ({ imgSrc, category }) => {
   return (
