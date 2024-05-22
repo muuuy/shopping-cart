@@ -11,8 +11,7 @@ import styles from "./Home.module.scss";
 import PokemonCard from "../../components/PokemonCard/PokemonCard";
 import ItemCard from "../../components/ItemCard/ItemCard";
 
-import itemBannerImage from '../../assets/itemBanner/pokemon_items.png';
-
+import itemBannerImage from "../../assets/itemBanner/pokemon_items.png";
 
 const InfoBanner = () => {
   return (
@@ -162,7 +161,7 @@ const ItemBanner = () => {
     const generateRandomNumbers = () => {
       const newRandNums = [];
 
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 4; i++) {
         let randomNumber;
 
         do {
@@ -184,10 +183,15 @@ const ItemBanner = () => {
       <div className={styles.itemBanner_container}>
         <div>
           <div className={styles.itemContainer_description}>
-            <h2 className={styles.itemBanner_header}>Shop for Items!</h2>
+            <p className={styles.explore}>Explore!</p>
+            <div className={styles.itemBanner_header}>
+              <h2>Shop for Items</h2>
+              <span className={styles.arrow}>➢</span>
+            </div>
+
             <br></br>
             <p>
-              Shop and explore items, ranging from Pokeballs to Techincal
+              Shop and discover items, ranging from Pokeballs to Techincal
               Machines!
             </p>
           </div>

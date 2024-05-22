@@ -106,9 +106,9 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin: 0 72px 80px 72px;
-    border: 1px solid var(--light-gray);
-    border-radius: 20px;
+    margin: 0 48px 80px 48px;
+    padding: 8px 0;
+    justify-self: center;
     overflow: hidden;
 
     > div {
@@ -117,38 +117,50 @@
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
-        width: 60%;
-        gap: 4px;
+        width: 50%;
 
         .itemContainer_description {
             display: flex;
             flex-direction: column;
-            width: 240px;
+            width: 532px;
+            padding: 12px;
         
-            h2 {
-                width: 100%;
-                text-align: center;
+            .explore {
+                font-size: 12px;
+                font-style: italic;
+                margin-bottom: 4px;
             }
-        
-            p {
+
+            .itemBanner_header {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 12px;
                 width: 100%;
-                text-align: center;
+            }
+
+            .itemBanner_header:hover .arrow {
+                transform: translateX(16px);
+                transition: transform 1s ease;
             }
         }
     }
 
     .itemBanner_item {
-        border-radius: 20px;
         overflow: hidden;
+        padding: 12px 12px 0 12px;
+        border: 1px solid transparent;
+        border-radius: 20px;
     }
 
     .itemBanner_item:hover {
-        box-shadow: 0 0 20px 1px var(--pastel-blue);
+        box-shadow: 0 0 16px 1px var(--pastel-blue);
         transition: box-shadow 0.4s ease;
     }
 
     > img {
         height: 672px;
+        margin: 12px;
     }
 }
 
