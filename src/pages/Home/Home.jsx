@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 
+import ArrowText from "../../components/ArrowText/ArrowText";
 import SaleBanner from "../../components/SaleBanner/SaleBanner";
 import Banner from "../../components/Banner/Banner";
 
@@ -127,8 +128,8 @@ const PokemonBanner = () => {
   return (
     <>
       <div className={styles.pokeBanner_container}>
-        <h2 className={styles.pokeBanner_header}>Shop for Pokemon Info!</h2>
-        <div>
+        <ArrowText text={<h2>Shop for Pokemon Info</h2>} />
+        <div className={styles.pokemon_container}>
           {randNums.length > 0 && (
             <>
               <div className={styles.pokeBanner_item}>
@@ -184,11 +185,7 @@ const ItemBanner = () => {
         <div>
           <div className={styles.itemContainer_description}>
             <p className={styles.explore}>Explore!</p>
-            <div className={styles.itemBanner_header}>
-              <h2>Shop for Items</h2>
-              <span className={styles.arrow}>➢</span>
-            </div>
-
+            <ArrowText text={<h2>Shop for Items</h2>} />
             <br></br>
             <p>
               Shop and discover items, ranging from Pokeballs to Techincal
