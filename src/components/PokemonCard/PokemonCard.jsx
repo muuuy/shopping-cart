@@ -5,13 +5,12 @@ import PropTypes from "prop-types";
 // 1025 Pokemon Total
 
 const TypeCard = ({ types = [] }) => {
-
   const capitalizeWord = (string) => {
-    if(typeof string !== 'string') {
-      return '';
+    if (typeof string !== "string") {
+      return "";
     }
     return string.charAt(0).toUpperCase() + string.slice(1);
-  }
+  };
 
   return (
     <>
@@ -19,7 +18,6 @@ const TypeCard = ({ types = [] }) => {
         <div className={styles.type_container}>
           <div className={styles[types[0]]}>{capitalizeWord(types[0])}</div>
         </div>
-        
       ) : (
         <div className={styles.type_container}>
           <div className={styles[types[0]]}>{capitalizeWord(types[0])}</div>
@@ -32,12 +30,34 @@ const TypeCard = ({ types = [] }) => {
 
 const PokemonCard = ({ pokemon }) => {
   const [types, setTypes] = useState([]);
-  const costs = [500.00, 2000.00, 100000.00];
+  const costs = [500.0, 2000.0, 100000.0];
+  const exclude = ["Ho", "Chi", "Ting", "Chien", "Wo", "Porygon"];
+  const excludeCapital = ["kommo", "hakamo", "jangmo"];
+  const deleteWords = [
+    "Basculin",
+    "Zygarde",
+    "Landorus",
+    "Toxtricity",
+    "Oricorio",
+    "Eiscue",
+    "Wormadam",
+    "Meowstic",
+    "Aegislash",
+    "Urshifu",
+    "Gourgeist",
+    "Thundurus",
+    "Indeedee",
+    "Deoxys",
+    "Darmanitan",
+    "Meloetta",
+    "Basculegion",
+    "Wishiwashi",
+  ];
 
   useEffect(() => {
     const populateTypes = () => {
       const typeNames = pokemon.types.map((type) => type.type.name);
-      setTypes(prev => typeNames);
+      setTypes((prev) => typeNames);
     };
 
     populateTypes();
@@ -46,8 +66,26 @@ const PokemonCard = ({ pokemon }) => {
   }, [pokemon]);
 
   const capitalizeWord = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
+    string = string.split("-");
+
+    if (excludeCapital.includes(string[0])) {
+      string[0] = string[0].charAt(0).toUpperCase() + string[0].slice(1);
+      string = string.join("-");
+      return string;
+    }
+
+    string = string.map((str) => str.charAt(0).toUpperCase() + str.slice(1));
+
+    if (string[0] === "Mr") {
+      return string.join(". ");
+    } else if (exclude.includes(string[0])) {
+      return string.join("-");
+    } else if (deleteWords.includes(string[0])) {
+      return string[0];
+    }
+
+    return string.join(" ");
+  };
 
   return (
     <div className={styles.pokemon_container}>
@@ -63,7 +101,9 @@ const PokemonCard = ({ pokemon }) => {
         <div>
           <TypeCard types={types} />
         </div>
-        <p className={styles.pokemon_cost}>￥{(Math.round(costs[0] * 100) / 100).toFixed(2)}</p>
+        <p className={styles.pokemon_cost}>
+          ￥{(Math.round(costs[0] * 100) / 100).toFixed(2)}
+        </p>
       </div>
     </div>
   );
