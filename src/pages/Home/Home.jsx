@@ -7,7 +7,7 @@ import Banner from "../../components/Banner/Banner";
 
 import DragonPokemon from "../../assets/infoBanner/pokemon_info.jpg";
 
-import styles from "./Home.module.css";
+import styles from "./Home.module.scss";
 import PokemonCard from "../../components/PokemonCard/PokemonCard";
 import ItemCard from "../../components/ItemCard/ItemCard";
 
@@ -163,7 +163,7 @@ const ItemBanner = () => {
         let randomNumber;
 
         do {
-          randomNumber = Math.floor(Math.random() * 2159) + 1;
+          randomNumber = Math.floor(Math.random() * 500) + 1;
         } while (newRandNums.includes(randomNumber));
 
         newRandNums.push(randomNumber);
@@ -179,8 +179,15 @@ const ItemBanner = () => {
   return (
     <>
       <div className={styles.itemBanner_container}>
-        <h2 className={styles.itemBanner_header}>Shop for Items!</h2>
         <div>
+          <div className={styles.itemContainer_description}>
+            <h2 className={styles.itemBanner_header}>Shop for Items!</h2>
+            <br></br>
+            <p>
+              Shop and explore items, ranging from Pokeballs to Techincal
+              Machines!
+            </p>
+          </div>
           {randNums.length > 0 &&
             randNums.map((num) => (
               <div className={styles.itemBanner_item} key={uuidv4()}>
@@ -188,6 +195,7 @@ const ItemBanner = () => {
               </div>
             ))}
         </div>
+        <img src="../../assets/itemBanner/pokemon_items.png"></img>
       </div>
     </>
   );

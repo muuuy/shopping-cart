@@ -1,4 +1,4 @@
-import styles from "./ItemCard.module.css";
+import styles from "./ItemCard.module.scss";
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
