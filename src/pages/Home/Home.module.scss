@@ -106,9 +106,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: none;
-    justify-self: center;
-    margin: 0 72px;
+    margin: 0 72px 80px 72px;
     border: 1px solid var(--light-gray);
     border-radius: 20px;
     overflow: hidden;
@@ -144,15 +142,16 @@
         overflow: hidden;
     }
 
+    .itemBanner_item:hover {
+        box-shadow: 0 0 20px 1px var(--pastel-blue);
+        transition: box-shadow 0.4s ease;
+    }
+
     > img {
         height: 672px;
     }
 }
 
-.itemBanner_item:hover {
-    box-shadow: 0 0 20px 1px var(--pastel-blue);
-    transition: box-shadow 0.4s ease;
-}
 
 @media screen and (max-width: 1600px) {
     .info_text h1 {
