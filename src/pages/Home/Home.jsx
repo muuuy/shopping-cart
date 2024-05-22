@@ -11,6 +11,9 @@ import styles from "./Home.module.scss";
 import PokemonCard from "../../components/PokemonCard/PokemonCard";
 import ItemCard from "../../components/ItemCard/ItemCard";
 
+import itemBannerImage from '../../assets/itemBanner/pokemon_items.png';
+
+
 const InfoBanner = () => {
   return (
     <>
@@ -159,7 +162,7 @@ const ItemBanner = () => {
     const generateRandomNumbers = () => {
       const newRandNums = [];
 
-      for (let i = 0; i < 7; i++) {
+      for (let i = 0; i < 5; i++) {
         let randomNumber;
 
         do {
@@ -195,7 +198,7 @@ const ItemBanner = () => {
               </div>
             ))}
         </div>
-        <img src="../../assets/itemBanner/pokemon_items.png"></img>
+        <img src={itemBannerImage} className={styles.info_image}></img>
       </div>
     </>
   );
@@ -210,7 +213,7 @@ const Home = ({ userInput, itemType }) => {
         <Banner />
         <PokemonBanner />
         <ItemBanner />
-        <Explore input={userInput} type={itemType} />
+        {/* <Explore input={userInput} type={itemType} /> */}
       </div>
     </div>
   );
