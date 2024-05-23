@@ -98,6 +98,7 @@ const Explore = ({ input = null, type = null }) => {
       {type === "pokemon" && <PokemonCard pokemon={item} />}
       {type === "item" && <ItemCard item={item} />}
       {type === "berry" && <ItemCard item={item} />}
+      {type === "machine" && <ItemCard item={item} />}
     </>
   );
 };
@@ -248,6 +249,49 @@ const BerryBanner = () => {
   );
 };
 
+const TMBanner = () => {
+  const [randNums, setRandNums] = useState([]);
+
+  useEffect(() => {
+    const generateRandomNumbers = () => {
+      const newRandNums = [];
+
+      for (let i = 0; i < 4; i++) {
+        let randomNumber;
+
+        do {
+          randomNumber = Math.floor(Math.random() * (396 - 305 + 1)) + 305;
+        } while (newRandNums.includes(randomNumber));
+
+        newRandNums.push(randomNumber);
+      }
+
+      console.log(newRandNums);
+      return newRandNums;
+    };
+
+    setRandNums(generateRandomNumbers());
+  }, []);
+
+
+  return (
+    <div className={styles.tmBanner_container}>
+      <div className={styles.tmBanner_header}>
+        <p className={styles.explore}>Explore!</p>
+        <ArrowText text={<h2>Shop for Technical Machines</h2>} />
+      </div>
+      <div className={styles.tmItem_container}>
+        {randNums.length > 0 &&
+          randNums.map((num) => (
+            <div className={styles.tmBanner_item} key={uuidv4()}>
+              <Explore input={num} type="item" />
+            </div>
+          ))}
+      </div>
+    </div>
+  )
+}
+
 const Home = ({ userInput, itemType }) => {
   return (
     <div id={styles.home_page}>
@@ -257,7 +301,11 @@ const Home = ({ userInput, itemType }) => {
         <Banner />
         <PokemonBanner />
         <ItemBanner />
-        <BerryBanner />
+        <div className={styles.grid_container}>
+          <BerryBanner />
+          <TMBanner />
+        </div>
+        
         {/* <Explore input={userInput} type={itemType} /> */}
       </div>
     </div>

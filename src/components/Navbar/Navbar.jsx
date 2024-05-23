@@ -62,7 +62,6 @@ const Navbar = ({ setInput, setType }) => {
     { value: "pokemon", label: "Pokemon" },
     { value: "item", label: "Items" },
     { value: "item", label: "Berry" },
-    { value: "move", label: "Moves" },
     { value: "machine", label: "TMs" },
   ];
 
