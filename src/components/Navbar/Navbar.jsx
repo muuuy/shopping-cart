@@ -61,7 +61,7 @@ const Navbar = ({ setInput, setType }) => {
   const options = [
     { value: "pokemon", label: "Pokemon" },
     { value: "item", label: "Items" },
-    { value: "berry", label: "Berry" },
+    { value: "item", label: "Berry" },
     { value: "move", label: "Moves" },
     { value: "machine", label: "TMs" },
   ];

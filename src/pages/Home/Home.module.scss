@@ -76,7 +76,7 @@
     margin: 120px 0 80px 0;
 
     h2 {
-        margin-left: 72px;
+        margin-left: 5%;
         font-size: 28px;
     }
 
@@ -147,6 +147,31 @@
         margin: 12px;
         align-self: flex-end;
     }
+}
+
+/*-----------------------------=BERRY BANNER=-----------------------------*/
+.berryBanner_container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 35%;
+
+    .berryBanner_header {
+        margin-left: 5%;
+
+        .explore {
+            font-size: 12px;
+            font-style: italic;
+            margin-bottom: 4px;
+        }
+    }
+
+    .berryItem_container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-items: center;
+    }
+
 }
 
 

@@ -65,44 +65,23 @@ const Explore = ({ input = null, type = null }) => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    if (type === "berry") {
-      console.log("BERRURHAUIRHUIWAHRUIWA")
-      fetch(`https://pokeapi.co/api/v2/item/${input}`, { signal })
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error(`${input} not found`);
-          }
-          return res.json();
-        })
-        .then((data) => {
-          setItem(data);
-        })
-        .catch((err) => {
-          if (err.name === "AbortError") {
-            console.log("cancelled!");
-          } else {
-            console.error(`Error fetching ${type}:`, err);
-          }
-        });
-    } else {
-      fetch(`https://pokeapi.co/api/v2/${type}/${input}`, { signal })
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error(`${input} not found`);
-          }
-          return res.json();
-        })
-        .then((data) => {
-          setItem(data);
-        })
-        .catch((err) => {
-          if (err.name === "AbortError") {
-            console.log("cancelled!");
-          } else {
-            console.error(`Error fetching ${type}:`, err);
-          }
-        });
-    }
+    fetch(`https://pokeapi.co/api/v2/${type}/${input}`, { signal })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`${input} not found`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setItem(data);
+      })
+      .catch((err) => {
+        if (err.name === "AbortError") {
+          console.log("cancelled!");
+        } else {
+          console.error(`Error fetching ${type}:`, err);
+        }
+      });
 
     return () => {
       console.log("fetch cancelled!");
@@ -227,6 +206,48 @@ const ItemBanner = () => {
   );
 };
 
+const BerryBanner = () => {
+  const [randNums, setRandNums] = useState([]);
+
+  useEffect(() => {
+    const generateRandomNumbers = () => {
+      const newRandNums = [];
+
+      for (let i = 0; i < 4; i++) {
+        let randomNumber;
+
+        do {
+          randomNumber = Math.floor(Math.random() * (189 - 126 + 1)) + 126;
+        } while (newRandNums.includes(randomNumber));
+
+        newRandNums.push(randomNumber);
+      }
+
+      console.log(newRandNums);
+      return newRandNums;
+    };
+
+    setRandNums(generateRandomNumbers());
+  }, []);
+
+  return (
+    <div className={styles.berryBanner_container}>
+      <div className={styles.berryBanner_header}>
+        <p className={styles.explore}>Explore!</p>
+        <ArrowText text={<h2>Shop for Berries</h2>} />
+      </div>
+      <div className={styles.berryItem_container}>
+        {randNums.length > 0 &&
+          randNums.map((num) => (
+            <div className={styles.berryBanner_item} key={uuidv4()}>
+              <Explore input={num} type="item" />
+            </div>
+          ))}
+      </div>
+    </div>
+  );
+};
+
 const Home = ({ userInput, itemType }) => {
   return (
     <div id={styles.home_page}>
@@ -236,7 +257,8 @@ const Home = ({ userInput, itemType }) => {
         <Banner />
         <PokemonBanner />
         <ItemBanner />
-        <Explore input={userInput} type={itemType} />
+        <BerryBanner />
+        {/* <Explore input={userInput} type={itemType} /> */}
       </div>
     </div>
   );
