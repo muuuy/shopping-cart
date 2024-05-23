@@ -66,6 +66,7 @@ const Explore = ({ input = null, type = null }) => {
     const signal = controller.signal;
 
     if (type === "berry") {
+      console.log("BERRURHAUIRHUIWAHRUIWA")
       fetch(`https://pokeapi.co/api/v2/item/${input}`, { signal })
         .then((res) => {
           if (!res.ok) {
@@ -117,6 +118,7 @@ const Explore = ({ input = null, type = null }) => {
     <>
       {type === "pokemon" && <PokemonCard pokemon={item} />}
       {type === "item" && <ItemCard item={item} />}
+      {type === "berry" && <ItemCard item={item} />}
     </>
   );
 };
