@@ -29,7 +29,7 @@ const ItemCard = ({ item }) => {
       ></img>
       <div className={styles.item_description}>
         <p className={styles.item_name}>{capitalize()}</p>
-        <p>￥500.00</p>
+        <p className={styles.item_cost}>￥500.00</p>
       </div>
     </div>
   );

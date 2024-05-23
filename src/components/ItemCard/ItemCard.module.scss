@@ -1,5 +1,5 @@
 .item_container {
-    width: 240px;
+    width: 160px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -21,6 +21,10 @@
 
     .item_name {
         font-weight: 900;
-        font-size: 24px;
+        font-size: 16px;
+    }
+
+    .item_cost {
+        font-size: 14px;
     }
 }

@@ -164,7 +164,7 @@ const ItemBanner = () => {
     const generateRandomNumbers = () => {
       const newRandNums = [];
 
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 9; i++) {
         let randomNumber;
 
         do {
@@ -214,7 +214,7 @@ const BerryBanner = () => {
     const generateRandomNumbers = () => {
       const newRandNums = [];
 
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 6; i++) {
         let randomNumber;
 
         do {
@@ -256,7 +256,7 @@ const TMBanner = () => {
     const generateRandomNumbers = () => {
       const newRandNums = [];
 
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 6; i++) {
         let randomNumber;
 
         do {
