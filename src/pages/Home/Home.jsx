@@ -52,7 +52,7 @@ const Explore = ({ input = null, type = null }) => {
   const [item, setItem] = useState(null);
 
   useEffect(() => {
-    if (!type || (type !== "pokemon" && type !== "item")) {
+    if (!type) {
       console.error("Invalid type:", type);
       return;
     }
@@ -65,23 +65,43 @@ const Explore = ({ input = null, type = null }) => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    fetch(`https://pokeapi.co/api/v2/${type}/${input}`, { signal })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Pokemon not found");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setItem(data);
-      })
-      .catch((err) => {
-        if (err.name === "AbortError") {
-          console.log("cancelled!");
-        } else {
-          console.error(`Error fetching ${type}:`, err);
-        }
-      });
+    if (type === "berry") {
+      fetch(`https://pokeapi.co/api/v2/item/${input}`, { signal })
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`${input} not found`);
+          }
+          return res.json();
+        })
+        .then((data) => {
+          setItem(data);
+        })
+        .catch((err) => {
+          if (err.name === "AbortError") {
+            console.log("cancelled!");
+          } else {
+            console.error(`Error fetching ${type}:`, err);
+          }
+        });
+    } else {
+      fetch(`https://pokeapi.co/api/v2/${type}/${input}`, { signal })
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`${input} not found`);
+          }
+          return res.json();
+        })
+        .then((data) => {
+          setItem(data);
+        })
+        .catch((err) => {
+          if (err.name === "AbortError") {
+            console.log("cancelled!");
+          } else {
+            console.error(`Error fetching ${type}:`, err);
+          }
+        });
+    }
 
     return () => {
       console.log("fetch cancelled!");
@@ -214,7 +234,7 @@ const Home = ({ userInput, itemType }) => {
         <Banner />
         <PokemonBanner />
         <ItemBanner />
-        {/* <Explore input={userInput} type={itemType} /> */}
+        <Explore input={userInput} type={itemType} />
       </div>
     </div>
   );

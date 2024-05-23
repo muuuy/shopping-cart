@@ -56,8 +56,10 @@ const PokemonCard = ({ pokemon }) => {
 
   useEffect(() => {
     const populateTypes = () => {
-      const typeNames = pokemon.types.map((type) => type.type.name);
-      setTypes((prev) => typeNames);
+      if (pokemon.types) {
+        const typeNames = pokemon.types.map((type) => type.type.name);
+        setTypes((prev) => typeNames);
+      }
     };
 
     populateTypes();
