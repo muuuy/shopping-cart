@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 import styles from "../styles/Home.module.scss";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
-import ArrowText from '../components/ArrowText';
+import ArrowText from "../components/ArrowText";
 import SaleBanner from "../components/SaleBanner";
-import Banner from '../components/Banner';
+import Banner from "../components/Banner";
 
 import DragonPokemon from "../assets/infoBanner/pokemon_info.jpg";
 
@@ -269,7 +270,6 @@ const TMBanner = () => {
     setRandNums(generateRandomNumbers());
   }, []);
 
-
   return (
     <div className={styles.tmBanner_container}>
       <div className={styles.tmBanner_header}>
@@ -285,26 +285,34 @@ const TMBanner = () => {
           ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
 const Home = ({ userInput, itemType }) => {
   return (
-    <div id={styles.home_page}>
-      <div className="container">
-        <InfoBanner />
-        <SaleBanner />
-        <Banner />
-        <PokemonBanner />
-        <ItemBanner />
-        <div className={styles.grid_container}>
-          <BerryBanner />
-          <TMBanner />
+    <>
+      <HelmetProvider>
+        <Helmet>
+          <title>POKE STOP | Home</title>
+        </Helmet>
+      </HelmetProvider>
+
+      <div id={styles.home_page}>
+        <div className="container">
+          <InfoBanner />
+          <SaleBanner />
+          <Banner />
+          <PokemonBanner />
+          <ItemBanner />
+          <div className={styles.grid_container}>
+            <BerryBanner />
+            <TMBanner />
+          </div>
+
+          {/* <Explore input={userInput} type={itemType} /> */}
         </div>
-        
-        {/* <Explore input={userInput} type={itemType} /> */}
       </div>
-    </div>
+    </>
   );
 };
 

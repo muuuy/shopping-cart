@@ -2,6 +2,7 @@ import "./App.css";
 import { useState, useEffect } from 'react';
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Favicon from "react-favicon";
+import { RouterProvider } from 'react-router-dom';
 
 import Home from './pages/Home';
 import Navbar from "./components/Navbar";
