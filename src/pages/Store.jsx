@@ -8,6 +8,8 @@ const Store = () => {
           <title>POKE STOP | Store</title>
         </Helmet>
       </HelmetProvider>
+
+      <p>set up</p>
     </>
   );
 };

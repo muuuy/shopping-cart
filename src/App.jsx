@@ -2,7 +2,12 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Favicon from "react-favicon";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  BrowserRouter,
+} from "react-router-dom";
 
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
@@ -30,9 +35,9 @@ function App() {
         }
       />
 
-      <Router>
-        <div id="web-container">
-          <Navbar setInput={setUserInput} setType={setItemType} />
+      <div id="web-container">
+        <Navbar setInput={setUserInput} setType={setItemType} />
+        <BrowserRouter>
           <Routes>
             <Route
               path="/"
@@ -40,8 +45,8 @@ function App() {
             />
             <Route path="/store" Component={Store} />
           </Routes>
-        </div>
-      </Router>
+        </BrowserRouter>
+      </div>
     </>
   );
 }
