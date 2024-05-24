@@ -2,23 +2,11 @@ import styles from "../styles/ItemCard.module.scss";
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
+import capitalize from '../utils/capitalize';
+
 //2159 TOTAL ITEMS
 
 const ItemCard = ({ item }) => {
-  // useEffect(() => {
-
-  // })
-
-  const capitalize = () => {
-
-    item.name = item.name.replace(/-/g, " ");
-
-    return item.name
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
-  };
-
   return (
     <div className={styles.item_container}>
       <img
@@ -28,7 +16,7 @@ const ItemCard = ({ item }) => {
         loading="lazy"
       ></img>
       <div className={styles.item_description}>
-        <p className={styles.item_name}>{capitalize()}</p>
+        <p className={styles.item_name}>{capitalize(item.name)}</p>
         <p className={styles.item_cost}>￥500.00</p>
       </div>
     </div>
