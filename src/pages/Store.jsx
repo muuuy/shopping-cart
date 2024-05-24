@@ -5,7 +5,7 @@ const Store = () => {
     <>
       <HelmetProvider>
         <Helmet>
-          <title>POKE STOP | Home</title>
+          <title>POKE STOP | Store</title>
         </Helmet>
       </HelmetProvider>
     </>

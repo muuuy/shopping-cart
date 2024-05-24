@@ -1,19 +1,20 @@
 import "./App.css";
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Favicon from "react-favicon";
-import { RouterProvider } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import Home from './pages/Home';
+import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
+import Store from "./pages/Store";
 
 function App() {
-  const [userInput, setUserInput] = useState('pikachu');
-  const [itemType, setItemType] = useState('pokemon');
+  const [userInput, setUserInput] = useState("pikachu");
+  const [itemType, setItemType] = useState("pokemon");
 
   useEffect(() => {
     console.log(itemType);
-  }, [itemType])
+  }, [itemType]);
 
   return (
     <>
@@ -29,11 +30,18 @@ function App() {
         }
       />
 
-      <div id="web-container">
-        <Navbar setInput={setUserInput} setType={setItemType} />
-        <Home userInput={userInput} itemType={itemType} />
-      </div>
-      
+      <Router>
+        <div id="web-container">
+          <Navbar setInput={setUserInput} setType={setItemType} />
+          <Routes>
+            <Route
+              path="/"
+              element={<Home userInput={userInput} itemType={itemType} />}
+            />
+            <Route path="/store" Component={Store} />
+          </Routes>
+        </div>
+      </Router>
     </>
   );
 }
