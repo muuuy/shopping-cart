@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 
-import styles from "./Navbar.module.scss";
+import styles from '../styles/Navbar.module.scss';
 
 import { BsHurricane } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";

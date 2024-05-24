@@ -1,6 +1,6 @@
 //126 - 189 ID in ITEM CATEGORY!!!
 
-import styles from './BerryCard.module.scss';
+import styles from '../styles/BerryCard.module.scss';
 
 const BerryCard = () => {
     return (

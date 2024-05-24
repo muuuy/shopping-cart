@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import styles from "./HomeCard.module.scss";
+import styles from '../styles/PokemonCard.module.scss';
 import PropTypes from "prop-types";
 
 // 1025 Pokemon Total
@@ -120,13 +120,3 @@ PokemonCard.propTypes = {
 };
 
 export default PokemonCard;
-
-
-const HomeCard = () => {
-    return (
-        <>
-        </>
-    )
-};
-
-export default HomeCard

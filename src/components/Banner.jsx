@@ -1,11 +1,11 @@
-import electronic from "../../assets/banner/electronics.jpg";
-import jewellery from "../../assets/banner/jewellry.jpg";
-import mensClothing from "../../assets/banner/mens_clothing.jpg";
-import womensClothing from "../../assets/banner/womens_clothing.jpg";
+import electronic from "../assets/banner/electronics.jpg";
+import jewellery from "../assets/banner/jewellry.jpg";
+import mensClothing from "../assets/banner/mens_clothing.jpg";
+import womensClothing from "../assets/banner/womens_clothing.jpg";
 
 import PropTypes from 'prop-types';
 
-import styles from "./Banner.module.scss";
+import styles from "../styles/Banner.module.scss";
 
 const BannerItem = ({ imgSrc, category }) => {
   return (

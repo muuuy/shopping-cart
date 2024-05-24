@@ -1,4 +1,4 @@
-import styles from "./SaleBanner.module.scss";
+import styles from '../styles/SaleBanner.module.scss';
 
 const SaleBanner = () => {
   const handleClick = () => {

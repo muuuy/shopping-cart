@@ -1,4 +1,4 @@
-import styles from "./ArrowText.module.scss";
+import styles from "../styles/ArrowText.module.scss";
 import PropTypes from "prop-types";
 
 const ArrowText = ({ text }) => {

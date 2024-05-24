@@ -2,17 +2,17 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 
-import ArrowText from "../../components/ArrowText/ArrowText";
-import SaleBanner from "../../components/SaleBanner/SaleBanner";
-import Banner from "../../components/Banner/Banner";
+import ArrowText from '../components/ArrowText';
+import SaleBanner from "../components/SaleBanner";
+import Banner from '../components/Banner';
 
-import DragonPokemon from "../../assets/infoBanner/pokemon_info.jpg";
+import DragonPokemon from "../assets/infoBanner/pokemon_info.jpg";
 
-import styles from "./Home.module.scss";
-import PokemonCard from "../../components/PokemonCard/PokemonCard";
-import ItemCard from "../../components/ItemCard/ItemCard";
+import styles from "../styles/Home.module.scss";
+import PokemonCard from "../components/PokemonCard";
+import ItemCard from "../components/ItemCard";
 
-import itemBannerImage from "../../assets/itemBanner/pokemon_items.png";
+import itemBannerImage from "../assets/itemBanner/pokemon_items.png";
 
 const InfoBanner = () => {
   return (

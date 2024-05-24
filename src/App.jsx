@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Favicon from "react-favicon";
 
-import Home from "./pages/Home/Home";
-import Navbar from "./components/Navbar/Navbar";
+import Home from './pages/Home';
+import Navbar from "./components/Navbar";
 
 function App() {
   const [userInput, setUserInput] = useState('pikachu');
