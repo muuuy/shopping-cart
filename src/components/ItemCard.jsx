@@ -7,6 +7,10 @@ import capitalize from '../utils/capitalize';
 //2159 TOTAL ITEMS
 
 const ItemCard = ({ item }) => {
+  useEffect(() => {
+    console.log(item);
+  }, [item]);
+
   return (
     <div className={styles.item_container}>
       <img

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
+import styles from "../styles/Home.module.scss";
 
 import ArrowText from '../components/ArrowText';
 import SaleBanner from "../components/SaleBanner";
@@ -8,7 +9,6 @@ import Banner from '../components/Banner';
 
 import DragonPokemon from "../assets/infoBanner/pokemon_info.jpg";
 
-import styles from "../styles/Home.module.scss";
 import PokemonCard from "../components/PokemonCard";
 import ItemCard from "../components/ItemCard";
 
@@ -120,7 +120,6 @@ const PokemonBanner = () => {
         newRandNums.push(randomNumber);
       }
 
-      console.log(newRandNums);
       return newRandNums;
     };
 
@@ -174,7 +173,6 @@ const ItemBanner = () => {
         newRandNums.push(randomNumber);
       }
 
-      console.log(newRandNums);
       return newRandNums;
     };
 
@@ -224,7 +222,6 @@ const BerryBanner = () => {
         newRandNums.push(randomNumber);
       }
 
-      console.log(newRandNums);
       return newRandNums;
     };
 
@@ -266,7 +263,6 @@ const TMBanner = () => {
         newRandNums.push(randomNumber);
       }
 
-      console.log(newRandNums);
       return newRandNums;
     };
 
