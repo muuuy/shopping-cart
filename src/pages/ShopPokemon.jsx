@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const ShopPokemon = () => {
-  const { itemName } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
-    console.log("Item name:", itemName);
+    console.log("state", location.state.item);
     // Fetch data based on itemName if necessary
-  }, [itemName]);
+  }, [location]);
 
   return (
     <div>

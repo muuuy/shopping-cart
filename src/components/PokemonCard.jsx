@@ -94,6 +94,7 @@ const PokemonCard = ({ pokemon }) => {
   return (
     <Link
       to={`/shop-pokemon/${pokemon.name}`}
+      state={{ item: pokemon }}
       style={{ textDecoration: "none", color: "inherit" }}
     >
       <div className={styles.pokemon_container}>
