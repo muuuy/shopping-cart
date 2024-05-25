@@ -183,28 +183,26 @@ const ItemBanner = () => {
   }, []);
 
   return (
-    <>
-      <div className={styles.itemBanner_container}>
-        <div>
-          <div className={styles.itemContainer_description}>
-            <p className={styles.explore}>Explore!</p>
-            <ArrowText text={<h2>Shop for Items</h2>} />
-            <br></br>
-            <p>
-              Shop and discover items, ranging from Pokeballs to Techincal
-              Machines!
-            </p>
-          </div>
-          {randNums.length > 0 &&
-            randNums.map((num) => (
-              <div className={styles.itemBanner_item} key={uuidv4()}>
-                <Explore input={num} type="item" />
-              </div>
-            ))}
+    <div className={styles.itemBanner_container}>
+      <div>
+        <div className={styles.itemContainer_description}>
+          <p className={styles.explore}>Explore!</p>
+          <ArrowText text={<h2>Shop for Items</h2>} />
+          <br></br>
+          <p>
+            Shop and discover items, ranging from Pokeballs to Techincal
+            Machines!
+          </p>
         </div>
-        <img src={itemBannerImage} className={styles.info_image}></img>
+        {randNums.length > 0 &&
+          randNums.map((num) => (
+            <div className={styles.itemBanner_item} key={uuidv4()}>
+              <Explore input={num} type="item" />
+            </div>
+          ))}
       </div>
-    </>
+      <img src={itemBannerImage} className={styles.info_image}></img>
+    </div>
   );
 };
 
