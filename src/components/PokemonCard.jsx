@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import styles from "../styles/PokemonCard.module.scss";
 import PropTypes from "prop-types";
 
+import calculateCost from "../utils/calculateCost";
+
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 // 1025 Pokemon Total
@@ -32,7 +34,6 @@ const TypeCard = ({ types = [] }) => {
 
 const PokemonCard = ({ pokemon }) => {
   const [types, setTypes] = useState([]);
-  const costs = [500.0, 2000.0, 100000.0];
   const exclude = ["Ho", "Chi", "Ting", "Chien", "Wo", "Porygon"];
   const excludeCapital = ["kommo", "hakamo", "jangmo"];
   const deleteWords = [
@@ -111,7 +112,7 @@ const PokemonCard = ({ pokemon }) => {
             <TypeCard types={types} />
           </div>
           <p className={styles.pokemon_cost}>
-            ￥{(Math.round(costs[0] * 100) / 100).toFixed(2)}
+            ￥{(Math.round(calculateCost(pokemon) * 100) / 100).toFixed(2)}
           </p>
         </div>
       </div>
