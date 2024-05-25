@@ -12,6 +12,7 @@ import {
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Store from "./pages/Store";
+import ShopPokemon from "./pages/ShopPokemon";
 
 function App() {
   const [userInput, setUserInput] = useState("pikachu");
@@ -44,6 +45,7 @@ function App() {
               element={<Home userInput={userInput} itemType={itemType} />}
             />
             <Route path="/store" Component={Store} />
+            <Route path="/shop-pokemon/:itemName" element={<ShopPokemon />} />
           </Routes>
         </BrowserRouter>
       </div>

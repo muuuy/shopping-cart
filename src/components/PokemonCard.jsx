@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import styles from '../styles/PokemonCard.module.scss';
+import styles from "../styles/PokemonCard.module.scss";
 import PropTypes from "prop-types";
+
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 // 1025 Pokemon Total
 
@@ -90,24 +92,29 @@ const PokemonCard = ({ pokemon }) => {
   };
 
   return (
-    <div className={styles.pokemon_container}>
-      <img
-        className={styles.pokemon_img}
-        src={pokemon.sprites.front_default}
-        alt={pokemon.name}
-        loading="lazy"
-      />
-      <div className={styles.pokemon_desc}>
-        <p className={styles.pokemon_id}>#{pokemon.id}</p>
-        <p className={styles.pokemon_name}>{capitalizeWord(pokemon.name)}</p>
-        <div>
-          <TypeCard types={types} />
+    <Link
+      to={`/shop-pokemon/${pokemon.name}`}
+      style={{ textDecoration: "none", color: "inherit" }}
+    >
+      <div className={styles.pokemon_container}>
+        <img
+          className={styles.pokemon_img}
+          src={pokemon.sprites.front_default}
+          alt={pokemon.name}
+          loading="lazy"
+        />
+        <div className={styles.pokemon_desc}>
+          <p className={styles.pokemon_id}>#{pokemon.id}</p>
+          <p className={styles.pokemon_name}>{capitalizeWord(pokemon.name)}</p>
+          <div>
+            <TypeCard types={types} />
+          </div>
+          <p className={styles.pokemon_cost}>
+            ￥{(Math.round(costs[0] * 100) / 100).toFixed(2)}
+          </p>
         </div>
-        <p className={styles.pokemon_cost}>
-          ￥{(Math.round(costs[0] * 100) / 100).toFixed(2)}
-        </p>
       </div>
-    </div>
+    </Link>
   );
 };
 
