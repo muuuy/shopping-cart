@@ -129,28 +129,30 @@ const PokemonBanner = () => {
 
   return (
     <>
-      <div className={styles.pokeBanner_container}>
-        <ArrowText text={<h2>Shop for Pokemon Info</h2>} />
-        <div className={styles.pokemon_container}>
-          {randNums.length > 0 && (
-            <>
-              <div className={styles.pokeBanner_item}>
-                <Explore input={randNums[0]} type="pokemon" />
-              </div>
-              <div className={styles.pokeBanner_item}>
-                <Explore input={randNums[1]} type="pokemon" />
-              </div>
-              <div className={styles.pokeBanner_item}>
-                <Explore input={randNums[2]} type="pokemon" />
-              </div>
-              <div className={styles.pokeBanner_item}>
-                <Explore input={randNums[3]} type="pokemon" />
-              </div>
-              <div className={styles.pokeBanner_item}>
-                <Explore input={randNums[4]} type="pokemon" />
-              </div>
-            </>
-          )}
+      <div className={`${styles.spacer} ${styles.layer1}`}>
+        <div className={styles.pokeBanner_container}>
+          <ArrowText text={<h2>Shop for Pokemon Info</h2>} />
+          <div className={styles.pokemon_container}>
+            {randNums.length > 0 && (
+              <>
+                <div className={styles.pokeBanner_item}>
+                  <Explore input={randNums[0]} type="pokemon" />
+                </div>
+                <div className={styles.pokeBanner_item}>
+                  <Explore input={randNums[1]} type="pokemon" />
+                </div>
+                <div className={styles.pokeBanner_item}>
+                  <Explore input={randNums[2]} type="pokemon" />
+                </div>
+                <div className={styles.pokeBanner_item}>
+                  <Explore input={randNums[3]} type="pokemon" />
+                </div>
+                <div className={styles.pokeBanner_item}>
+                  <Explore input={randNums[4]} type="pokemon" />
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </>
@@ -304,9 +306,11 @@ const Home = ({ userInput, itemType }) => {
           <Banner />
           <PokemonBanner />
           <ItemBanner />
-          <div className={styles.grid_container}>
-            <BerryBanner />
-            <TMBanner />
+          <div className={`${styles.spacer} ${styles.layer2}`}>
+            <div className={styles.grid_container}>
+              <BerryBanner />
+              <TMBanner />
+            </div>
           </div>
 
           {/* <Explore input={userInput} type={itemType} /> */}

@@ -1,4 +1,6 @@
-import styles from '../styles/SaleBanner.module.scss';
+import styles from "../styles/SaleBanner.module.scss";
+
+import ArrowText from './ArrowText.jsx';
 
 const SaleBanner = () => {
   const handleClick = () => {
@@ -11,8 +13,7 @@ const SaleBanner = () => {
         <h1 className={styles.sales_topic}>Special Sale!</h1>
         <h2 className={styles.sales_desc}>Up to 30% Off</h2>
         <h3 className={styles.sales_link}>
-          <a>Save Now</a>
-          <span className={styles.arrow}>➢</span>
+        <ArrowText text="Save Now" />
         </h3>
         <p className={styles.sales_disclaimer}>
           Participating shops only. Terms apply.
