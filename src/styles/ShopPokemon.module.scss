@@ -5,6 +5,20 @@
 
     .poke_sprite {
         justify-content: flex-start;
+        height: 420px;
+    }
+
+    .description {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+
+        > div {
+            margin-top: 12px;
+            padding-bottom: 12px;
+            width: 100%;
+            border-bottom: 1px solid white;
+        }
     }
 }
 
