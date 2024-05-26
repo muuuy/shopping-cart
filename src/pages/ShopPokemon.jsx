@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
+import styles from '../styles/ShopPokemon.module.scss';
+
 import capitalize from "../utils/capitalize";
 
 const ShopPokemon = () => {
@@ -15,10 +17,11 @@ const ShopPokemon = () => {
   return (
     <>
       {pokemon && (
-        <div>
-          <p>diwhiaodhwaio</p>
-          <img src={pokemon.sprites.front_default}></img>
-          <h1>{capitalize(pokemon.name)}</h1>
+        <div className={styles.shopPoke_container}>
+          <img src={pokemon.sprites.front_default} className={styles.poke_sprite}></img>
+          <div>
+            <h1>{capitalize(pokemon.name)}</h1>
+          </div>
         </div>
       )}
     </>
