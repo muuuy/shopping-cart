@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import styles from '../styles/Navbar.module.scss';
+import styles from "../styles/Navbar.module.scss";
 
 import { BsHurricane } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
@@ -75,10 +76,10 @@ const Navbar = ({ setInput, setType }) => {
   return (
     <>
       <nav className={styles.nav_container}>
-        <a className={styles.logo}>
+        <Link to="/" className={styles.logo} style={{ textDecoration: "none" }}>
           <BsHurricane className={styles.logo_img} />
           POKE STOP
-        </a>
+        </Link>
         <SearchBar setSearchValue={setInput} />
         <div className={styles.select_menu}>
           <select onChange={handleChange} value={selectedType}>

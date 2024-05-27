@@ -38,16 +38,14 @@ function App() {
 
       <div id="web-container">
         <Navbar setInput={setUserInput} setType={setItemType} />
-        <BrowserRouter>
-          <Routes>
-            <Route
-              path="/"
-              element={<Home userInput={userInput} itemType={itemType} />}
-            />
-            <Route path="/store" Component={Store} />
-            <Route path="/shop-pokemon/:itemName" element={<ShopPokemon />} />
-          </Routes>
-        </BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={<Home userInput={userInput} itemType={itemType} />}
+          />
+          <Route path="/store" Component={Store} />
+          <Route path="/shop-pokemon/:itemName" element={<ShopPokemon />} />
+        </Routes>
       </div>
     </>
   );

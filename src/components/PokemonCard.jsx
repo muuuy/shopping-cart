@@ -1,38 +1,12 @@
 import { useState, useEffect } from "react";
 import styles from "../styles/PokemonCard.module.scss";
 import PropTypes from "prop-types";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import TypeCard from './TypeCard';
 
 import calculateCost from "../utils/calculateCost";
-
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
 // 1025 Pokemon Total
-
-// const TypeCard = ({ types = [] }) => {
-//   const capitalizeWord = (string) => {
-//     if (typeof string !== "string") {
-//       return "";
-//     }
-//     return string.charAt(0).toUpperCase() + string.slice(1);
-//   };
-
-//   return (
-//     <>
-//       {types.length === 1 ? (
-//         <div className={styles.type_container}>
-//           <div className={styles[types[0]]}>{capitalizeWord(types[0])}</div>
-//         </div>
-//       ) : (
-//         <div className={styles.type_container}>
-//           <div className={styles[types[0]]}>{capitalizeWord(types[0])}</div>
-//           <div className={styles[types[1]]}>{capitalizeWord(types[1])}</div>
-//         </div>
-//       )}
-//     </>
-//   );
-// };
 
 const PokemonCard = ({ pokemon }) => {
   const [types, setTypes] = useState([]);

@@ -22,16 +22,18 @@ const PictureMenu = ({ sprites }) => {
     ];
 
     sprite_types.forEach((type) => {
-      if(sprites[type]) {
+      if (sprites[type]) {
         elements.push(
-          <div key={uuidv4()}>
-            <img src={sprites[type]} />
-          </div>
+          <img
+            src={sprites[type]}
+            className={styles.menu_sprite}
+            key={uuidv4()}
+          />
         );
       }
     });
 
-    return <>{elements}</>
+    return <div className={styles.menu_container}>{elements}</div>;
   };
 
   return (
@@ -67,6 +69,7 @@ const ShopPokemon = () => {
       {pokemon && types && (
         <div className="container">
           <div className={styles.shopPoke_container}>
+            <PictureMenu sprites={pokemon.sprites} />
             <img
               src={pokemon.sprites.front_default}
               className={styles.poke_sprite}
@@ -76,7 +79,6 @@ const ShopPokemon = () => {
               <h2>#{pokemon.id}</h2>
               <div>
                 <TypeCard types={types} />
-                <PictureMenu sprites={pokemon.sprites} />
               </div>
             </div>
           </div>
