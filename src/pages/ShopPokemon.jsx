@@ -11,7 +11,7 @@ import capitalize from "../utils/capitalize";
 
 const PictureMenu = ({ sprites, handleHover }) => {
   const populate = () => {
-    const elements = [];
+    // const elements = [];
     const sprite_types = [
       "front_default",
       "back_default",
@@ -21,24 +21,24 @@ const PictureMenu = ({ sprites, handleHover }) => {
       "back_shiny",
     ];
 
-    sprite_types.forEach((type) => {
+    return sprite_types.map((type) => {
       if (sprites[type]) {
-        elements.push(
+        return (
           <img
             src={sprites[type]}
             className={styles.menu_sprite}
             key={uuidv4()}
             onMouseEnter={() => handleHover(sprites[type])}
             onMouseLeave={() => handleHover(sprites.front_default)}
+            alt={type}
           />
         );
       }
+      return null;
     });
-
-    return <div className={styles.menu_container}>{elements}</div>;
   };
 
-  return <>{sprites && <>{populate()}</>}</>;
+  return <div className={styles.menu_container}>{sprites && populate()}</div>;
 };
 
 const ShopPokemon = () => {
