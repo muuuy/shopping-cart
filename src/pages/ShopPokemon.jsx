@@ -11,7 +11,6 @@ import capitalize from "../utils/capitalize";
 
 const PictureMenu = ({ sprites, handleHover }) => {
   const populate = () => {
-    // const elements = [];
     const sprite_types = [
       "front_default",
       "back_default",
