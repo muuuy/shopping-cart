@@ -9,7 +9,7 @@ import TypeCard from "../components/TypeCard";
 
 import capitalize from "../utils/capitalize";
 
-const PictureMenu = ({ sprites }) => {
+const PictureMenu = ({ sprites, handleHover }) => {
   const populate = () => {
     const elements = [];
     const sprite_types = [
@@ -28,6 +28,8 @@ const PictureMenu = ({ sprites }) => {
             src={sprites[type]}
             className={styles.menu_sprite}
             key={uuidv4()}
+            onMouseEnter={() => handleHover(sprites[type])}
+            onMouseLeave={() => handleHover(sprites.front_default)}
           />
         );
       }
@@ -36,17 +38,14 @@ const PictureMenu = ({ sprites }) => {
     return <div className={styles.menu_container}>{elements}</div>;
   };
 
-  return (
-    <>
-      {sprites && <div className={styles.picMenu_container}>{populate()}</div>}
-    </>
-  );
+  return <>{sprites && <>{populate()}</>}</>;
 };
 
 const ShopPokemon = () => {
   const location = useLocation();
   const [pokemon, setPokemon] = useState(null);
   const [types, setTypes] = useState(null);
+  const [hoverImage, setHoveredImage] = useState(null);
 
   useEffect(() => {
     console.log("state", location.state.item);
@@ -58,20 +57,27 @@ const ShopPokemon = () => {
       if (pokemon) {
         const typeNames = pokemon.types.map((type) => type.type.name);
         setTypes((prev) => typeNames);
+
+        setHoveredImage(pokemon.sprites.front_default)
       }
     };
 
     populateTypes();
   }, [pokemon]);
 
+  const handleHover = (image) => {
+    console.log('hovered');
+    setHoveredImage(image);
+  }
+
   return (
     <>
       {pokemon && types && (
         <div className="container">
           <div className={styles.shopPoke_container}>
-            <PictureMenu sprites={pokemon.sprites} />
+            <PictureMenu sprites={pokemon.sprites} handleHover={handleHover} />
             <img
-              src={pokemon.sprites.front_default}
+              src={hoverImage}
               className={styles.poke_sprite}
             ></img>
             <div className={styles.description}>
@@ -90,6 +96,7 @@ const ShopPokemon = () => {
 
 PictureMenu.propTypes = {
   sprites: PropTypes.object.isRequired,
+  handleHover: PropTypes.func.isRequired,
 };
 
 export default ShopPokemon;
