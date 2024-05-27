@@ -58,7 +58,7 @@ const ShopPokemon = () => {
         const typeNames = pokemon.types.map((type) => type.type.name);
         setTypes((prev) => typeNames);
 
-        setHoveredImage(pokemon.sprites.front_default)
+        setHoveredImage(pokemon.sprites.front_default);
       }
     };
 
@@ -66,9 +66,9 @@ const ShopPokemon = () => {
   }, [pokemon]);
 
   const handleHover = (image) => {
-    console.log('hovered');
+    console.log("hovered");
     setHoveredImage(image);
-  }
+  };
 
   return (
     <>
@@ -76,10 +76,7 @@ const ShopPokemon = () => {
         <div className="container">
           <div className={styles.shopPoke_container}>
             <PictureMenu sprites={pokemon.sprites} handleHover={handleHover} />
-            <img
-              src={hoverImage}
-              className={styles.poke_sprite}
-            ></img>
+            <img src={hoverImage} className={styles.poke_sprite}></img>
             <div className={styles.description}>
               <h1>{capitalize(pokemon.name)}</h1>
               <h2>#{pokemon.id}</h2>

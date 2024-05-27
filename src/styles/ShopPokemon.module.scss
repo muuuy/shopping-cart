@@ -1,33 +1,41 @@
 .shopPoke_container {
-    .menu_container {
-        display: flex;
-        flex-direction: column;
-    }
-    
+  .menu_container {
     display: flex;
-    flex-direction: row;
-    width: 100%;
+    flex-direction: column;
 
-    .poke_sprite {
-        justify-content: flex-start;
-        height: 420px;
+    .menu_sprite {
+      border: 1px solid white;
+      margin: 8px;
+      margin-left: 20px;
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
     }
 
-    .description {
-        margin-top: 20px;
-        display: flex;
-        flex-direction: column;
-
-        > div {
-            margin-top: 12px;
-            padding-bottom: 12px;
-            width: 100%;
-            border-bottom: 1px solid white;
-        }
+    .menu_sprite:hover {
+        box-shadow: 0 0 16px 1px white;
     }
-}
+  }
 
-.menu_sprite {
-    border: 1px solid red;
-    cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  .poke_sprite {
+    justify-content: flex-start;
+    height: 420px;
+  }
+
+  .description {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+
+    > div {
+      margin-top: 12px;
+      padding-bottom: 12px;
+      width: 100%;
+      border-bottom: 1px solid white;
+    }
+  }
 }
