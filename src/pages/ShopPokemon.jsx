@@ -9,6 +9,7 @@ import TypeCard from "../components/TypeCard";
 
 import capitalize from "../utils/capitalize";
 
+//-------------------PICTURE MENU COMPONENT-------------------
 const PictureMenu = ({ sprites, handleHover }) => {
   const populate = () => {
     const sprite_types = [
@@ -40,6 +41,7 @@ const PictureMenu = ({ sprites, handleHover }) => {
   return <div className={styles.menu_container}>{sprites && populate()}</div>;
 };
 
+//-------------------SHOP POKEMON COMPONENT-------------------
 const ShopPokemon = () => {
   const location = useLocation();
   const [pokemon, setPokemon] = useState(null);
@@ -56,16 +58,13 @@ const ShopPokemon = () => {
       if (pokemon) {
         const typeNames = pokemon.types.map((type) => type.type.name);
         setTypes((prev) => typeNames);
-
         setHoveredImage(pokemon.sprites.front_default);
       }
     };
-
     populateTypes();
   }, [pokemon]);
 
   const handleHover = (image) => {
-    console.log("hovered");
     setHoveredImage(image);
   };
 
