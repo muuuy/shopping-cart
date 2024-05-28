@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import styles from "../styles/Home.module.scss";
+import SpacerStyles from "../styles/Spacer.module.scss";
+import styles from "../styles/PokemonBanner.module.scss";
 
 import ArrowText from "../components/ArrowText";
 import Explore from "../components/Explore";
@@ -29,7 +30,7 @@ const PokemonBanner = () => {
 
   return (
     <>
-      <div className={`${styles.spacer} ${styles.layer1}`}>
+      <div className={`${SpacerStyles.spacer} ${SpacerStyles.layer1}`}>
         <div className={styles.pokeBanner_container}>
           <ArrowText text={<h2>Shop for Pokemon Info</h2>} />
           <div className={styles.pokemon_container}>

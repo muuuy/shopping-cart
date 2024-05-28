@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import styles from "../styles/Home.module.scss";
+import styles from "../styles/BerryTMBanner.module.scss";
 
 import ArrowText from "../components/ArrowText";
 import Explore from "../components/Explore";

@@ -1,4 +1,4 @@
-import styles from "../styles/Home.module.scss";
+import styles from "../styles/InfoBanner.module.scss";
 
 import DragonPokemon from "../assets/infoBanner/pokemon_info.jpg";
 

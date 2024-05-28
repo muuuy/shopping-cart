@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import styles from "../styles/Home.module.scss";
+import SpacerStyles from "../styles/Spacer.module.scss";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
 import SaleBanner from "../components/SaleBanner";
@@ -26,7 +27,7 @@ const Home = ({ userInput, itemType }) => {
           <Banner />
           <PokemonBanner />
           <ItemBanner />
-          <div className={`${styles.spacer} ${styles.layer2}`}>
+          <div className={`${SpacerStyles.spacer} ${SpacerStyles.layer2}`}>
             <div className={styles.grid_container}>
               <BerryBanner />
               <TMBanner />

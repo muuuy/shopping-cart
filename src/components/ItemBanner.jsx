@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import styles from "../styles/Home.module.scss";
+import styles from "../styles/ItemBanner.module.scss";
 import ArrowText from "../components/ArrowText";
 import Explore from "../components/Explore";
 import itemBannerImage from "../assets/itemBanner/pokemon_items.png";
@@ -47,7 +47,9 @@ const ItemBanner = () => {
             </div>
           ))}
       </div>
-      <img src={itemBannerImage} className={styles.info_image}></img>
+      <div>
+        <img src={itemBannerImage} className={styles.info_image}></img>
+      </div>
     </div>
   );
 };
