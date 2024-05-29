@@ -7,18 +7,22 @@ import styles from "../styles/ShopPokemon.module.scss";
 
 import TypeCard from "../components/TypeCard";
 import PictureMenu from "../components/PictureMenu";
+import CheckoutBanner from "../components/CheckoutBanner";
 
 import capitalize from "../utils/capitalize";
 
 const ShopPokemon = () => {
   const location = useLocation();
   const [pokemon, setPokemon] = useState(null);
+  const [cost, setCost] = useState(null);
   const [types, setTypes] = useState(null);
   const [hoverImage, setHoveredImage] = useState(null);
 
   useEffect(() => {
     console.log("state", location.state.item);
     setPokemon(location.state.item);
+
+    setCost(location.state.cost);
   }, [location]);
 
   useEffect(() => {
@@ -49,6 +53,9 @@ const ShopPokemon = () => {
               <div>
                 <TypeCard types={types} />
               </div>
+            </div>
+            <div className={styles.checkout_container}>
+              <CheckoutBanner cost={cost} />
             </div>
           </div>
         </div>

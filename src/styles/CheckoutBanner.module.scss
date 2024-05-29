@@ -1,0 +1,27 @@
+.checkout_container {
+    padding: 20px;
+    background-color: var(--darker-gray);
+    display: flex;
+    flex-direction: column;
+    margin-top: 52px;
+    border: 2px solid var(--pastel-red);
+
+    .cost {
+        font-size: 24px;
+    }
+
+    .delivery_date {
+        margin-bottom: 20px;
+    }
+
+    .free_text {
+        color: var(--gold);
+        font-style: italic;
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .quantity_dropdown {
+        margin-bottom: 20px;
+    }
+}

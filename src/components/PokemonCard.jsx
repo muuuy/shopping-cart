@@ -10,6 +10,8 @@ import calculateCost from "../utils/calculateCost";
 
 const PokemonCard = ({ pokemon }) => {
   const [types, setTypes] = useState([]);
+  const [cost, setCost] = useState(0);
+  
   const exclude = ["Ho", "Chi", "Ting", "Chien", "Wo", "Porygon"];
   const excludeCapital = ["kommo", "hakamo", "jangmo"];
   const deleteWords = [
@@ -43,7 +45,8 @@ const PokemonCard = ({ pokemon }) => {
 
     populateTypes();
 
-    return () => {};
+    setCost((Math.round(calculateCost(pokemon) * 100) / 100).toFixed(2))
+
   }, [pokemon]);
 
   const capitalizeWord = (string) => {
@@ -71,7 +74,7 @@ const PokemonCard = ({ pokemon }) => {
   return (
     <Link
       to={`/shop-pokemon/${pokemon.name}`}
-      state={{ item: pokemon }}
+      state={{ item: pokemon, cost: cost }}
       style={{ textDecoration: "none", color: "inherit" }}
     >
       <div className={styles.pokemon_container}>
@@ -88,7 +91,7 @@ const PokemonCard = ({ pokemon }) => {
             <TypeCard types={types} />
           </div>
           <p className={styles.pokemon_cost}>
-            ￥{(Math.round(calculateCost(pokemon) * 100) / 100).toFixed(2)}
+            ￥{cost}
           </p>
         </div>
       </div>
