@@ -42,4 +42,14 @@
   .checkout_container {
     margin: 0 100px;
   }
+
+  .popup_container {
+    position: absolute;
+    max-width: 1480px;
+    display: flex;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+  }
 }

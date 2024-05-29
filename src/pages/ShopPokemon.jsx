@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
@@ -8,6 +8,7 @@ import styles from "../styles/ShopPokemon.module.scss";
 import TypeCard from "../components/TypeCard";
 import PictureMenu from "../components/PictureMenu";
 import CheckoutBanner from "../components/CheckoutBanner";
+import CheckoutPopup from "../components/CheckoutPopup";
 
 import capitalize from "../utils/capitalize";
 
@@ -17,12 +18,22 @@ const ShopPokemon = () => {
   const [cost, setCost] = useState(null);
   const [types, setTypes] = useState(null);
   const [hoverImage, setHoveredImage] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [futureDate, setFutureDate] = useState(null);
+
+  const popupRef = useRef();
 
   useEffect(() => {
     console.log("state", location.state.item);
     setPokemon(location.state.item);
 
     setCost(location.state.cost);
+
+    const currentDate = new Date();
+    const futureDate = new Date(currentDate);
+    futureDate.setDate(currentDate.getDate() + 2); // Adding 2 days
+
+    setFutureDate(futureDate);
   }, [location]);
 
   useEffect(() => {
@@ -35,6 +46,19 @@ const ShopPokemon = () => {
     };
     populateTypes();
   }, [pokemon]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setShowPopup(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mosuedown", handleClickOutside);
+    };
+  }, [popupRef]);
 
   const handleHover = (image) => {
     setHoveredImage(image);
@@ -55,8 +79,13 @@ const ShopPokemon = () => {
               </div>
             </div>
             <div className={styles.checkout_container}>
-              <CheckoutBanner cost={cost} />
+              <CheckoutBanner cost={parseInt(cost)} setShow={setShowPopup} date={futureDate} />
             </div>
+            {showPopup && (
+              <div ref={popupRef} className={styles.popup_container}>
+                <CheckoutPopup item={pokemon} shipDate={futureDate} cost={parseInt(cost)} pic={pokemon.sprites.front_default} />
+              </div>
+            )}
           </div>
         </div>
       )}
