@@ -43,8 +43,8 @@ const CheckoutBanner = ({ cost = 0 }) => {
           </p>
           <p>Quantity:</p>
           <select className={styles.quantity_dropdown}>{populateQuantity()}</select>
-          <button>Add to Cart</button>
-          <button>Buy Now</button>
+          <button className={styles.cart_button}>Add to Cart</button>
+          <button className={styles.buy_button}>Buy Now</button>
         </div>
       )}
     </>

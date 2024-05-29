@@ -33,6 +33,7 @@ const PokemonCard = ({ pokemon }) => {
     "Meloetta",
     "Basculegion",
     "Wishiwashi",
+    "Morpeko",
   ];
 
   useEffect(() => {
