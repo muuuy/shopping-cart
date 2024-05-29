@@ -44,7 +44,7 @@ const PokemonCard = ({ pokemon }) => {
       }
     };
 
-    populateTypes();    
+    populateTypes();
   }, [pokemon]);
 
   const capitalizeWord = (string) => {
@@ -94,10 +94,6 @@ const PokemonCard = ({ pokemon }) => {
     </Link>
   );
 };
-
-// TypeCard.propTypes = {
-//   types: PropTypes.array.isRequired,
-// };
 
 PokemonCard.propTypes = {
   pokemon: PropTypes.object.isRequired,
