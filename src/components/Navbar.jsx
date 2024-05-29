@@ -5,73 +5,14 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import styles from "../styles/Navbar.module.scss";
 
+import SearchBar from "./Searchbar";
+
 import { BsHurricane } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
 import { BsCart4 } from "react-icons/bs";
 import { BsChevronDown } from "react-icons/bs";
 
-const SearchBar = ({ setSearchValue }) => {
-  const [outline, setOutline] = useState("1px solid black");
-  const [input, setInput] = useState("");
-
-  const addSearchBorder = () => {
-    setOutline("1px solid var(--pastel-red)");
-  };
-
-  const removeSearchBorder = () => {
-    setOutline("1px solid black");
-  };
-
-  const handleInput = (event) => {
-    setInput((prev) => event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    setSearchValue(input.toLowerCase());
-  };
-
-  useEffect(() => {
-    console.log(input);
-  }, [input]);
-
-  return (
-    <>
-      <div className={styles.search_container} style={{ border: outline }}>
-        <form className={styles.search} onSubmit={handleSubmit}>
-          <input
-            type="text"
-            id={styles.search_bar}
-            value={input}
-            onChange={handleInput}
-            onFocus={addSearchBorder}
-            onBlur={removeSearchBorder}
-            placeholder="Search"
-          ></input>
-          <button type="submit" id={styles.search_button}>
-            <BsSearch className={styles.search_icon} size={24} />
-          </button>
-        </form>
-      </div>
-    </>
-  );
-};
-
 const Navbar = ({ setInput, setType }) => {
-  const options = [
-    { value: "pokemon", label: "Pokemon" },
-    { value: "item", label: "Items" },
-    { value: "item", label: "Berry" },
-    { value: "machine", label: "TMs" },
-  ];
-
-  const [selectedType, setSelectedType] = useState(options[0].value);
-
-  const handleChange = (event) => {
-    setType(event.target.value);
-    setSelectedType(event.target.value);
-  };
 
   return (
     <>
@@ -80,16 +21,7 @@ const Navbar = ({ setInput, setType }) => {
           <BsHurricane className={styles.logo_img} />
           POKE STOP
         </Link>
-        <SearchBar setSearchValue={setInput} />
-        <div className={styles.select_menu}>
-          <select onChange={handleChange} value={selectedType}>
-            {options.map((option) => (
-              <option value={option.value} key={uuidv4()}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </div>
+        <SearchBar setSearchValue={setInput} setType={setType} />
         <ul className={styles.nav_list}>
           <li className={styles.list_item}>
             <a className={styles.list_link} id={styles.shop_link}>
@@ -117,10 +49,6 @@ const Navbar = ({ setInput, setType }) => {
 Navbar.propTypes = {
   setInput: PropTypes.func.isRequired,
   setType: PropTypes.func.isRequired,
-};
-
-SearchBar.propTypes = {
-  setSearchValue: PropTypes.func.isRequired,
 };
 
 export default Navbar;

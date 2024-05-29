@@ -3,7 +3,7 @@ import styles from "../styles/PokemonCard.module.scss";
 import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import TypeCard from './TypeCard';
+import TypeCard from "./TypeCard";
 
 import calculateCost from "../utils/calculateCost";
 // 1025 Pokemon Total
@@ -11,7 +11,7 @@ import calculateCost from "../utils/calculateCost";
 const PokemonCard = ({ pokemon }) => {
   const [types, setTypes] = useState([]);
   const [cost, setCost] = useState(0);
-  
+
   const exclude = ["Ho", "Chi", "Ting", "Chien", "Wo", "Porygon"];
   const excludeCapital = ["kommo", "hakamo", "jangmo"];
   const deleteWords = [
@@ -40,13 +40,11 @@ const PokemonCard = ({ pokemon }) => {
       if (pokemon.types) {
         const typeNames = pokemon.types.map((type) => type.type.name);
         setTypes((prev) => typeNames);
+        setCost((Math.round(calculateCost(pokemon) * 100) / 100).toFixed(2));
       }
     };
 
-    populateTypes();
-
-    setCost((Math.round(calculateCost(pokemon) * 100) / 100).toFixed(2))
-
+    populateTypes();    
   }, [pokemon]);
 
   const capitalizeWord = (string) => {
@@ -90,9 +88,7 @@ const PokemonCard = ({ pokemon }) => {
           <div>
             <TypeCard types={types} />
           </div>
-          <p className={styles.pokemon_cost}>
-            ￥{cost}
-          </p>
+          <p className={styles.pokemon_cost}>￥{cost}</p>
         </div>
       </div>
     </Link>

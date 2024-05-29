@@ -10,6 +10,7 @@ import PokemonBanner from "../components/PokemonBanner";
 import ItemBanner from "../components/ItemBanner";
 import BerryBanner from "../components/BerryBanner";
 import TMBanner from "../components/TMBanner";
+import Explore from "../components/Explore";
 
 const Home = ({ userInput, itemType }) => {
   return (
@@ -34,7 +35,7 @@ const Home = ({ userInput, itemType }) => {
             </div>
           </div>
 
-          {/* <Explore input={userInput} type={itemType} /> */}
+          <Explore input={userInput} type={itemType} />
         </div>
       </div>
     </>
