@@ -13,7 +13,6 @@ import { BsCart4 } from "react-icons/bs";
 import { BsChevronDown } from "react-icons/bs";
 
 const Navbar = ({ setInput, setType }) => {
-
   return (
     <>
       <nav className={styles.nav_container}>
@@ -39,6 +38,15 @@ const Navbar = ({ setInput, setType }) => {
             <a>
               <BsCart4 />
             </a>
+          </li>
+          <li className={styles.list_item}>
+            <Link
+              to={"/signup"}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              SIGN IN&nbsp;
+              <BsChevronDown size={16} className={styles.shop_arrow} />
+            </Link>
           </li>
         </ul>
       </nav>

@@ -9,6 +9,8 @@ import {
   BrowserRouter,
 } from "react-router-dom";
 
+import Signup from "./pages/Signup";
+
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Store from "./pages/Store";
@@ -41,6 +43,8 @@ function App() {
       <div id="web-container">
         <Navbar setInput={setUserInput} setType={setItemType} />
         <Routes>
+          <Route path="/signup" element={<Signup />} />
+
           <Route
             path="/"
             element={<Home userInput={userInput} itemType={itemType} />}
