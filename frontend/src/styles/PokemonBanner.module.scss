@@ -1,0 +1,29 @@
+.pokeBanner_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+
+  h2 {
+    margin-left: 5%;
+    font-size: 28px;
+  }
+
+  .pokemon_container {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+
+    .pokeBanner_item {
+      border-radius: 20px;
+    }
+
+    .pokeBanner_item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 20px 1px var(--pastel-red);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+  }
+}

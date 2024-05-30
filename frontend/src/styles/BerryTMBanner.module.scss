@@ -1,0 +1,48 @@
+.berryBanner_container,
+.tmBanner_container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 50%;
+  background-color: var(--darker-gray);
+  padding: 20px;
+  border-radius: 20px;
+
+  .berryBanner_header,
+  .tmBanner_header {
+    .explore {
+      font-size: 12px;
+      font-style: italic;
+      margin-bottom: 4px;
+    }
+  }
+
+  .berryItem_container,
+  .tmItem_container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+
+    .berryBanner_item {
+      overflow: hidden;
+      padding: 12px 12px 0 12px;
+      border-radius: 20px;
+    }
+
+    .berryBanner_item:hover {
+      box-shadow: 0 0 16px 1px var(--sea-green);
+      transition: box-shadow 0.4s ease;
+    }
+
+    .tmBanner_item {
+      overflow: hidden;
+      padding: 12px 12px 0 12px;
+      border-radius: 20px;
+    }
+
+    .tmBanner_item:hover {
+      box-shadow: 0 0 16px 1px var(--gold);
+      transition: box-shadow 0.4s ease;
+    }
+  }
+}

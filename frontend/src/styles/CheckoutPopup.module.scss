@@ -1,0 +1,66 @@
+.popup_container {
+  background-color: white;
+  width: 500px;
+  text-align: center;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  overflow: hidden;
+
+  .header {
+    background-color: var(--light-gray);
+    color: black;
+    font-weight: 900;
+    padding: 20px;
+  }
+
+  .description {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    > p {
+      font-size: 20px;
+
+      > span {
+        font-weight: 900;
+        font-style: italic;
+      }
+    }
+  }
+
+  .cost {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 24px 0;
+    font-weight: 900;
+    font-size: 18px;
+
+    > span {
+      width: 100px;
+      color: var(--water);
+      font-weight: 700;
+      font-size: 16px;
+    }
+  }
+
+  .button_container {
+    justify-content: flex-end;
+    align-items: flex-end;
+
+    .order_button {
+      width: 200px;
+      padding: 8px;
+      margin: 20px;
+      border-radius: 8px;
+    }
+  }
+}
+
+.header,
+.description,
+.cost {
+  border-bottom: 1px solid black;
+}

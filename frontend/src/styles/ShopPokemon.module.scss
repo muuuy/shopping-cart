@@ -1,0 +1,55 @@
+.shopPoke_container {
+  .menu_container {
+    display: flex;
+    flex-direction: column;
+
+    .menu_sprite {
+      border: 1px solid white;
+      margin: 8px;
+      margin-left: 20px;
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .menu_sprite:hover {
+        box-shadow: 0 0 16px 1px white;
+    }
+  }
+
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  .poke_sprite {
+    justify-content: flex-start;
+    height: 420px;
+  }
+
+  .description {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+
+    > div {
+      margin-top: 12px;
+      padding-bottom: 12px;
+      width: 100%;
+      border-bottom: 1px solid white;
+    }
+  }
+
+  .checkout_container {
+    margin: 0 100px;
+  }
+
+  .popup_container {
+    position: absolute;
+    max-width: 1480px;
+    display: flex;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+  }
+}
