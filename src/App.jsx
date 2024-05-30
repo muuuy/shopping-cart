@@ -14,6 +14,8 @@ import Navbar from "./components/Navbar";
 import Store from "./pages/Store";
 import ShopPokemon from "./pages/ShopPokemon";
 
+//test
+
 function App() {
   const [userInput, setUserInput] = useState("pikachu");
   const [itemType, setItemType] = useState("pokemon");
