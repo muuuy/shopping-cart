@@ -9,6 +9,7 @@
   border-radius: 40px;
   overflow: hidden;
   box-shadow: 0 0 12px 1px var(--pastel-red);
+  max-width: 380px;
 
   .img_container {
     margin-top: 40px;
@@ -25,7 +26,8 @@
     font-weight: 900;
   }
 
-  .description {
+  .description,
+  .error {
     font-size: 14px;
     font-style: italic;
     color: var(--dark-gray);
@@ -33,12 +35,18 @@
     padding-bottom: 12px;
   }
 
+  .error {
+    color: red;
+    
+  }
+
   > form {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     gap: 20px;
-    margin: 20px;
+    margin: 19px;
 
     > div {
       display: flex;

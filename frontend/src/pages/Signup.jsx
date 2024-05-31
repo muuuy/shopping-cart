@@ -26,10 +26,7 @@ const Signup = () => {
 
     if (formData.password !== formData.verifyPassword) {
       setPassError(
-        <p>
-          The passwords you entered do not match. Please ensure both fields
-          contain the same password and try again.
-        </p>
+        <p className={styles.error}>The passwords you entered do not match.</p>
       );
     } else {
       try {
@@ -51,7 +48,9 @@ const Signup = () => {
           <img src={SignupImage}></img>
         </div>
         <h1>Let&apos;s Get Started!</h1>
-        <p className={styles.description}>Create an account to start shopping</p>
+        <p className={styles.description}>
+          Create an account to start shopping
+        </p>
         {passError}
         <form
           method="POST"
