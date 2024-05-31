@@ -16,12 +16,17 @@ router.post(
 
     console.log(username, password, verifyPassword, email);
 
-    try {
-      password = await bcrypt.hash(password, 13);
-      console.log(password);
-    } catch (err) {
-      console.error("Error occurred during password hashing:", err);
-    }
+    password = await bcrypt.hash(password, 13).catch((err) => {
+      console.log(err);
+    });
+    console.log(password);
+
+    // try {
+    //   password = await bcrypt.hash(password, 13);
+    //   console.log(password);
+    // } catch (err) {
+    //   console.error("Error occurred during password hashing:", err);
+    // }
   })
 );
 
