@@ -57,3 +57,12 @@
   max-width: 1480px;
   background-color: var(--dark-gray);
 }
+
+.form-container {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 80px);
+  width: 100%;
+  background-color: var(--dark-gray);
+}
