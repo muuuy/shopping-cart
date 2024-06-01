@@ -44,7 +44,8 @@ exports.user_create_post = [
 
     if (!errors.isEmpty()) {
       console.log(errors);
-      return res.status(400).json({ errors: errors.array() });
+      return res.json({ errors: errors.array() });
+      // return res.status(400).json({ errors: errors.array() });
     } else {
       try {
         password = await bcrypt.hash(password, 13);
@@ -53,5 +54,7 @@ exports.user_create_post = [
       }
       console.log(password);
     }
+
+    res.redirect("http://localhost:5173/signup");
   }),
 ];
