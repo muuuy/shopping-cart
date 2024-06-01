@@ -18,6 +18,8 @@ const Signup = () => {
   const [passError, setPassError] = useState(null);
   const [emailError, setEmailError] = useState(null);
 
+  const [buttonLoading, setButtonLoading] = useState(false); //Button can't be used while backend process happens
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -34,20 +36,29 @@ const Signup = () => {
         <p className={styles.error}>The passwords you entered do not match.</p>
       );
     } else {
+      setButtonLoading(true);
+
       try {
         const res = await axios.post(
           "http://localhost:3000/users/signup/",
           formData
         );
-        console.log(res.data);
+
+        if (res.data.errors && res.data.errors.length > 0) {
+          setPassError(
+            res.data.errors.map((err) => (
+              <p key={uuidv4()} className={styles.error}>
+                {err.msg}
+              </p>
+            ))
+          );
+        } else {
+          console.log("no errors");
+        }
       } catch (err) {
-        setPassError(
-          err.response.data.errors.map((error) => (
-            <p className={styles.error} key={uuidv4()}>
-              {error.msg}
-            </p>
-          ))
-        );
+        console.log(err);
+      } finally {
+        setButtonLoading(false);
       }
     }
   };
@@ -132,7 +143,9 @@ const Signup = () => {
               value={formData.email}
             ></input>
           </div>
-          <button type="submit">Sign Up</button>
+          <button type="submit" disabled={buttonLoading}>
+            Sign Up
+          </button>
         </form>
       </div>
     </div>
