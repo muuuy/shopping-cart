@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 
@@ -19,6 +20,8 @@ const Signup = () => {
   const [emailError, setEmailError] = useState(null);
 
   const [buttonLoading, setButtonLoading] = useState(false); //Button can't be used while backend process happens
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -54,6 +57,7 @@ const Signup = () => {
           );
         } else {
           console.log("no errors");
+          navigate("/");
         }
       } catch (err) {
         console.log(err);
