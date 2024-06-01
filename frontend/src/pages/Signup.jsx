@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
@@ -15,9 +15,7 @@ const Signup = () => {
     email: "",
   });
 
-  const [userError, setUserError] = useState(null);
-  const [passError, setPassError] = useState(null);
-  const [emailError, setEmailError] = useState(null);
+  const [error, setError] = useState(null);
 
   const [buttonLoading, setButtonLoading] = useState(false); //Button can't be used while backend process happens
 
@@ -30,12 +28,12 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (passError !== null) {
-      setPassError(null);
+    if (error !== null) {
+      setError(null);
     }
 
     if (formData.password !== formData.verifyPassword) {
-      setPassError(
+      setError(
         <p className={styles.error}>The passwords you entered do not match.</p>
       );
     } else {
@@ -48,7 +46,7 @@ const Signup = () => {
         );
 
         if (res.data.errors && res.data.errors.length > 0) {
-          setPassError(
+          setError(
             res.data.errors.map((err) => (
               <p key={uuidv4()} className={styles.error}>
                 {err.msg}
@@ -77,7 +75,7 @@ const Signup = () => {
         <p className={styles.description}>
           Create an account to start shopping
         </p>
-        {passError}
+        {error}
         <form
           method="POST"
           className={styles.signup_form}

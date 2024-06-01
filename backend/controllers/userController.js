@@ -75,6 +75,6 @@ exports.user_create_post = [
     });
 
     await user.save();
-    res.redirect("/");
+    res.redirect("http://localhost:5173/");
   }),
 ];
