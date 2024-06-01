@@ -21,7 +21,33 @@ const Login = () => {
   const handleChange = (e) => {
     setFormData(...formData, { [e.target.name]: e.target.value });
   };
-  const handleSubmit = async (e) => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (error !== null) {
+      setError(null);
+    }
+
+    setButtonLoading(true);
+
+    try {
+      const res = await axios.post(
+        "http://localhost:3000/users/login/",
+        formData
+      );
+
+      if (res.data.errors && res.data.errors.length > 0) {
+        console.log(res.data.errors);
+      } else {
+        console.log("no errors");
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setButtonLoading(false);
+    }
+  };
 
   return (
     <div className="form-container">
