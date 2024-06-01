@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 
 import styles from "../styles/Signup.module.scss";
@@ -24,6 +25,10 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (passError !== null) {
+      setPassError(null);
+    }
+
     if (formData.password !== formData.verifyPassword) {
       setPassError(
         <p className={styles.error}>The passwords you entered do not match.</p>
@@ -36,7 +41,13 @@ const Signup = () => {
         );
         console.log(res.data);
       } catch (err) {
-        console.error("Problem submitting form:", err);
+        setPassError(
+          err.response.data.errors.map((error) => (
+            <p className={styles.error} key={uuidv4()}>
+              {error.msg}
+            </p>
+          ))
+        );
       }
     }
   };
