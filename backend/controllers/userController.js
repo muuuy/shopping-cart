@@ -78,3 +78,43 @@ exports.user_create_post = [
     res.redirect("http://localhost:5173/");
   }),
 ];
+
+exports.user_login = [
+  body("username")
+    .trim()
+    .isLength({ min: 5, max: 15 })
+    .escape()
+    .withMessage("Username must be specified.")
+    .isAlphanumeric()
+    .withMessage("Username can only contain letters and numbers."),
+  body("password")
+    .trim()
+    .isLength({ min: 8, max: 32 })
+    .escape()
+    .withMessage("Password must be specified."),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    const username = req.body.username;
+    var password = req.body.password;
+
+    if (!errors.isEmpty()) {
+      return res.json({ errors: errors.array() });
+    } else {
+      try {
+        const user = await User.findOne({ username: username });
+
+        if (!user) {
+          console.log("oops");
+        }
+
+        console.log("yes");
+      } catch (error) {
+        console.log("err", error);
+      }
+    }
+
+    res.redirect("http://localhost:5173/");
+  }),
+];

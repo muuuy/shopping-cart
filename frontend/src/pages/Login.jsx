@@ -19,8 +19,9 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData(...formData, { [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -58,7 +59,11 @@ const Login = () => {
         <h1>Welcome Back!</h1>
         <p className={styles.description}>Good to see you again</p>
         {error}
-        <form method="POST" className={styles.signup_form}>
+        <form
+          method="POST"
+          className={styles.signup_form}
+          onSubmit={handleSubmit}
+        >
           <div>
             <label>Username:</label>
             <input
