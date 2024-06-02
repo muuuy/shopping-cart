@@ -10,5 +10,6 @@ router.get("/", function (req, res, next) {
 
 router.post("/signup/", user_controller.user_create_post);
 
+//WANTED TO ADD LOGIN, WORKED ON IT, BUT HAD TO STASH CHANGES B/C I HAVE NO IDEA WHY IT ISN'T WORKNG
 
 module.exports = router;
