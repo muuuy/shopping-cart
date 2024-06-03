@@ -107,7 +107,15 @@ exports.user_login = [
 
         if (!user) {
           console.log("oops");
+          return;
         }
+
+        const match = await bcrypt.compare(password, user.password);
+
+        if (!match) {
+          console.log("no match");
+        }
+
 
         console.log("yes");
       } catch (error) {
