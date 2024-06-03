@@ -83,11 +83,9 @@ exports.user_create_post = [
 exports.user_login = [
   body("username")
     .trim()
-    .isLength({ min: 5, max: 15 })
+    .isLength({ min: 2, max: 254 })
     .escape()
-    .withMessage("Username must be specified.")
-    .isAlphanumeric()
-    .withMessage("Username can only contain letters and numbers."),
+    .withMessage("Username must be specified."),
   body("password")
     .trim()
     .isLength({ min: 8, max: 32 })
@@ -104,11 +102,12 @@ exports.user_login = [
       return res.json({ errors: errors.array() });
     } else {
       try {
-        const user = await User.findOne({ username: username });
+        const user = await User.findOne({
+          $or: [{ username: username }, { email: username }],
+        });
 
         if (!user) {
-          console.log("oops");
-          return;
+          console.log("user doesn't exist");
         }
 
         const match = await bcrypt.compare(password, user.password);
@@ -118,13 +117,12 @@ exports.user_login = [
         }
 
         if (req.session.authenticated) {
-          console.log('auth');
+          console.log("auth");
           req.json(req, session);
         } else {
           req.session.authenticated = true;
           req.session.user = {
             username: user.username,
-            password: user.password,
             email: user.email,
           };
         }

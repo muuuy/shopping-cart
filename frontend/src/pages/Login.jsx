@@ -65,24 +65,24 @@ const Login = () => {
           onSubmit={handleSubmit}
         >
           <div>
-            <label>Username:</label>
+            <label>Username/Email:</label>
             <input
               type="text"
-              placeholder="Username"
+              placeholder="Username/Email"
               name="username"
               className={styles.login_input}
               autoComplete="username"
               required
               onChange={handleChange}
-              minLength={5}
-              maxLength={15}
+              minLength={2}
+              maxLength={254}
               value={formData.username}
             ></input>
           </div>
           <div>
             <label>Password:</label>
             <input
-              type="text"
+              type="password"
               placeholder="Password"
               name="password"
               className={styles.login_input}
