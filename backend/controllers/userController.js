@@ -3,6 +3,7 @@ const User = require("../models/user");
 const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
+const session = require("express-session");
 
 exports.user_create_post = [
   body("username")
@@ -116,7 +117,19 @@ exports.user_login = [
           console.log("no match");
         }
 
+        if (req.session.authenticated) {
+          console.log('auth');
+          req.json(req, session);
+        } else {
+          req.session.authenticated = true;
+          req.session.user = {
+            username: user.username,
+            password: user.password,
+            email: user.email,
+          };
+        }
 
+        console.log(req.session);
         console.log("yes");
       } catch (error) {
         console.log("err", error);

@@ -4,10 +4,11 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const cors = require("cors");
+const session = require("express-session");
 
 const port = 5173;
 
-require('dotenv').config();
+require("dotenv").config();
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -15,10 +16,18 @@ var ordersRouter = require("./routes/orders");
 
 var app = express();
 
+app.use(
+  session({
+    secret: "secret",
+    saveUninitialized: false,
+    cookie: { maxAge: 1000 * 60 * 20 },
+  })
+);
+
 //set up database connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const mongoDB = process.env.MONGODB_URI
+const mongoDB = process.env.MONGODB_URI;
 
 main().catch((err) => console.log(err));
 async function main() {
@@ -41,8 +50,8 @@ app.use("/users", usersRouter);
 app.use("/orders", ordersRouter);
 
 app.listen(port, () => {
-  console.log('listening to:', port);
-})
+  console.log("listening to:", port);
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
