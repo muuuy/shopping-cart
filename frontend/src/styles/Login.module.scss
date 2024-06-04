@@ -52,6 +52,11 @@
         width: 340px;
         border-radius: 12px;
       }
+
+      > .forgot_password {
+        font-size: 12px;
+        align-self: flex-end;
+      }
     }
 
     > button {
@@ -71,5 +76,11 @@
       background-color: #e28c00;
       transition: background-color 0.5s ease-in, color 0.5s ease-in;
     }
+  }
+
+  .sign_up {
+    text-align: center;
+    font-size: 12px;
+    margin-bottom: 4px;
   }
 }

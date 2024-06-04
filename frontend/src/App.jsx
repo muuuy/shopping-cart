@@ -11,6 +11,7 @@ import {
 
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Forget from "./pages/Forget";
 
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
@@ -46,6 +47,7 @@ function App() {
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forget" element={<Forget />} />
 
           <Route
             path="/"

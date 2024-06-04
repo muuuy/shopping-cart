@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import styles from "../styles/Signup.module.scss";
 
@@ -149,6 +150,19 @@ const Signup = () => {
             Sign Up
           </button>
         </form>
+        <p className={styles.log_in}>
+          Already have an account?{" "}
+          <Link
+            to="/login"
+            style={{
+              textDecoration: "none",
+              color: "var(--pastel-red)",
+              fontWeight: 900,
+            }}
+          >
+            Log in
+          </Link>
+        </p>
       </div>
     </div>
   );

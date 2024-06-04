@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import styles from "../styles/Login.module.scss";
 
@@ -93,11 +94,23 @@ const Login = () => {
               maxLength={32}
               value={formData.password}
             ></input>
+            <Link to="/signup" className={styles.forgot_password}>
+              Forgot Password?
+            </Link>
           </div>
           <button type="submit" disabled={buttonLoading}>
             Log In
           </button>
         </form>
+        <p className={styles.sign_up}>
+          Don&apos;t have an account?{" "}
+          <Link
+            to="/signup"
+            style={{ textDecoration: "none", color: "var(--pastel-red)", fontWeight: 900 }}
+          >
+            Sign up!
+          </Link>
+        </p>
       </div>
     </div>
   );
