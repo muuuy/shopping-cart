@@ -12,6 +12,6 @@ router.post("/signup/", user_controller.user_create_post);
 
 router.post("/login/", user_controller.user_login);
 
-//WANTED TO ADD LOGIN, WORKED ON IT, BUT HAD TO STASH CHANGES B/C I HAVE NO IDEA WHY IT ISN'T WORKNG
+router.post("/forget/", user_controller.user_forget);
 
 module.exports = router;

@@ -6,28 +6,85 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import styles from "../styles/Forgot.module.scss";
 
+import ForgetImage from "../assets/forget_img.png";
+
 const Forget = () => {
-  const [formData, setFormData] = useState("");
+  const [formData, setFormData] = useState({ username: "" });
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [buttonLoading, setButtonLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setButtonLoading(true);
+
+    try {
+      const res = await axios.post(
+        "http://localhost:3000/users/forget/",
+        formData
+      );
+
+      if (res.data.errors && res.data.errors.length > 0) {
+        setError(
+          res.data.errors.map((error) => (
+            <p key={uuidv4()} className={styles.error}>
+              {error.msg}
+            </p>
+          ))
+        );
+      } else {
+        // navigate("/");
+        console.log("no errors");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setButtonLoading(false);
+    }
+  };
 
   return (
     <div className="form-container">
-      <div className={StyleSheet.forget_container}>
+      <div className={styles.forget_container}>
+        <div className={styles.image_container}>
+          <img src={ForgetImage}></img>
+        </div>
         <h1>Forgot You Password?</h1>
-        <form method="POST">
+        <p className={styles.description}>
+          We&apos;ll send you a link to your email so that you can
+          <br></br>
+          reset yourpassword.
+        </p>
+        {error}
+        <form
+          method="POST"
+          className={styles.forget_form}
+          onSubmit={handleSubmit}
+        >
           <div>
-            <label>Username/Email:</label>
+            <label htmlFor="forgot-input">Username/Email:</label>
             <input
               type="text"
               placeholder="Username/Email"
-              className={styles}
-              required
-              autoComplete="username"
               name="username"
+              id="forgot-input"
+              className={styles.forgot_input}
+              autoComplete="username"
+              required
+              onChange={handleChange}
+              minLength={2}
+              maxLength={254}
+              value={formData.username}
             ></input>
           </div>
-          <button type="submit">Submit</button>
+          <button type="submit" disabled={buttonLoading}>
+            Submit
+          </button>
         </form>
       </div>
     </div>

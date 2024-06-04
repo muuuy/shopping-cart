@@ -85,7 +85,7 @@ exports.user_login = [
     .trim()
     .isLength({ min: 2, max: 254 })
     .escape()
-    .withMessage("Username must be specified."),
+    .withMessage("Invalid Username/Email."),
   body("password")
     .trim()
     .isLength({ min: 8, max: 32 })
@@ -131,6 +131,38 @@ exports.user_login = [
         console.log("yes");
       } catch (error) {
         console.log("err", error);
+      }
+    }
+
+    res.redirect("http://localhost:5173/");
+  }),
+];
+
+exports.user_forget = [
+  body("username")
+    .trim()
+    .isLength({ min: 2, max: 254 })
+    .escape()
+    .withMessage("Invalid Username/Email."),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.json({ errors: errors.array() });
+    } else {
+      try {
+        const user = await User.findOne({
+          $or: [{ username: req.body.username }, { email: req.body.username }],
+        });
+
+        if (!user) {
+          return res.json({ errors: [{ msg: "Invalid Username/Email." }] });
+        } else {
+          console.log(user);
+        }
+      } catch (error) {
+        console.log(error);
       }
     }
 

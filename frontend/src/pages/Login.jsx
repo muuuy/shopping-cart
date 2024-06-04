@@ -66,11 +66,12 @@ const Login = () => {
           onSubmit={handleSubmit}
         >
           <div>
-            <label>Username/Email:</label>
+            <label htmlFor="login-username">Username/Email:</label>
             <input
               type="text"
               placeholder="Username/Email"
               name="username"
+              id="login-username"
               className={styles.login_input}
               autoComplete="username"
               required
@@ -81,11 +82,12 @@ const Login = () => {
             ></input>
           </div>
           <div>
-            <label>Password:</label>
+            <label htmlFor="login-password">Password:</label>
             <input
               type="password"
               placeholder="Password"
               name="password"
+              id="login-password"
               className={styles.login_input}
               autoComplete="password"
               required
