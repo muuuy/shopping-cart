@@ -21,6 +21,10 @@ const Forget = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if(error != null) {
+      setError(null);
+    }
+
     setButtonLoading(true);
 
     try {
@@ -38,7 +42,7 @@ const Forget = () => {
           ))
         );
       } else {
-        // navigate("/");
+        navigate("/");
         console.log("no errors");
       }
     } catch (error) {

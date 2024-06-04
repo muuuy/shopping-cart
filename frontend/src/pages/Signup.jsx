@@ -15,9 +15,7 @@ const Signup = () => {
     verifyPassword: "",
     email: "",
   });
-
   const [error, setError] = useState(null);
-
   const [buttonLoading, setButtonLoading] = useState(false); //Button can't be used while backend process happens
 
   const navigate = useNavigate();
