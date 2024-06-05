@@ -19,10 +19,38 @@ const ResetPassword = () => {
 
   const navigate = useNavigate();
 
-  const handleChange = (e) => {};
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (error != null) {
+      setError(null);
+    }
+
+    try {
+      const res = await axios.post(
+        "http://localhost:3000/users/reset-password/",
+        formData
+      );
+
+      if (res.data.errors && res.data.errors.length > 0) {
+        setError(
+          res.data.errors.map((err) => (
+            <p key={uuidv4()} className={styles.error}>
+              {err.msg}
+            </p>
+          ))
+        );
+      } else {
+        console.log("no errors");
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -40,18 +68,53 @@ const ResetPassword = () => {
           onSubmit={handleSubmit}
         >
           <div>
-            <label></label>
-            <input></input>
+            <label htmlFor="reset-username">Username/Email:</label>
+            <input
+              type="username"
+              placeholder="Username"
+              name="username"
+              id="reset-username"
+              autoComplete="on"
+              required
+              onChange={handleChange}
+              minLength={2}
+              maxLength={254}
+              value={formData.username}
+            ></input>
           </div>
           <div>
-            <label></label>
-            <input></input>
+            <label htmlFor="reset-password">Password:</label>
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              id="reset-password"
+              autoComplete="off"
+              required
+              onChange={handleChange}
+              minLength={8}
+              maxLength={32}
+              value={formData.password}
+            ></input>
           </div>
           <div>
-            <label></label>
-            <input></input>
+            <label htmlFor="reset-verify">Re-enter Password:</label>
+            <input
+              type="password"
+              placeholder="Re-enter Password"
+              name="verifyPassword"
+              id="reset-verify"
+              autoComplete="off"
+              required
+              onChange={handleChange}
+              minLength={8}
+              maxLength={32}
+              value={formData.verifyPassword}
+            ></input>
           </div>
-          <button type="submit" disabled={buttonLoading}>Reset</button>
+          <button type="submit" disabled={buttonLoading}>
+            Reset
+          </button>
         </form>
       </div>
       {/* <p></p> */}

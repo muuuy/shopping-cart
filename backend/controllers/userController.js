@@ -169,3 +169,69 @@ exports.user_forget = [
     res.redirect("http://localhost:5173/");
   }),
 ];
+
+exports.user_reset = [
+  body("username")
+    .trim()
+    .isLength({ min: 2, max: 254 })
+    .escape()
+    .withMessage("Invalid Username/Email."),
+  body("password")
+    .trim()
+    .isLength({ min: 8, max: 32 })
+    .escape()
+    .withMessage("Password must be specified."),
+  body("verifyPassword")
+    .trim()
+    .isLength({ min: 8, max: 32 })
+    .escape()
+    .withMessage("You must verify your password.")
+    .custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error("Passwords do not match.");
+      }
+      return true;
+    }),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.json({ errors: errors.array() });
+    } else {
+      try {
+        const user = await User.findOne({
+          $or: [{ username: req.body.username }, { email: req.body.username }],
+        });
+
+        if (!user) {
+          return res.json({ error: [{ msg: "Invalid Username/Email." }] });
+        }
+
+        const match = await bcrypt.compare(req.body.password, user.password);
+
+        if (match) {
+          console.log("matching");
+          return res.json({ errors: [{ msg: "New password cannot be the same as the current password." }] });
+        }
+
+        var password;
+
+        try {
+          password = await bcrypt.hash(req.body.password, 13);
+        } catch (err) {
+          console.log("Error while hashing:", err);
+        }
+
+        user.password = password;
+
+        await user.save();
+
+        console.log(user);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    res.redirect("http://localhost:5173/");
+  }),
+];
