@@ -12,6 +12,7 @@ import {
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Forget from "./pages/Forget";
+import ResetPassword from "./pages/ResetPassword";
 
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
@@ -48,6 +49,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forget" element={<Forget />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
 
           <Route
             path="/"

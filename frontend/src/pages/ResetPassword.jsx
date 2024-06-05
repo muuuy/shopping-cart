@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import styles from "../styles/ResetPassword.module.scss";
 
+import ResetImage from "../assets/reset_password_img.jpg";
+
 const ResetPassword = () => {
   const [formData, setFormData] = useState({
     username: "",
@@ -24,12 +26,12 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="container">
+    <div className="form-container">
       <div className={styles.reset_container}>
         <div className={styles.image_container}>
-          <img></img>
+          <img src={ResetImage}></img>
         </div>
-        <h1></h1>
+        <h1>Reset Your Password!</h1>
         <p></p>
         {error}
         <form
