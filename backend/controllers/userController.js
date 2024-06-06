@@ -4,6 +4,8 @@ const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const session = require("express-session");
+const nodemailer = require("nodemailer");
+const jwt = require("jsonwebtoken");
 
 exports.user_create_post = [
   body("username")
@@ -158,9 +160,43 @@ exports.user_forget = [
 
         if (!user) {
           return res.json({ errors: [{ msg: "Invalid Username/Email." }] });
-        } else {
-          console.log(user);
         }
+
+        console.log(user);
+
+        const token = jwt.sign(
+          { userId: user._id },
+          process.env.JWT_SECRET_KEY,
+          { expiresIn: process.env.JWT_EXPIRE }
+        );
+
+        const transporter = nodemailer.createTransport({
+          host: "smtp.ethereal.email",
+          port: 587,
+          secure: false,
+          auth: {
+            user: process.env.EMAIL_ADDRESS,
+            pass: process.env.EMAIL_PASSWORD,
+          },
+        });
+
+        const mailOptions = {
+          from: process.env.EMAIL_ADDRESS,
+          to: user.email,
+          subject: "Reset Password",
+          html: `<h1>Reset Your Password</h1>
+          <p>Click on the following link to reset your password:</p>
+          <a href="http://localhost:5173/reset-password/${token}">http://localhost:5000/reset-password/${token}</a>
+          <p>If you didn't request a password reset, please ignore this email.</p>`,
+        };
+
+        transporter.sendMail(mailOptions, (err, info) => {
+          if (err) {
+            return res.status(500).send({ message: err.message });
+          }
+          console.log("Message sent: %s", info.messageId);
+          console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+        });
       } catch (error) {
         console.log(error);
       }
@@ -200,6 +236,15 @@ exports.user_reset = [
       return res.json({ errors: errors.array() });
     } else {
       try {
+        const decodedToken = jwt.verify(
+          req.params.token,
+          process.env.JWT_SECRET_KEY
+        );
+
+        if (!decodedToken) {
+          return res.status(401).send({ message: "Invalid token" });
+        }
+
         const user = await User.findOne({
           $or: [{ username: req.body.username }, { email: req.body.username }],
         });
@@ -212,7 +257,13 @@ exports.user_reset = [
 
         if (match) {
           console.log("matching");
-          return res.json({ errors: [{ msg: "New password cannot be the same as the current password." }] });
+          return res.json({
+            errors: [
+              {
+                msg: "New password cannot be the same as the current password.",
+              },
+            ],
+          });
         }
 
         var password;

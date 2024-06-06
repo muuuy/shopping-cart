@@ -31,8 +31,10 @@ const ResetPassword = () => {
     }
 
     try {
+      const token = window.location.pathname.split("/").pop();
+
       const res = await axios.post(
-        "http://localhost:3000/users/reset-password/",
+        `http://localhost:3000/users/reset-password/${token}`,
         formData
       );
 
