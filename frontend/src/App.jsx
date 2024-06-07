@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 import { useState, useEffect } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Favicon from "react-favicon";

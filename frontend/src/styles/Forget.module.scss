@@ -1,0 +1,13 @@
+@use "variables";
+@use "userform";
+
+.forget_container {
+  @include userform.containerTheme($theme: variables.$dark-red);
+}
+
+.forget_button {
+  @include userform.buttonTheme(
+    $theme: variables.$dark-red,
+    $hoverTheme: variables.$hover-dark-red
+  );
+}

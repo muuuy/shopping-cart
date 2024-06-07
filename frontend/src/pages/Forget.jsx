@@ -4,7 +4,8 @@ import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import styles from "../styles/Forgot.module.scss";
+import styles from "../styles/Forget.module.scss";
+import UserFormStyles from "../styles/Userform.module.scss";
 
 import ForgetImage from "../assets/forget_img.png";
 
@@ -21,7 +22,7 @@ const Forget = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if(error != null) {
+    if (error != null) {
       setError(null);
     }
 
@@ -36,7 +37,7 @@ const Forget = () => {
       if (res.data.errors && res.data.errors.length > 0) {
         setError(
           res.data.errors.map((error) => (
-            <p key={uuidv4()} className={styles.error}>
+            <p key={uuidv4()} className={UserFormStyles.error}>
               {error.msg}
             </p>
           ))
@@ -55,11 +56,11 @@ const Forget = () => {
   return (
     <div className="form-container">
       <div className={styles.forget_container}>
-        <div className={styles.image_container}>
+        <div className={UserFormStyles.image_container}>
           <img src={ForgetImage}></img>
         </div>
         <h1>Forgot You Password?</h1>
-        <p className={styles.description}>
+        <p className={UserFormStyles.description}>
           We&apos;ll send you a link to your email so that you can
           <br></br>
           reset yourpassword.
@@ -67,7 +68,7 @@ const Forget = () => {
         {error}
         <form
           method="POST"
-          className={styles.forget_form}
+          className={UserFormStyles.user_form}
           onSubmit={handleSubmit}
         >
           <div>
@@ -77,7 +78,6 @@ const Forget = () => {
               placeholder="Username/Email"
               name="username"
               id="forgot-input"
-              className={styles.forgot_input}
               autoComplete="username"
               required
               onChange={handleChange}
@@ -86,7 +86,11 @@ const Forget = () => {
               value={formData.username}
             ></input>
           </div>
-          <button type="submit" disabled={buttonLoading}>
+          <button
+            type="submit"
+            disabled={buttonLoading}
+            className={styles.forget_button}
+          >
             Submit
           </button>
         </form>

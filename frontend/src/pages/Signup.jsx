@@ -5,6 +5,7 @@ import axios from "axios";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import styles from "../styles/Signup.module.scss";
+import UserFormStyles from "../styles/Userform.module.scss";
 
 import SignupImage from "../assets/signUp/signup_img.png";
 
@@ -47,7 +48,7 @@ const Signup = () => {
         if (res.data.errors && res.data.errors.length > 0) {
           setError(
             res.data.errors.map((err) => (
-              <p key={uuidv4()} className={styles.error}>
+              <p key={uuidv4()} className={UserFormStyles.error}>
                 {err.msg}
               </p>
             ))
@@ -67,17 +68,17 @@ const Signup = () => {
   return (
     <div className="form-container">
       <div className={styles.signup_container}>
-        <div className={styles.img_container}>
+        <div className={UserFormStyles.img_container}>
           <img src={SignupImage}></img>
         </div>
         <h1>Let&apos;s Get Started!</h1>
-        <p className={styles.description}>
+        <p className={UserFormStyles.description}>
           Create an account to start shopping
         </p>
         {error}
         <form
           method="POST"
-          className={styles.signup_form}
+          className={UserFormStyles.user_form}
           onSubmit={handleSubmit}
         >
           <div>
@@ -87,7 +88,6 @@ const Signup = () => {
               placeholder="Username"
               name="username"
               id="signup-username"
-              className={styles.signup_input}
               autoComplete="username"
               required
               onChange={handleChange}
@@ -103,7 +103,6 @@ const Signup = () => {
               placeholder="Password"
               name="password"
               id="signup-password"
-              className={styles.signup_input}
               autoComplete="off"
               required
               onChange={handleChange}
@@ -119,7 +118,6 @@ const Signup = () => {
               placeholder="Re-enter Password"
               name="verifyPassword"
               id="signup-verify"
-              className={styles.signup_input}
               autoComplete="off"
               required
               onChange={handleChange}
@@ -135,7 +133,6 @@ const Signup = () => {
               placeholder="Email"
               name="email"
               id="signup-email"
-              className={styles.signup_input}
               autoComplete="email"
               required
               onChange={handleChange}
@@ -144,11 +141,15 @@ const Signup = () => {
               value={formData.email}
             ></input>
           </div>
-          <button type="submit" disabled={buttonLoading}>
+          <button
+            type="submit"
+            disabled={buttonLoading}
+            className={styles.signup_button}
+          >
             Sign Up
           </button>
         </form>
-        <p className={styles.log_in}>
+        <p className={UserFormStyles.footer_text}>
           Already have an account?{" "}
           <Link
             to="/login"

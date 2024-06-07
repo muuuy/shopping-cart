@@ -5,6 +5,7 @@ import axios from "axios";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import styles from "../styles/ResetPassword.module.scss";
+import UserFormStyles from "../styles/Userform.module.scss";
 
 import ResetImage from "../assets/reset_password_img.jpg";
 
@@ -41,7 +42,7 @@ const ResetPassword = () => {
       if (res.data.errors && res.data.errors.length > 0) {
         setError(
           res.data.errors.map((err) => (
-            <p key={uuidv4()} className={styles.error}>
+            <p key={uuidv4()} className={UserFormStyles.error}>
               {err.msg}
             </p>
           ))
@@ -58,15 +59,15 @@ const ResetPassword = () => {
   return (
     <div className="form-container">
       <div className={styles.reset_container}>
-        <div className={styles.image_container}>
+        <div className={UserFormStyles.image_container}>
           <img src={ResetImage}></img>
         </div>
         <h1>Reset Your Password!</h1>
-        <p></p>
+        <p className={UserFormStyles.description}></p>
         {error}
         <form
           method="POST"
-          className={styles.reset_form}
+          className={UserFormStyles.user_form}
           onSubmit={handleSubmit}
         >
           <div>
@@ -114,7 +115,7 @@ const ResetPassword = () => {
               value={formData.verifyPassword}
             ></input>
           </div>
-          <button type="submit" disabled={buttonLoading}>
+          <button type="submit" disabled={buttonLoading} className={styles.reset_button}>
             Reset
           </button>
         </form>

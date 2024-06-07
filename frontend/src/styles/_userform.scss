@@ -1,0 +1,31 @@
+@mixin containerTheme($theme: #ff4d6d) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid $theme;
+  color: black;
+  background-color: white;
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow: 0 0 12px 1px $theme;
+}
+
+@mixin buttonTheme($theme: #ff4d6d, $hoverTheme: #e03069) {
+  cursor: pointer;
+  align-self: center;
+  height: 48px;
+  width: 340px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 900;
+  background-color: $theme;
+  border: none;
+  margin: 8px 0;
+
+  &:hover {
+    background-color: $hoverTheme;
+    color: white;
+    transition: background-color 0.5s ease-in, color 0.5s ease-in;
+  }
+}

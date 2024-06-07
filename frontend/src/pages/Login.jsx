@@ -5,6 +5,7 @@ import axios from "axios";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import styles from "../styles/Login.module.scss";
+import UserFormStyles from "../styles/Userform.module.scss";
 
 import LoginImage from "../assets/logIn/login_img.jpg";
 
@@ -54,15 +55,15 @@ const Login = () => {
   return (
     <div className="form-container">
       <div className={styles.login_container}>
-        <div style={styles.img_container}>
+        <div className={UserFormStyles.img_container}>
           <img src={LoginImage}></img>
         </div>
         <h1>Welcome Back!</h1>
-        <p className={styles.description}>Good to see you again</p>
+        <p className={UserFormStyles.description}>Good to see you again</p>
         {error}
         <form
           method="POST"
-          className={styles.signup_form}
+          className={UserFormStyles.user_form}
           onSubmit={handleSubmit}
         >
           <div>
@@ -72,7 +73,6 @@ const Login = () => {
               placeholder="Username/Email"
               name="username"
               id="login-username"
-              className={styles.login_input}
               autoComplete="username"
               required
               onChange={handleChange}
@@ -88,7 +88,6 @@ const Login = () => {
               placeholder="Password"
               name="password"
               id="login-password"
-              className={styles.login_input}
               autoComplete="password"
               required
               onChange={handleChange}
@@ -100,15 +99,23 @@ const Login = () => {
               Forgot Password?
             </Link>
           </div>
-          <button type="submit" disabled={buttonLoading}>
+          <button
+            type="submit"
+            disabled={buttonLoading}
+            className={styles.login_button}
+          >
             Log In
           </button>
         </form>
-        <p className={styles.sign_up}>
+        <p className={UserFormStyles.footer_text}>
           Don&apos;t have an account?{" "}
           <Link
             to="/signup"
-            style={{ textDecoration: "none", color: "var(--pastel-red)", fontWeight: 900 }}
+            style={{
+              textDecoration: "none",
+              color: "var(--pastel-red)",
+              fontWeight: 900,
+            }}
           >
             Sign up!
           </Link>
