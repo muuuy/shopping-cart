@@ -19,6 +19,8 @@ import Navbar from "./components/Navbar";
 import Store from "./pages/Store";
 import ShopPokemon from "./pages/ShopPokemon";
 
+import GreetingBanner from "./components/GreetingBanner";
+
 //test
 
 function App() {
@@ -43,7 +45,7 @@ function App() {
         }
       />
 
-      <div id="web-container">
+      {/* <div id="web-container">
         <Navbar setInput={setUserInput} setType={setItemType} />
         <Routes>
           <Route path="/signup" element={<Signup />} />
@@ -58,7 +60,9 @@ function App() {
           <Route path="/store" Component={Store} />
           <Route path="/shop-pokemon/:itemName" element={<ShopPokemon />} />
         </Routes>
-      </div>
+      </div> */}
+      <Navbar setInput={setUserInput} setType={setItemType} />
+      <GreetingBanner />
     </>
   );
 }

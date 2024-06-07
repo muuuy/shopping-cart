@@ -1,10 +1,11 @@
+@use "variables";
+
 .search_container {
   border-radius: 400px;
   display: flex;
   overflow: hidden;
   width: 40%;
   transition: border 0.4s ease;
-  padding: 4px;
   overflow: hidden;
 
   .search {
@@ -30,7 +31,7 @@
       height: 100%;
       width: 50px;
       border: none;
-      background-color: var(--pastel-red);
+      background-color: variables.$pastel-red;
       cursor: pointer;
       border-radius: inherit;
       transition: transform 0.4s ease, border-radius 0.4s ease;

@@ -1,0 +1,65 @@
+@use "variables";
+
+.banner_container {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 80px);
+  width: 100%;
+  background-color: white;
+  align-items: center;
+  justify-content: center;
+
+  .image_header {
+    display: flex;
+    position: absolute;
+    gap: 12px;
+    top: 92px;
+    right: 12px;
+
+    > img {
+      height: 60px;
+    }
+  }
+
+  > .image_container {
+    width: 50%;
+
+    > .banner_image {
+      height: 800px;
+    }
+  }
+
+  > .banner_description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 2px solid variables.$pastel-red;
+    color: black;
+
+    > h1 {
+      letter-spacing: 20px;
+    }
+
+    > h2 {
+      letter-spacing: 8px;
+      color: variables.$pastel-red;
+    }
+  }
+
+  > .scroll_container {
+    position: absolute;
+    bottom: 52px;
+    border-top: 2px solid variables.$dark-gray;
+
+    > .scroll_down {
+      font-size: 24px;
+    }
+
+    &:hover .scroll_down {
+      transform: translateY(20px);
+      transition: transform 1s ease-in-out;
+    }
+  }
+}

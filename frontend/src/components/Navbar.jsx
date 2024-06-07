@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { v4 as uuidv4 } from "uuid";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import styles from "../styles/Navbar.module.scss";
@@ -8,7 +6,6 @@ import styles from "../styles/Navbar.module.scss";
 import SearchBar from "./Searchbar";
 
 import { BsHurricane } from "react-icons/bs";
-import { BsSearch } from "react-icons/bs";
 import { BsCart4 } from "react-icons/bs";
 import { BsChevronDown } from "react-icons/bs";
 
@@ -18,11 +15,11 @@ const Navbar = ({ setInput, setType }) => {
       <nav className={styles.nav_container}>
         <Link to="/" className={styles.logo} style={{ textDecoration: "none" }}>
           <BsHurricane className={styles.logo_img} />
-          POKE STOP
+          POKESTOP
         </Link>
         <SearchBar setSearchValue={setInput} setType={setType} />
         <ul className={styles.nav_list}>
-          <li className={styles.list_item}>
+          <li className={`${styles.list_item} ${styles.arrow_container}`}>
             <a className={styles.list_link} id={styles.shop_link}>
               <BsChevronDown size={16} className={styles.shop_arrow} />
               &nbsp;SHOP
