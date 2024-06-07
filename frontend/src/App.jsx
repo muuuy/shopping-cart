@@ -1,5 +1,5 @@
 import "./App.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Favicon from "react-favicon";
 import {
@@ -21,15 +21,15 @@ import ShopPokemon from "./pages/ShopPokemon";
 
 import GreetingBanner from "./components/GreetingBanner";
 
+import styles from "./styles/App.module.scss";
+
 //test
 
 function App() {
+  const [currentSection, setCurrentSection] = useState(0);
+
   const [userInput, setUserInput] = useState("pikachu");
   const [itemType, setItemType] = useState("pokemon");
-
-  useEffect(() => {
-    console.log(itemType);
-  }, [itemType]);
 
   return (
     <>
@@ -45,8 +45,11 @@ function App() {
         }
       />
 
-      {/* <div id="web-container">
+      <div id="section0">
         <Navbar setInput={setUserInput} setType={setItemType} />
+        <GreetingBanner />
+      </div>
+      <div id="section1">
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
@@ -60,9 +63,7 @@ function App() {
           <Route path="/store" Component={Store} />
           <Route path="/shop-pokemon/:itemName" element={<ShopPokemon />} />
         </Routes>
-      </div> */}
-      <Navbar setInput={setUserInput} setType={setItemType} />
-      <GreetingBanner />
+      </div>
     </>
   );
 }

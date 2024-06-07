@@ -11,7 +11,6 @@ import ItemBanner from "../components/ItemBanner";
 import BerryBanner from "../components/BerryBanner";
 import TMBanner from "../components/TMBanner";
 import Explore from "../components/Explore";
-import GreetingBanner from "../components/GreetingBanner";
 
 const Home = ({ userInput, itemType }) => {
   return (
@@ -37,7 +36,7 @@ const Home = ({ userInput, itemType }) => {
           </div>
 
           <Explore input={userInput} type={itemType} />
-          {/* <GreetingBanner /> */}
+          
         </div>
       </div>
     </>
