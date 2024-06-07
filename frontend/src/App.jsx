@@ -20,10 +20,7 @@ import Store from "./pages/Store";
 import ShopPokemon from "./pages/ShopPokemon";
 
 import GreetingBanner from "./components/GreetingBanner";
-
-import styles from "./styles/App.module.scss";
-
-//test
+import Banner from "./components/Banner";
 
 function App() {
   const [currentSection, setCurrentSection] = useState(0);
@@ -50,6 +47,10 @@ function App() {
         <GreetingBanner />
       </div>
       <div id="section1">
+        {/* <Explore /> */}
+        <Banner />
+      </div>
+      <div>
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />

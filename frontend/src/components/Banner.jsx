@@ -1,18 +1,48 @@
-import electronic from "../assets/banner/electronics.jpg";
-import jewellery from "../assets/banner/jewellry.jpg";
-import mensClothing from "../assets/banner/mens_clothing.jpg";
-import womensClothing from "../assets/banner/womens_clothing.jpg";
+import { useState, useEffect, useRef } from "react";
 
-import PropTypes from 'prop-types';
+import Charizard from "../assets/banner/charizard.png";
+import Dragapault from "../assets/banner/dragapault.png";
+import Dragonite from "../assets/banner/dragonite.png";
+import Salemence from "../assets/banner/salamence.png";
+
+import PropTypes from "prop-types";
 
 import styles from "../styles/Banner.module.scss";
 
 const BannerItem = ({ imgSrc, category }) => {
+  const containerRef = useRef(null);
+
+  const handleMouseMove = (e) => {
+    const container = containerRef.current;
+    const boundingRectangle = container.getBoundingClientRect();
+
+    const mouseX = e.clientX - boundingRectangle.left;
+    const mouseY = e.clientY - boundingRectangle.top;
+
+    const rotateY =
+      ((mouseX - boundingRectangle.width / 2) / boundingRectangle.width) * 45;
+    const rotateX =
+      ((boundingRectangle.height / 2 - mouseY) / boundingRectangle.height) * 45;
+
+    container.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  };
+
+  const handleMouseLeave = () => {
+    const container = containerRef.current;
+    container.style.transform =
+      "perspective(1000px) rotateX(0deg) rotateY(0deg)";
+  };
+
   return (
     <>
       <div className={styles.banner_container}>
-        <div className={styles.banner_img} style={{backgroundImage: `url(${imgSrc})`}}></div>
-        {/* <img src={imgSrc} className={styles.banner_img}></img> */}
+        <img
+          src={imgSrc}
+          className={styles.banner_img}
+          ref={containerRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+        ></img>
         <h2 className={styles.img_desc}>{category}</h2>
       </div>
     </>
@@ -21,27 +51,15 @@ const BannerItem = ({ imgSrc, category }) => {
 
 const Banner = () => {
   return (
-    <>
-      <div className={styles.container}>
-        <h1 id={styles.banner_header} style={{ margin: "32px", fontStyle: "italic", fontWeight: "900", textDecoration: 'underline' }}>
-          CATEGORIES TO EXPLORE
-        </h1>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "4%",
-          }}
-        >
-          <BannerItem imgSrc={electronic} category="Electronics" />
-          <BannerItem imgSrc={jewellery} category="Jewellery" />
-          <BannerItem imgSrc={mensClothing} category="Men&apos;s Clothing" />
-          <BannerItem imgSrc={womensClothing} category="Women&apos;s Clothing" />
-        </div>
+    <div className={styles.container}>
+      <h1 id={styles.banner_header}>CATEGORIES TO EXPLORE</h1>
+      <div>
+        <BannerItem imgSrc={Charizard} category="POKEMON" />
+        <BannerItem imgSrc={Dragonite} category="ITEMS" />
+        <BannerItem imgSrc={Dragapault} category="BERRIES" />
+        <BannerItem imgSrc={Salemence} category="TECHICAL MACHINES" />
       </div>
-    </>
+    </div>
   );
 };
 
