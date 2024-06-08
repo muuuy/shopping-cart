@@ -21,6 +21,7 @@ import ShopPokemon from "./pages/ShopPokemon";
 
 import GreetingBanner from "./components/GreetingBanner";
 import Banner from "./components/Banner";
+import PokemonBanner from "./components/PokemonBanner";
 
 function App() {
   const [currentSection, setCurrentSection] = useState(0);
@@ -47,8 +48,10 @@ function App() {
         <GreetingBanner />
       </div>
       <div id="section1">
-        {/* <Explore /> */}
         <Banner />
+      </div>
+      <div id="section2">
+        <PokemonBanner />
       </div>
       <div>
         <Routes>

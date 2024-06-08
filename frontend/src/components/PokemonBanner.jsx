@@ -5,6 +5,8 @@ import styles from "../styles/PokemonBanner.module.scss";
 import ArrowText from "../components/ArrowText";
 import Explore from "../components/Explore";
 
+import PokemonBannerImage from "../assets/pokemon_banner.webp"
+
 const PokemonBanner = () => {
   const [randNums, setRandNums] = useState([]);
 
@@ -30,31 +32,30 @@ const PokemonBanner = () => {
 
   return (
     <>
-      <div className={`${SpacerStyles.spacer} ${SpacerStyles.layer1}`}>
-        <div className={styles.pokeBanner_container}>
-          <ArrowText text={<h2>Shop for Pokemon Info</h2>} />
-          <div className={styles.pokemon_container}>
-            {randNums.length > 0 && (
-              <>
-                <div className={styles.pokeBanner_item}>
-                  <Explore input={randNums[0]} type="pokemon" />
-                </div>
-                <div className={styles.pokeBanner_item}>
-                  <Explore input={randNums[1]} type="pokemon" />
-                </div>
-                <div className={styles.pokeBanner_item}>
-                  <Explore input={randNums[2]} type="pokemon" />
-                </div>
-                <div className={styles.pokeBanner_item}>
-                  <Explore input={randNums[3]} type="pokemon" />
-                </div>
-                <div className={styles.pokeBanner_item}>
-                  <Explore input={randNums[4]} type="pokemon" />
-                </div>
-              </>
-            )}
-          </div>
+      <div className={styles.pokeBanner_container}>
+        <ArrowText text={<h2>Shop for Pokemon Info</h2>} />
+        <div className={styles.pokemon_container}>
+          {randNums.length > 0 && (
+            <>
+              <div className={styles.pokeBanner_item}>
+                <Explore input={randNums[0]} type="pokemon" />
+              </div>
+              <div className={styles.pokeBanner_item}>
+                <Explore input={randNums[1]} type="pokemon" />
+              </div>
+              <div className={styles.pokeBanner_item}>
+                <Explore input={randNums[2]} type="pokemon" />
+              </div>
+              <div className={styles.pokeBanner_item}>
+                <Explore input={randNums[3]} type="pokemon" />
+              </div>
+              <div className={styles.pokeBanner_item}>
+                <Explore input={randNums[4]} type="pokemon" />
+              </div>
+            </>
+          )}
         </div>
+        <img src={PokemonBannerImage} className={styles.banner_image}></img>
       </div>
     </>
   );

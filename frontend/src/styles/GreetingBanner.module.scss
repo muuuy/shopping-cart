@@ -37,6 +37,7 @@
     gap: 20px;
     border-bottom: 2px solid variables.$pastel-red;
     color: black;
+    opacity: 0;
 
     > h1 {
       letter-spacing: 20px;
@@ -46,6 +47,11 @@
       letter-spacing: 8px;
       color: variables.$pastel-red;
     }
+  }
+
+  > .banner_description.visible {
+    opacity: 1;
+    animation: load-in-text 1000ms;
   }
 
   > .scroll_container {
@@ -61,5 +67,17 @@
       transform: translateY(20px);
       transition: transform 1s ease-in-out;
     }
+  }
+}
+
+@keyframes load-in-text {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0%);
+    opacity: 1;
   }
 }

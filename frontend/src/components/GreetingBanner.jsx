@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import styles from "../styles/GreetingBanner.module.scss";
 
 import GreetingBannerImage from "../assets/GreetingBanner/GreetingBannerImage.webp";
@@ -11,6 +13,16 @@ import Pokeball from "../assets/GreetingBanner/pokeball.png";
 import { BsChevronDown } from "react-icons/bs";
 
 const GreetingBanner = () => {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setVisible(true);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className={styles.banner_container}>
       <div className={styles.image_header}>
@@ -25,7 +37,11 @@ const GreetingBanner = () => {
       <div className={styles.image_container}>
         <img src={GreetingBannerImage} className={styles.banner_image}></img>
       </div>
-      <div className={styles.banner_description}>
+      <div
+        className={`${styles.banner_description} ${
+          visible ? styles.visible : ""
+        }`}
+      >
         <h1>DISCOVER&emsp;BUY&emsp;BATTLE</h1>
         <h2>THE DESTINATION FOR ALL THINGS POKEMON.</h2>
       </div>
