@@ -61,11 +61,7 @@
 
     > .scroll_down {
       font-size: 24px;
-    }
-
-    &:hover .scroll_down {
-      transform: translateY(20px);
-      transition: transform 1s ease-in-out;
+      animation: up-down 5s infinite;
     }
   }
 }
@@ -79,5 +75,15 @@
   to {
     transform: translateX(0%);
     opacity: 1;
+  }
+}
+
+@keyframes up-down {
+  50% {
+    transform: translateY(20px)
+  }
+  
+  100% {
+    transform: translateY(0);
   }
 }

@@ -1,9 +1,15 @@
 import { useState, useEffect, useRef } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import Charizard from "../assets/banner/charizard.png";
 import Dragapault from "../assets/banner/dragapault.png";
 import Dragonite from "../assets/banner/dragonite.png";
 import Salemence from "../assets/banner/salamence.png";
+
+import Berries from "../assets/banner/berries.png";
+import Pokeball from "../assets/banner/pokeball.png";
+import Potion from "../assets/banner/potion.png";
+import TM from "../assets/banner/tm.png";
 
 import PropTypes from "prop-types";
 
@@ -50,14 +56,28 @@ const BannerItem = ({ imgSrc, category }) => {
 };
 
 const Banner = () => {
+  const text = "CATEGORIES TO EXPLORE";
+
   return (
     <div className={styles.container}>
-      <h1 id={styles.banner_header}>CATEGORIES TO EXPLORE</h1>
-      <div>
+      <h1 id={styles.banner_header}>
+        {text.split("").map((character, index) => (
+          <span key={uuidv4()} style={{ animationDelay: `${index * 0.1}s` }}>
+            {character}
+          </span>
+        ))}
+      </h1>
+      <div className={styles.card_container}>
         <BannerItem imgSrc={Charizard} category="POKEMON" />
         <BannerItem imgSrc={Dragonite} category="ITEMS" />
         <BannerItem imgSrc={Dragapault} category="BERRIES" />
         <BannerItem imgSrc={Salemence} category="TECHICAL MACHINES" />
+      </div>
+      <div className={styles.icon_container}>
+        <img src={Pokeball}></img>
+        <img src={Potion}></img>
+        <img src={Berries}></img>
+        <img src={TM}></img>
       </div>
     </div>
   );
