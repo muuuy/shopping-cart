@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
+import { useInView } from "react-intersection-observer";
 import { v4 as uuidv4 } from "uuid";
 
 import Charizard from "../assets/banner/charizard.png";
@@ -56,13 +57,22 @@ const BannerItem = ({ imgSrc, category }) => {
 };
 
 const Banner = () => {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
   const text = "CATEGORIES TO EXPLORE";
 
   return (
     <div className={styles.container}>
-      <h1 id={styles.banner_header}>
+      <h1 id={styles.banner_header} ref={ref}>
         {text.split("").map((character, index) => (
-          <span key={uuidv4()} style={{ animationDelay: `${index * 0.1}s` }}>
+          <span
+            key={uuidv4()}
+            className={`${styles.letters} ${inView ? styles.visible : ""}`}
+            style={{ animationDelay: `${index * 0.1}s` }}
+          >
             {character}
           </span>
         ))}

@@ -12,24 +12,19 @@
   background-color: variables.$rose-quartz;
 
   h2 {
-    margin-left: 5%;
-    font-size: 28px;
+    margin: 0 0 4px 5%;
+    font-size: 40px;
+    letter-spacing: 12px;
+    font-weight: 900;
   }
 
   .pokemon_container {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
     gap: 40px;
-
-    .pokeBanner_item {
-      border-radius: 20px;
-    }
-
-    .pokeBanner_item:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 0 20px 1px variables.$pastel-red;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
   }
 
   .banner_image {

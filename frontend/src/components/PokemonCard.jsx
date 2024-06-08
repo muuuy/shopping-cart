@@ -34,6 +34,9 @@ const PokemonCard = ({ pokemon }) => {
     "Basculegion",
     "Wishiwashi",
     "Morpeko",
+    "Shaymin",
+    "Mimikyu",
+    "Tornadus",
   ];
 
   useEffect(() => {
@@ -71,28 +74,34 @@ const PokemonCard = ({ pokemon }) => {
   };
 
   return (
-    <Link
-      to={`/shop-pokemon/${pokemon.name}`}
-      state={{ item: pokemon, cost: cost }}
-      style={{ textDecoration: "none", color: "inherit" }}
-    >
-      <div className={styles.pokemon_container}>
-        <img
-          className={styles.pokemon_img}
-          src={pokemon.sprites.front_default}
-          alt={pokemon.name}
-          loading="lazy"
-        />
-        <div className={styles.pokemon_desc}>
+    <div className={styles.pokemon_container}>
+      <img
+        className={styles.pokemon_img}
+        src={pokemon.sprites.front_default}
+        alt={pokemon.name}
+        loading="lazy"
+      />
+      <div className={styles.pokemon_desc}>
+        <div className={styles.description_show}>
           <p className={styles.pokemon_id}>#{pokemon.id}</p>
           <p className={styles.pokemon_name}>{capitalizeWord(pokemon.name)}</p>
+        </div>
+        <div className={styles.description_hide}>
           <div>
             <TypeCard types={types} />
           </div>
           <p className={styles.pokemon_cost}>￥{cost}</p>
+          <Link
+            to={`/shop-pokemon/${pokemon.name}`}
+            state={{ item: pokemon, cost: cost }}
+            style={{ textDecoration: "none" }}
+          >
+            <button className={styles.buy_button}>BUY</button>
+          </Link>
         </div>
       </div>
-    </Link>
+      <div className={styles.circle}></div>
+    </div>
   );
 };
 

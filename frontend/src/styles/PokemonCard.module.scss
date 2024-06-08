@@ -1,66 +1,96 @@
+@use "variables";
+
 .pokemon_container {
-    border: 2px solid black;
-    width: 240px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    color: black;
-    overflow: hidden;
-    cursor: pointer;
-}
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  color: black;
+  overflow: hidden;
+  cursor: pointer;
 
-.pokemon_img {
+  > .pokemon_img {
     width: 100%;
-    background-color: white;
-    border-bottom: 2px solid black
-}
+    z-index: 5;
+    transform: translateY(42%);
+  }
 
-.pokemon_desc {
-    background-color: var(--light-gray);
+  > .pokemon_desc {
     display: flex;
     width: 100%;
     justify-content: center;
     flex-direction: column;
     padding: 12px;
+    text-decoration: none;
+    transform: translateY(64%);
+
+    > .description_show {
+      > .pokemon_id {
+        font-weight: 600;
+      }
+
+      > .pokemon_name {
+        font-weight: 900;
+        font-size: 20px;
+      }
+    }
+
+    .description_hide {
+      > .pokemon_cost {
+        font-weight: 700;
+        margin-top: 8px;
+      }
+    }
+  }
+
+  &:hover .pokemon_desc {
+    visibility: visible;
+    animation: slide-in 1s forwards;
+  }
+
+  &:hover .pokemon_img {
+    transform: translateY(0);
+    transition: transform 1s ease;
+  }
+
+  &:hover {
+    box-shadow: 0 0 24px 12px variables.$pastel-red;
+    transition: box-shadow 1s ease-in;
+  }
 }
 
-.pokemon_id {
-    font-weight: 600;
-}
-
-.pokemon_name {
-    font-weight: 900;
-    font-size: 20px;
-}
-
-.type_container {
-    margin-top: 4px;
-    width: 120px;
-    height: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.type_container div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 56px;
-    font-size: 12px;
-    font-weight: 700;
-    color: white;
-}
-
-.pokemon_cost {
-    font-weight: 700;
-    margin-top: 8px;
+.buy_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 40px;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 8px;
+  text-indent: 8px;
+  margin-top: 4px;
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  background-color: variables.$pastel-red;
 }
 
 @media screen and (max-width: 1380px) {
-    .pokemon_container {
-        width: 200px;
-    }
+  .pokemon_container {
+    width: 200px;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateY(64%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
 }

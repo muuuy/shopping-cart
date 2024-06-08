@@ -41,10 +41,12 @@
 
     > h1 {
       letter-spacing: 20px;
+      text-indent: 20px;
     }
 
     > h2 {
       letter-spacing: 8px;
+      text-indent: 8px;
       color: variables.$pastel-red;
     }
   }

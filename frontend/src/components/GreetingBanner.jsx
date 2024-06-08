@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 
 import styles from "../styles/GreetingBanner.module.scss";
 
@@ -13,15 +13,10 @@ import Pokeball from "../assets/GreetingBanner/pokeball.png";
 import { BsChevronDown } from "react-icons/bs";
 
 const GreetingBanner = () => {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setVisible(true);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
 
   return (
     <div className={styles.banner_container}>
@@ -39,8 +34,9 @@ const GreetingBanner = () => {
       </div>
       <div
         className={`${styles.banner_description} ${
-          visible ? styles.visible : ""
+          inView ? styles.visible : ""
         }`}
+        ref={ref}
       >
         <h1>DISCOVER&emsp;BUY&emsp;BATTLE</h1>
         <h2>THE DESTINATION FOR ALL THINGS POKEMON.</h2>

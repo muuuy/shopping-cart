@@ -3,9 +3,8 @@ import styles from "../styles/Home.module.scss";
 import SpacerStyles from "../styles/Spacer.module.scss";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
-import SaleBanner from "../components/SaleBanner";
 import Banner from "../components/Banner";
-import InfoBanner from "../components/InfoBanner";
+import GreetingBanner from "../components/GreetingBanner";
 import PokemonBanner from "../components/PokemonBanner";
 import ItemBanner from "../components/ItemBanner";
 import BerryBanner from "../components/BerryBanner";
@@ -22,11 +21,16 @@ const Home = ({ userInput, itemType }) => {
       </HelmetProvider>
 
       <div id={styles.home_page}>
-        <div className="container">
-          <InfoBanner />
-          <SaleBanner />
-          <Banner />
-          <PokemonBanner />
+        <div>
+          <div id="section0">
+            <GreetingBanner />
+          </div>
+          <div id="section1">
+            <Banner />
+          </div>
+          <div id="section2">
+            <PokemonBanner />
+          </div>
           <ItemBanner />
           <div className={`${SpacerStyles.spacer} ${SpacerStyles.layer2}`}>
             <div className={styles.grid_container}>
@@ -36,7 +40,6 @@ const Home = ({ userInput, itemType }) => {
           </div>
 
           <Explore input={userInput} type={itemType} />
-          
         </div>
       </div>
     </>

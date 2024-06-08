@@ -43,17 +43,8 @@ function App() {
         }
       />
 
-      <div id="section0">
-        <Navbar setInput={setUserInput} setType={setItemType} />
-        <GreetingBanner />
-      </div>
-      <div id="section1">
-        <Banner />
-      </div>
-      <div id="section2">
-        <PokemonBanner />
-      </div>
       <div>
+        <Navbar setInput={setUserInput} setType={setItemType} />
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />

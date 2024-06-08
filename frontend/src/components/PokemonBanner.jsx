@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import SpacerStyles from "../styles/Spacer.module.scss";
 import styles from "../styles/PokemonBanner.module.scss";
+import { v4 as uuidv4 } from "uuid";
 
 import ArrowText from "../components/ArrowText";
 import Explore from "../components/Explore";
 
-import PokemonBannerImage from "../assets/pokemon_banner.webp"
+import PokemonBannerImage from "../assets/pokemon_banner.webp";
 
 const PokemonBanner = () => {
   const [randNums, setRandNums] = useState([]);
@@ -14,7 +15,7 @@ const PokemonBanner = () => {
     const generateRandomNumbers = () => {
       const newRandNums = [];
 
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 12; i++) {
         let randomNumber;
 
         do {
@@ -30,32 +31,19 @@ const PokemonBanner = () => {
     setRandNums(generateRandomNumbers());
   }, []);
 
+  const displayCards = () => {
+    return randNums.map((i) => (
+      <Explore input={i} key={uuidv4} type="pokemon" />
+    ));
+  };
+
   return (
     <>
       <div className={styles.pokeBanner_container}>
-        <ArrowText text={<h2>Shop for Pokemon Info</h2>} />
+        <ArrowText text={<h2>SHOP FOR POKEMON INFO</h2>} />
         <div className={styles.pokemon_container}>
-          {randNums.length > 0 && (
-            <>
-              <div className={styles.pokeBanner_item}>
-                <Explore input={randNums[0]} type="pokemon" />
-              </div>
-              <div className={styles.pokeBanner_item}>
-                <Explore input={randNums[1]} type="pokemon" />
-              </div>
-              <div className={styles.pokeBanner_item}>
-                <Explore input={randNums[2]} type="pokemon" />
-              </div>
-              <div className={styles.pokeBanner_item}>
-                <Explore input={randNums[3]} type="pokemon" />
-              </div>
-              <div className={styles.pokeBanner_item}>
-                <Explore input={randNums[4]} type="pokemon" />
-              </div>
-            </>
-          )}
+          {randNums.length > 0 && <>{displayCards()}</>}
         </div>
-        <img src={PokemonBannerImage} className={styles.banner_image}></img>
       </div>
     </>
   );
