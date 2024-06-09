@@ -4,7 +4,8 @@
   height: 20px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 8px;
 
   > div {
     display: flex;
