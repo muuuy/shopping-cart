@@ -49,7 +49,12 @@ const SearchBar = ({ setSearchValue, setType }) => {
     <>
       <div className={styles.search_container} style={{ border: outline }}>
         <div className={styles.select_menu}>
-          <select onChange={handleChange} value={selectedType}>
+          <select
+            onChange={handleChange}
+            value={selectedType}
+            id={styles.searchbar_dropdown}
+            name="searchbar_dropdown"
+          >
             {options.map((option) => (
               <option value={option.value} key={uuidv4()}>
                 {option.label}
