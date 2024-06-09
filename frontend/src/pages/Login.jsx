@@ -42,7 +42,7 @@ const Login = () => {
       if (res.data.errors && res.data.errors.length > 0) {
         console.log(res.data.errors);
       } else {
-        console.log("no errors");
+        console.log("resresresresresresresres", res);
         navigate("/");
       }
     } catch (error) {

@@ -10,10 +10,14 @@ router.get("/", function (req, res, next) {
 
 router.post("/signup/", user_controller.user_create_post);
 
+router.get("/login-info/", user_controller.login_info);
+
 router.post("/login/", user_controller.user_login);
 
 router.post("/forget/", user_controller.user_forget);
 
 router.post("/reset-password/:token", user_controller.user_reset);
+
+// router.post("/shopping-cart/", user_controller.shopping_cart);
 
 module.exports = router;

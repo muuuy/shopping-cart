@@ -1,5 +1,7 @@
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import axios from "axios";
 
 import styles from "../styles/Navbar.module.scss";
 
@@ -10,6 +12,31 @@ import { BsCart4 } from "react-icons/bs";
 import { BsChevronDown } from "react-icons/bs";
 
 const Navbar = ({ setInput, setType }) => {
+  const [userInfo, setUserInfo] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false); //SEND IN AS PROP TO LOGIN COMPONENT!!!!
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get("http://localhost:3000/users/login-info/");
+
+        console.log("resresrishdfaiodjawiodjwaiodjwioajdiowa", res);
+
+        if (res.data.user) {
+          setUserInfo(res.data.user.username);
+        } else {
+          console.log("WHAT THE FUCK!");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+
+    return () => {};
+  }, [loggedIn]);
+
   return (
     <>
       <nav className={styles.nav_container}>
@@ -41,7 +68,7 @@ const Navbar = ({ setInput, setType }) => {
               to={"/signup"}
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              SIGN IN&nbsp;
+              {userInfo ? `Welcome back ${userInfo}` : "SIGN IN"}&nbsp;
               <BsChevronDown size={16} className={styles.shop_arrow} />
             </Link>
           </li>

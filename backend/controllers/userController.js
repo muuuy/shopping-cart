@@ -118,25 +118,29 @@ exports.user_login = [
           console.log("no match");
         }
 
-        if (req.session.authenticated) {
-          console.log("auth");
-          req.json(req, session);
-        } else {
-          req.session.authenticated = true;
-          req.session.user = {
-            username: user.username,
-            email: user.email,
-          };
-        }
+        req.session.authenticated = true;
+        req.session.user = {
+          username: user.username,
+          email: user.email,
+        };
 
         console.log(req.session);
-        console.log("yes");
+        return res.json(req.session);
       } catch (error) {
         console.log("err", error);
       }
     }
+  }),
+];
 
-    res.redirect("http://localhost:5173/");
+exports.login_info = [
+  asyncHandler(async (req, res, next) => {
+    if (req.session.authenticated) {
+      console.log("auth");
+      return res.json(req.session.user);
+    } else {
+      return res.json({ msg: "Not Authenticated" });
+    }
   }),
 ];
 
