@@ -1,16 +1,11 @@
 import styles from "../styles/ItemCard.module.scss";
-import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-import capitalize from '../utils/capitalize';
+import capitalize from "../utils/capitalize";
 
 //2159 TOTAL ITEMS
 
 const ItemCard = ({ item }) => {
-  useEffect(() => {
-    console.log(item);
-  }, [item]);
-
   return (
     <div className={styles.item_container}>
       <img

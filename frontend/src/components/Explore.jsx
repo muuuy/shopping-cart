@@ -32,16 +32,13 @@ const Explore = ({ input = null, type = null }) => {
         setItem(data);
       })
       .catch((err) => {
-        if (err.name === "AbortError") {
-          console.log("cancelled!");
-        } else {
-          console.error(`Error fetching ${type}:`, err);
-        }
+        console.log(err);
       });
 
     return () => {
-      console.log("fetch cancelled!");
-      controller.abort();
+      if (!controller.signal.aborted) {
+        controller.abort("Finished fetching data from API.");
+      }
     };
   }, [input, type]);
 

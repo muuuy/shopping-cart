@@ -31,7 +31,7 @@ const PokemonBanner = () => {
 
   const displayCards = () => {
     return randNums.map((i) => (
-      <Explore input={i} key={uuidv4} type="pokemon" />
+      <Explore input={i} key={uuidv4()} type="pokemon" />
     ));
   };
 

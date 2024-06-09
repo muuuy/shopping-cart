@@ -1,11 +1,7 @@
-const calculateCost = (pokemon) => {   
-    
-    if (pokemon) {
-        console.log("error", pokemon);
+const calculateCost = (pokemon) => {
+  if (pokemon) {
+    return 5000.0 * pokemon.types.length;
+  }
+};
 
-        console.log(50000.00 * (pokemon.types.length))
-        return 5000.00 * (pokemon.types.length);
-    }
-}
-
-export default calculateCost
+export default calculateCost;

@@ -9,6 +9,8 @@ import {
   BrowserRouter,
 } from "react-router-dom";
 
+import { Provider } from "react-redux";
+
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Forget from "./pages/Forget";
@@ -18,10 +20,6 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Store from "./pages/Store";
 import ShopPokemon from "./pages/ShopPokemon";
-
-import GreetingBanner from "./components/GreetingBanner";
-import Banner from "./components/Banner";
-import PokemonBanner from "./components/PokemonBanner";
 
 function App() {
   const [currentSection, setCurrentSection] = useState(0);
