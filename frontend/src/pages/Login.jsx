@@ -9,7 +9,7 @@ import UserFormStyles from "../styles/Userform.module.scss";
 import LoginImage from "../assets/logIn/login_img.jpg";
 
 import { useDispatch } from "react-redux";
-import { authUser } from "../features/user/userSlice";
+import { authUser } from "../features/userSlice";
 
 const Login = () => {
   const [formData, setFormData] = useState({

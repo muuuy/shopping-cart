@@ -47,6 +47,29 @@ const Navbar = ({ setInput, setType }) => {
           </li>
           <li className={`${styles.list_item} ${styles.arrow_container}`}>
             <a className={styles.list_link} id={styles.user_link}>
+              {/* {username && (
+                <>
+                  <span className={styles.welcome_text}>WELCOME BACK</span>
+                  <br></br>
+                  {username.toUpperCase()}
+                  &nbsp;
+                  <BsCaretDownFill size={12} />
+                </>
+              )}
+              {!username && (
+                <Link
+                  to={"/login"}
+                  style={{
+                    textDecoration: "none",
+                    color: "inherit",
+                    textAlign: "center",
+                    fontSize: "16px",
+                  }}
+                >
+                  SIGN IN&nbsp;
+                  <BsCaretDownFill size={12} />
+                </Link>
+              )} */}
               <Link
                 to={"/login"}
                 style={{
@@ -71,7 +94,11 @@ const Navbar = ({ setInput, setType }) => {
             <div className={styles.dropdown}>
               <Link
                 to={"/signup"}
-                style={{ textDecoration: "none", color: "inherit" }}
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  textAlign: "center",
+                }}
               >
                 SIGN UP
               </Link>
