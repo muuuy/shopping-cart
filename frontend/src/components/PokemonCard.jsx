@@ -49,6 +49,7 @@ const PokemonCard = ({ pokemon }) => {
     };
 
     populateTypes();
+    console.log(pokemon);
   }, [pokemon]);
 
   const capitalizeWord = (string) => {
