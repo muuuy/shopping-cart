@@ -1,4 +1,4 @@
-import { useState, useReducer } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
@@ -7,6 +7,9 @@ import styles from "../styles/Login.module.scss";
 import UserFormStyles from "../styles/Userform.module.scss";
 
 import LoginImage from "../assets/logIn/login_img.jpg";
+
+import { useDispatch } from "react-redux";
+import { authUser } from "../features/user/userSlice";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -18,6 +21,8 @@ const Login = () => {
   const [buttonLoading, setButtonLoading] = useState(false);
 
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -42,6 +47,12 @@ const Login = () => {
         console.log(res.data.errors);
       } else {
         console.log("resresresresresresresres", res);
+        dispatch(
+          authUser({
+            username: res.data.user.username,
+            email: res.data.user.email,
+          })
+        );
         navigate("/");
       }
     } catch (error) {

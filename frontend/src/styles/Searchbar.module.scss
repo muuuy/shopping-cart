@@ -4,7 +4,8 @@
   border-radius: 400px;
   display: flex;
   overflow: hidden;
-  width: 40%;
+  max-width: 100%;
+  min-width: 100%; 
   transition: border 0.4s ease;
   overflow: hidden;
 

@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import axios from "axios";
 
+import { useSelector } from "react-redux";
+
 import styles from "../styles/Navbar.module.scss";
 
 import SearchBar from "./Searchbar";
@@ -10,32 +12,10 @@ import SearchBar from "./Searchbar";
 import { BsHurricane } from "react-icons/bs";
 import { BsCart4 } from "react-icons/bs";
 import { BsChevronDown } from "react-icons/bs";
+import { BsCaretDownFill } from "react-icons/bs";
 
 const Navbar = ({ setInput, setType }) => {
-  const [userInfo, setUserInfo] = useState(null);
-  const [loggedIn, setLoggedIn] = useState(false); //SEND IN AS PROP TO LOGIN COMPONENT!!!!
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get("http://localhost:3000/users/login-info/");
-
-        console.log("resresrishdfaiodjawiodjwaiodjwioajdiowa", res);
-
-        if (res.data.user) {
-          setUserInfo(res.data.user.username);
-        } else {
-          console.log("WHAT THE FUCK!");
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchData();
-
-    return () => {};
-  }, [loggedIn]);
+  const username = useSelector((state) => state.user.username);
 
   return (
     <>
@@ -44,7 +24,9 @@ const Navbar = ({ setInput, setType }) => {
           <BsHurricane className={styles.logo_img} />
           POKESTOP
         </Link>
-        <SearchBar setSearchValue={setInput} setType={setType} />
+        <div className={styles.search_container}>
+          <SearchBar setSearchValue={setInput} setType={setType} />
+        </div>
         <ul className={styles.nav_list}>
           <li className={`${styles.list_item} ${styles.arrow_container}`}>
             <a className={styles.list_link} id={styles.shop_link}>
@@ -52,10 +34,10 @@ const Navbar = ({ setInput, setType }) => {
               &nbsp;SHOP
             </a>
             <div className={styles.dropdown}>
-              <a>Men&apos;s Clothing</a>
-              <a>Women&apos;s Clothing</a>
-              <a>Electronics</a>
-              <a>Jewlery</a>
+              <a>POKEMON</a>
+              <a>ITEMS</a>
+              <a>BERRIES</a>
+              <a>TECHNICAL MACHINES</a>
             </div>
           </li>
           <li className={styles.list_item} id={styles.shopping_cart}>
@@ -63,14 +45,37 @@ const Navbar = ({ setInput, setType }) => {
               <BsCart4 />
             </a>
           </li>
-          <li className={styles.list_item}>
-            <Link
-              to={"/signup"}
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              {userInfo ? `Welcome back ${userInfo}` : "SIGN IN"}&nbsp;
-              <BsChevronDown size={16} className={styles.shop_arrow} />
-            </Link>
+          <li className={`${styles.list_item} ${styles.arrow_container}`}>
+            <a className={styles.list_link} id={styles.user_link}>
+              <Link
+                to={"/login"}
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+
+                  fontSize: "16px",
+                }}
+              >
+                {username && (
+                  <>
+                    <span className={styles.welcome_text}>WELCOME BACK</span>
+                    <br></br>
+                    {username.toUpperCase()}
+                  </>
+                )}
+                {!username && "SIGN IN"}
+                &nbsp;
+                <BsCaretDownFill size={12} />
+              </Link>
+            </a>
+            <div className={styles.dropdown}>
+              <Link
+                to={"/signup"}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                SIGN UP
+              </Link>
+            </div>
           </li>
         </ul>
       </nav>

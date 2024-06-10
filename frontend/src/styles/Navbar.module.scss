@@ -40,6 +40,10 @@
     }
   }
 
+  > .search_container {
+    flex-grow: 1;
+  }
+
   > .nav_list {
     display: flex;
     justify-content: center;
@@ -66,7 +70,12 @@
         }
       }
 
-      > #shop_link {
+      &:not(:first-child) {
+        margin-right: 0;
+      }
+
+      > #shop_link,
+      #user_link {
         padding: 8px;
         border-radius: 32px;
 
@@ -87,14 +96,18 @@
         margin-right: 12px;
         color: black;
         background-color: white;
-        border: 4px solid black;
+        border: 2px solid black;
+        max-width: 140px;
+        min-width: 140px;
         z-index: 101;
 
         > a {
           display: block;
-          width: 200px;
+          text-align: center;
           padding: 16px 4px;
-          font-size: 16px;
+          font-size: 12px;
+          letter-spacing: 4px;
+          text-indent: 4px;
 
           &:hover {
             background-color: var(--light-gray);
@@ -119,6 +132,7 @@
       width: 40px;
       border-radius: 120px;
       font-weight: bold;
+      margin-right: 20px;
 
       &:hover {
         background-color: var(--light-gray);
@@ -127,4 +141,9 @@
       }
     }
   }
+}
+
+.welcome_text {
+  font-size: 12px;
+  color: variables.$dark-gray;
 }
