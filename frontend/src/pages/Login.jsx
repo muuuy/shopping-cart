@@ -40,13 +40,15 @@ const Login = () => {
     try {
       const res = await axios.post(
         "http://localhost:3000/users/login/",
-        formData
+        formData,
+        // { withCredentials: true }
       );
 
       if (res.data.errors && res.data.errors.length > 0) {
         console.log(res.data.errors);
       } else {
         console.log("resresresresresresresres", res);
+        console.log(res.data.cookie);
         dispatch(
           authUser({
             username: res.data.user.username,

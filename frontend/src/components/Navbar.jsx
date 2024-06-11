@@ -16,6 +16,17 @@ import { BsCaretDownFill } from "react-icons/bs";
 
 const Navbar = ({ setInput, setType }) => {
   const username = useSelector((state) => state.user.username);
+  const auth = useSelector((state) => state.user.authenticated);
+
+  const handleLogOut = async () => {
+    if (!auth) {
+      throw new Error("Not logged in");
+    } else {
+      const res = await axios.post("http://localhost:3000/users/logout/", {
+        withCredentials: true,
+      }); //post to logout via backend
+    }
+  };
 
   return (
     <>
@@ -46,17 +57,24 @@ const Navbar = ({ setInput, setType }) => {
             </a>
           </li>
           <li className={`${styles.list_item} ${styles.arrow_container}`}>
-            <a className={styles.list_link} id={styles.user_link}>
-              {/* {username && (
-                <>
+            {username && (
+              <>
+                <div>
                   <span className={styles.welcome_text}>WELCOME BACK</span>
                   <br></br>
                   {username.toUpperCase()}
                   &nbsp;
                   <BsCaretDownFill size={12} />
-                </>
-              )}
-              {!username && (
+                </div>
+                <div className={styles.dropdown}>
+                  <button className={styles.log_out} onClick={handleLogOut}>
+                    LOG OUT
+                  </button>
+                </div>
+              </>
+            )}
+            {!username && (
+              <>
                 <Link
                   to={"/login"}
                   style={{
@@ -69,40 +87,20 @@ const Navbar = ({ setInput, setType }) => {
                   SIGN IN&nbsp;
                   <BsCaretDownFill size={12} />
                 </Link>
-              )} */}
-              <Link
-                to={"/login"}
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-
-                  fontSize: "16px",
-                }}
-              >
-                {username && (
-                  <>
-                    <span className={styles.welcome_text}>WELCOME BACK</span>
-                    <br></br>
-                    {username.toUpperCase()}
-                  </>
-                )}
-                {!username && "SIGN IN"}
-                &nbsp;
-                <BsCaretDownFill size={12} />
-              </Link>
-            </a>
-            <div className={styles.dropdown}>
-              <Link
-                to={"/signup"}
-                style={{
-                  textDecoration: "none",
-                  color: "inherit",
-                  textAlign: "center",
-                }}
-              >
-                SIGN UP
-              </Link>
-            </div>
+                <div className={styles.dropdown}>
+                  <Link
+                    to={"/signup"}
+                    style={{
+                      textDecoration: "none",
+                      color: "inherit",
+                      textAlign: "center",
+                    }}
+                  >
+                    SIGN UP
+                  </Link>
+                </div>
+              </>
+            )}
           </li>
         </ul>
       </nav>

@@ -18,6 +18,8 @@ router.post("/forget/", user_controller.user_forget);
 
 router.post("/reset-password/:token", user_controller.user_reset);
 
+router.post("/logout/", user_controller.user_logout);
+
 // router.post("/shopping-cart/", user_controller.shopping_cart);
 
 module.exports = router;

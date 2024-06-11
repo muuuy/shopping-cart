@@ -95,39 +95,45 @@ exports.user_login = [
     .withMessage("Password must be specified."),
 
   asyncHandler(async (req, res, next) => {
+    console.log(req.sessionID);
+
     const errors = validationResult(req);
 
     const username = req.body.username;
     var password = req.body.password;
 
     if (!errors.isEmpty()) {
-      return res.json({ errors: errors.array() });
+      res.json({ errors: errors.array() });
     } else {
-      try {
-        const user = await User.findOne({
-          $or: [{ username: username }, { email: username }],
-        });
+      if (req.session.authenticated) {
+        res.json(req.session);
+      } else {
+        try {
+          const user = await User.findOne({
+            $or: [{ username: username }, { email: username }],
+          });
 
-        if (!user) {
-          console.log("user doesn't exist");
+          if (!user) {
+            console.log("user doesn't exist");
+          }
+
+          const match = await bcrypt.compare(password, user.password);
+
+          if (!match) {
+            console.log("no match");
+          }
+
+          req.session.authenticated = true;
+          req.session.user = {
+            username: user.username,
+            email: user.email,
+          };
+
+          console.log(req.session);
+          res.json(req.session);
+        } catch (error) {
+          console.log("err", error);
         }
-
-        const match = await bcrypt.compare(password, user.password);
-
-        if (!match) {
-          console.log("no match");
-        }
-
-        req.session.authenticated = true;
-        req.session.user = {
-          username: user.username,
-          email: user.email,
-        };
-
-        console.log(req.session);
-        return res.json(req.session);
-      } catch (error) {
-        console.log("err", error);
       }
     }
   }),
@@ -288,5 +294,23 @@ exports.user_reset = [
       }
     }
     res.redirect("http://localhost:5173/");
+  }),
+];
+
+exports.user_logout = [
+  asyncHandler(async (req, res, next) => {
+    console.log(req.session);
+    console.log(req.sessionID)
+    req.session.destroy((err) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send({ msg: "Logout Failed" });
+      } else {
+        console.log("cleared cookie");
+        res.clearCookie("connect.sid");
+        res.status(200).send({ message: "Logout successful" });
+        console.log(req.session);
+      }
+    });
   }),
 ];

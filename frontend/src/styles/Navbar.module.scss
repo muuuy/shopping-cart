@@ -101,6 +101,17 @@
         min-width: 140px;
         z-index: 101;
 
+        > .log_out {
+          width: 100%;
+          padding: 8px;
+          letter-spacing: 4px;
+          text-indent: 4px;
+          font-weight: 900;
+          background-color: variables.$pastel-red;
+          color: white;
+          cursor: pointer;
+        }
+
         > a {
           display: block;
           text-align: center;
