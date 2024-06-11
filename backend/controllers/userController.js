@@ -299,16 +299,16 @@ exports.user_reset = [
 
 exports.user_logout = [
   asyncHandler(async (req, res, next) => {
-    console.log(req.session);
-    console.log(req.sessionID)
+    console.log(req.sessionID);
+
     req.session.destroy((err) => {
       if (err) {
-        console.log(err);
-        return res.status(500).send({ msg: "Logout Failed" });
+        console.error(err);
+        return res.status(500).send({ msg: 'Logout Failed' });
       } else {
-        console.log("cleared cookie");
-        res.clearCookie("connect.sid");
-        res.status(200).send({ message: "Logout successful" });
+        console.log('cleared cookie');
+        res.clearCookie('connect.sid');
+        res.status(200).send({ message: 'Logout successful' });
         console.log(req.session);
       }
     });

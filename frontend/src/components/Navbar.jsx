@@ -25,9 +25,17 @@ const Navbar = ({ setInput, setType }) => {
     if (!auth) {
       throw new Error("Not logged in");
     } else {
-      const res = await axios.post("http://localhost:3000/users/logout/", {
-        withCredentials: true,
-      }); //post to logout via backend
+      try {
+        const res = await axios.post(
+          "http://localhost:3000/users/logout/",
+          null,
+          {
+            withCredentials: true,
+          }
+        ); //post to logout via backend
+      } catch (error) {
+        console.log(error);
+      }
 
       dispatch(removeUser());
     }
