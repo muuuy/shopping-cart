@@ -41,7 +41,7 @@ const Login = () => {
       const res = await axios.post(
         "http://localhost:3000/users/login/",
         formData,
-        // { withCredentials: true }
+        { withCredentials: true }
       );
 
       if (res.data.errors && res.data.errors.length > 0) {

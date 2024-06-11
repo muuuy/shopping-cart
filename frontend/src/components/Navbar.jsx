@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import axios from "axios";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { removeUser } from "../features/userSlice";
 
 import styles from "../styles/Navbar.module.scss";
 
@@ -18,6 +19,8 @@ const Navbar = ({ setInput, setType }) => {
   const username = useSelector((state) => state.user.username);
   const auth = useSelector((state) => state.user.authenticated);
 
+  const dispatch = useDispatch();
+
   const handleLogOut = async () => {
     if (!auth) {
       throw new Error("Not logged in");
@@ -25,6 +28,8 @@ const Navbar = ({ setInput, setType }) => {
       const res = await axios.post("http://localhost:3000/users/logout/", {
         withCredentials: true,
       }); //post to logout via backend
+
+      dispatch(removeUser());
     }
   };
 
