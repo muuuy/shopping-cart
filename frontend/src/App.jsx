@@ -8,8 +8,10 @@ import {
   Routes,
   BrowserRouter,
 } from "react-router-dom";
+import axios from "axios";
 
-import { Provider } from "react-redux";
+import { useDispatch } from "react-redux";
+import { authUser } from "./features/userSlice";
 
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
@@ -26,6 +28,28 @@ function App() {
 
   const [userInput, setUserInput] = useState("pikachu");
   const [itemType, setItemType] = useState("pokemon");
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchAuth = async () => {
+      try {
+        const res = await axios.post("http://localhost:3000/users/auth/", null, {
+          withCredentials: true,
+        });
+        console.log(res);
+        if (res.data.user) {
+          console.log(res);
+          dispatch(authUser(res.data.user));
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchAuth();
+
+  }, [dispatch]);
 
   return (
     <>

@@ -114,13 +114,13 @@ exports.user_login = [
           });
 
           if (!user) {
-            console.log("user doesn't exist");
+            res.json({ error: [{ msg: "User not found." }] });
           }
 
           const match = await bcrypt.compare(password, user.password);
 
           if (!match) {
-            console.log("no match");
+            res.json({ error: [{ msg: "Incorrect password." }] });
           }
 
           req.session.authenticated = true;
@@ -130,6 +130,7 @@ exports.user_login = [
           };
 
           console.log(req.session);
+
           res.json(req.session);
         } catch (error) {
           console.log("err", error);
@@ -139,16 +140,16 @@ exports.user_login = [
   }),
 ];
 
-exports.login_info = [
-  asyncHandler(async (req, res, next) => {
-    if (req.session.authenticated) {
-      console.log("auth");
-      return res.json(req.session.user);
-    } else {
-      return res.json({ msg: "Not Authenticated" });
-    }
-  }),
-];
+// exports.login_info = [
+//   asyncHandler(async (req, res, next) => {
+//     if (req.session.authenticated) {
+//       console.log("auth");
+//       return res.json(req.session.user);
+//     } else {
+//       return res.json({ msg: "Not Authenticated" });
+//     }
+//   }),
+// ];
 
 exports.user_forget = [
   body("username")
@@ -304,13 +305,26 @@ exports.user_logout = [
     req.session.destroy((err) => {
       if (err) {
         console.error(err);
-        return res.status(500).send({ msg: 'Logout Failed' });
+        return res.status(500).send({ msg: "Logout Failed" });
       } else {
-        console.log('cleared cookie');
-        res.clearCookie('connect.sid');
-        res.status(200).send({ message: 'Logout successful' });
-        console.log(req.session);
+        console.log("cleared cookie");
+        res.clearCookie("connect.sid");
+        res.status(200).send({ message: "Logout successful" });
       }
     });
   }),
+];
+
+exports.get_auth = [
+  (req, res, next) => {
+    console.log(req.sessionID);
+
+    if (req.session.authenticated) {
+      console.log("djwioajdiowajdiowajdiowa");
+      res.json(req.session);
+    } else {
+      console.log("Unauth");
+      res.send({ message: "Unauthorized" });
+    }
+  },
 ];

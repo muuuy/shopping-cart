@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// const sessionExists = !!
-
 const initialState = {
   authenticated: false,
   username: "",

@@ -48,7 +48,6 @@ const Login = () => {
         console.log(res.data.errors);
       } else {
         console.log("resresresresresresresres", res);
-        console.log(res.data.cookie);
         dispatch(
           authUser({
             username: res.data.user.username,
