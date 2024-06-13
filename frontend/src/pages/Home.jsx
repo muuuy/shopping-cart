@@ -1,14 +1,12 @@
 import PropTypes from "prop-types";
 import styles from "../styles/Home.module.scss";
-import SpacerStyles from "../styles/Spacer.module.scss";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
 import Banner from "../components/Banner";
 import GreetingBanner from "../components/GreetingBanner";
 import PokemonBanner from "../components/PokemonBanner";
 import ItemBanner from "../components/ItemBanner";
-import BerryBanner from "../components/BerryBanner";
-import TMBanner from "../components/TMBanner";
+import MiscBanner from "../components/MiscBanner";
 import Explore from "../components/Explore";
 
 const Home = ({ userInput, itemType }) => {
@@ -21,26 +19,24 @@ const Home = ({ userInput, itemType }) => {
       </HelmetProvider>
 
       <div id={styles.home_page}>
-        <div>
-          <div id="section0">
-            <GreetingBanner />
-          </div>
-          <div id="section1">
-            <Banner />
-          </div>
-          <div id="section2">
-            <PokemonBanner />
-          </div>
+        <section className={styles.component_container}>
+          <GreetingBanner />
+        </section>
+        <section className="component-container">
+          <Banner />
+        </section>
+        <section className="component-container">
+          <PokemonBanner />
+        </section>
+        <section className="component-container">
           <ItemBanner />
-          <div className={`${SpacerStyles.spacer} ${SpacerStyles.layer2}`}>
-            <div className={styles.grid_container}>
-              <BerryBanner />
-              <TMBanner />
-            </div>
-          </div>
-
+        </section>
+        <section className="component-container">
+          <MiscBanner />
+        </section>
+        {/* <section>
           <Explore input={userInput} type={itemType} />
-        </div>
+        </section> */}
       </div>
     </>
   );

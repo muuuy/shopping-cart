@@ -93,8 +93,7 @@ const Navbar = ({ setInput, setType }) => {
                   style={{
                     textDecoration: "none",
                     color: "inherit",
-                    textAlign: "center",
-                    fontSize: "16px",
+                    fontSize: "20px",
                   }}
                 >
                   SIGN IN&nbsp;
@@ -106,7 +105,6 @@ const Navbar = ({ setInput, setType }) => {
                     style={{
                       textDecoration: "none",
                       color: "inherit",
-                      textAlign: "center",
                     }}
                   >
                     SIGN UP

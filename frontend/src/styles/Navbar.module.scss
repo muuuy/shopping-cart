@@ -61,10 +61,6 @@
       margin-right: 20px;
 
       > .list_link {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
         > .shop_arrow {
           transform: rotate(-90deg);
         }
@@ -129,6 +125,10 @@
     }
 
     > .arrow_container {
+      text-align: center;
+      max-width: 140px;
+      min-width: 140px;
+
       &:hover .shop_arrow {
         transform: rotate(0deg);
         transition: transform 0.2s ease;

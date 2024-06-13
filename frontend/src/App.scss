@@ -68,3 +68,18 @@
   width: 100%;
   background-color: var(--dark-gray);
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+footer {
+  height: 80px;
+  background-color: black;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}

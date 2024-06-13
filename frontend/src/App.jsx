@@ -34,10 +34,14 @@ function App() {
   useEffect(() => {
     const fetchAuth = async () => {
       try {
-        const res = await axios.post("http://localhost:3000/users/auth/", null, {
-          withCredentials: true,
-        });
-        console.log(res);
+        const res = await axios.post(
+          "http://localhost:3000/users/auth/",
+          null,
+          {
+            withCredentials: true,
+          }
+        );
+
         if (res.data.user) {
           console.log(res);
           dispatch(authUser(res.data.user));
@@ -48,7 +52,6 @@ function App() {
     };
 
     fetchAuth();
-
   }, [dispatch]);
 
   return (
@@ -80,6 +83,12 @@ function App() {
           <Route path="/store" Component={Store} />
           <Route path="/shop-pokemon/:itemName" element={<ShopPokemon />} />
         </Routes>
+        <footer>
+          <p>Matthew Yu</p>
+          <p>
+            がんばれ！
+          </p>
+        </footer>
       </div>
     </>
   );

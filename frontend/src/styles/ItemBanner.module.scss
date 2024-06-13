@@ -1,44 +1,81 @@
+@use "variables";
+
 .itemBanner_container {
   display: flex;
+  position: relative;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin: 0 48px 60px 48px;
-  padding: 8px 0;
   justify-self: center;
   align-items: center;
   overflow: hidden;
+  height: 100vh;
+  background-color: variables.$lavendar;
 
   > div {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    width: 45%;
     gap: 32px;
+    z-index: 5;
 
     .itemContainer_description {
       display: flex;
       flex-direction: column;
-      width: 532px;
+      justify-content: center;
+      align-items: center;
+      font-weight: 800;
 
-      .explore {
-        font-size: 12px;
-        font-style: italic;
-        margin-bottom: 4px;
+      > div {
+        display: flex;
+        justify-content: center;
       }
+    }
+
+    > div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      flex-wrap: wrap;
     }
   }
 
   .itemBanner_item {
-    overflow: hidden;
     padding: 12px 12px 0 12px;
     border-radius: 20px;
   }
 
-  .itemBanner_item:hover {
-    box-shadow: 0 0 16px 1px var(--pastel-blue);
-    transition: box-shadow 0.4s ease;
+  > .info_image {
+    top: 0;
   }
+
+  .info_image2 {
+    bottom: 4%;
+    left: 0;
+  }
+
+  .info_image3 {
+    bottom: 4%;
+    right: 0;
+  }
+
+  > .info_image,
+  .info_image2,
+  .info_image3 {
+    position: absolute;
+  }
+}
+
+.item_header {
+  font-size: 32px;
+  letter-spacing: 8px;
+  text-indent: 8px;
+  font-weight: 900;
+  color: white;
+  text-shadow: 2px 2px 0px black, -2px -2px 0px black, -2px 2px 0px black,
+    2px -2px 0px black, 2px 0px 0px black, -2px 0px 0px black, 0px 2px 0px black,
+    0px -2px 0px black;
 }

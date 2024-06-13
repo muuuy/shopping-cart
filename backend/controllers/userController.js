@@ -62,7 +62,7 @@ exports.user_create_post = [
     console.log(username, password, email);
 
     if (!errors.isEmpty()) {
-      return res.json({ errors: errors.array() });
+      res.status(401).json({ errors: errors.array() });
     } else {
       try {
         password = await bcrypt.hash(password, 13);
@@ -103,10 +103,10 @@ exports.user_login = [
     var password = req.body.password;
 
     if (!errors.isEmpty()) {
-      res.json({ errors: errors.array() });
+      res.status(401).json({ errors: errors.array() });
     } else {
       if (req.session.authenticated) {
-        res.json(req.session);
+        res.status(200).json(req.session);
       } else {
         try {
           const user = await User.findOne({
@@ -114,13 +114,13 @@ exports.user_login = [
           });
 
           if (!user) {
-            res.json({ error: [{ msg: "User not found." }] });
+            res.status(401).json({ error: [{ msg: "User not found." }] });
           }
 
           const match = await bcrypt.compare(password, user.password);
 
           if (!match) {
-            res.json({ error: [{ msg: "Incorrect password." }] });
+            res.status(401).json({ error: [{ msg: "Incorrect password." }] });
           }
 
           req.session.authenticated = true;
@@ -131,9 +131,9 @@ exports.user_login = [
 
           console.log(req.session);
 
-          res.json(req.session);
+          res.status(200).json(req.session);
         } catch (error) {
-          console.log("err", error);
+          res.status(400).json({ message: "Error loggin in." });
         }
       }
     }
@@ -162,7 +162,7 @@ exports.user_forget = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      return res.json({ errors: errors.array() });
+      res.status(401).json({ errors: errors.array() });
     } else {
       try {
         const user = await User.findOne({
@@ -170,7 +170,9 @@ exports.user_forget = [
         });
 
         if (!user) {
-          return res.json({ errors: [{ msg: "Invalid Username/Email." }] });
+          res
+            .status(401)
+            .json({ errors: [{ msg: "Invalid Username/Email." }] });
         }
 
         console.log(user);
@@ -203,7 +205,7 @@ exports.user_forget = [
 
         transporter.sendMail(mailOptions, (err, info) => {
           if (err) {
-            return res.status(500).send({ message: err.message });
+            res.status(500).send({ message: err.message });
           }
           console.log("Message sent: %s", info.messageId);
           console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
@@ -244,7 +246,7 @@ exports.user_reset = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      return res.json({ errors: errors.array() });
+      res.status(401).json({ errors: errors.array() });
     } else {
       try {
         const decodedToken = jwt.verify(
@@ -253,7 +255,7 @@ exports.user_reset = [
         );
 
         if (!decodedToken) {
-          return res.status(401).send({ message: "Invalid token" });
+          res.status(401).send({ message: "Invalid token" });
         }
 
         const user = await User.findOne({
@@ -261,14 +263,13 @@ exports.user_reset = [
         });
 
         if (!user) {
-          return res.json({ error: [{ msg: "Invalid Username/Email." }] });
+          res.status(401).json({ error: [{ msg: "Invalid Username/Email." }] });
         }
 
         const match = await bcrypt.compare(req.body.password, user.password);
 
         if (match) {
-          console.log("matching");
-          return res.json({
+          res.status(401).json({
             errors: [
               {
                 msg: "New password cannot be the same as the current password.",
@@ -288,10 +289,8 @@ exports.user_reset = [
         user.password = password;
 
         await user.save();
-
-        console.log(user);
       } catch (error) {
-        console.log(error);
+        res.status(500).json({ message: "Error resetting user information." });
       }
     }
     res.redirect("http://localhost:5173/");
@@ -305,9 +304,8 @@ exports.user_logout = [
     req.session.destroy((err) => {
       if (err) {
         console.error(err);
-        return res.status(500).send({ msg: "Logout Failed" });
+        return res.status(400).send({ msg: "Logout Failed" });
       } else {
-        console.log("cleared cookie");
         res.clearCookie("connect.sid");
         res.status(200).send({ message: "Logout successful" });
       }
@@ -320,11 +318,10 @@ exports.get_auth = [
     console.log(req.sessionID);
 
     if (req.session.authenticated) {
-      console.log("djwioajdiowajdiowajdiowa");
-      res.json(req.session);
+      res.status(200).json(req.session);
     } else {
       console.log("Unauth");
-      res.send({ message: "Unauthorized" });
+      res.status(401).send({ message: "Unauthorized" });
     }
   },
 ];

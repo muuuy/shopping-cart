@@ -32,7 +32,7 @@ const BerryBanner = () => {
     <div className={styles.berryBanner_container}>
       <div className={styles.berryBanner_header}>
         <p className={styles.explore}>Explore!</p>
-        <ArrowText text={<h2>Shop for Berries</h2>} />
+        <ArrowText text={<h2 className={styles.berry_header}>SHOP FOR BERRIES</h2>} />
       </div>
       <div className={styles.berryItem_container}>
         {randNums.length > 0 &&

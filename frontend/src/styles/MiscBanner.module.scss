@@ -1,0 +1,11 @@
+@use "variables";
+
+.misc_container {
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+    background-color: variables.$light-gray;
+}

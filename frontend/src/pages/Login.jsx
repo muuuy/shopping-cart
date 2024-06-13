@@ -47,7 +47,6 @@ const Login = () => {
       if (res.data.errors && res.data.errors.length > 0) {
         console.log(res.data.errors);
       } else {
-        console.log("resresresresresresresres", res);
         dispatch(
           authUser({
             username: res.data.user.username,
@@ -99,7 +98,6 @@ const Login = () => {
               placeholder="Password"
               name="password"
               id="login-password"
-              autoComplete="password"
               required
               onChange={handleChange}
               minLength={8}

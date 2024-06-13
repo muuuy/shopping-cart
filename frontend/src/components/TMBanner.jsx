@@ -29,10 +29,10 @@ const TMBanner = () => {
   }, []);
 
   return (
-    <div className={styles.tmBanner_container}>
+    <div className={styles.tmBanner_container}> 
       <div className={styles.tmBanner_header}>
         <p className={styles.explore}>Explore!</p>
-        <ArrowText text={<h2>Shop for Technical Machines</h2>} />
+        <ArrowText text={<h2 className={styles.tm_header}>SHOP FOR TECHNICAL MACHINES</h2>} />
       </div>
       <div className={styles.tmItem_container}>
         {randNums.length > 0 &&
