@@ -130,6 +130,29 @@ exports.user_login = [
             res.status(401).json({ error: [{ msg: "Incorrect password." }] });
           }
 
+          const cart = await Cart.findById(user.shoppingCart).exec();
+
+          const items = await Promise.all(
+            cart.items.map((itemID) => Item.findById(itemID).exec())
+          );
+
+          const responseItems = items.map((item) => { //turn item._id into JWT tokens
+            const token = jwt.sign(
+              { itemId: item._id },
+              process.env.JWT_SECRET_KEY,
+              { expiresIn: process.env.SESSION_EXPIRE }
+            );
+
+            const newItem = {
+              token: token,
+              itemID: item.itemID,
+              itemType: item.itemType,
+              quantity: item.quantity,
+            };
+
+            return newItem;
+          });
+
           const token = jwt.sign(
             { userId: user._id },
             process.env.JWT_SECRET_KEY,
@@ -141,6 +164,7 @@ exports.user_login = [
             token: token,
             username: user.username,
             email: user.email,
+            items: responseItems,
           };
 
           console.log(req.session);
@@ -384,11 +408,6 @@ exports.shopping_cart = [
       cart.items.push(item._id);
 
       cart.save();
-
-      // user.shoppingCart.items.push(item._id);
-
-      // await user.save();
-
       res.status(200).json({ message: "Item was added to cart." });
     } catch (error) {
       res.status(500).json({ message: "Error fetching cart" });

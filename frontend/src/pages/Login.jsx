@@ -28,6 +28,26 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const fetchItem = async (item) => {
+    try {
+      const res = await fetch(
+        `https://pokeapi.co/api/v2/${item.itemType}/${item.itemID}`
+      );
+
+      if (!res.ok) {
+        throw new Error("Error fetching item");
+      }
+
+      const apiItem = await res.json();
+
+      item.apiItem = apiItem;
+
+      return item;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -47,11 +67,19 @@ const Login = () => {
       if (res.data.errors && res.data.errors.length > 0) {
         console.log(res.data.errors);
       } else {
-        console.log(res.data.user);
+        console.log("yoyoyoyoy", res.data.user);
+
+        const items = res.data.user.items;
+
+        const cart = await Promise.all(items.map((item) => fetchItem(item)));
+
+        console.log(cart);
+
         dispatch(
           authUser({
             username: res.data.user.username,
             email: res.data.user.email,
+            cart: res.data.user.items,
           })
         );
         navigate("/");
