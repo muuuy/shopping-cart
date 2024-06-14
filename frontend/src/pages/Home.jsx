@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import styles from "../styles/Home.module.scss";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import { useRef } from "react";
 
 import Banner from "../components/Banner";
 import GreetingBanner from "../components/GreetingBanner";

@@ -44,7 +44,12 @@ function App() {
 
         if (res.data.user) {
           console.log(res);
-          dispatch(authUser(res.data.user));
+          dispatch(
+            authUser({
+              username: res.data.user.username,
+              email: res.data.user.email,
+            })
+          );
         }
       } catch (error) {
         console.log(error);
@@ -85,9 +90,7 @@ function App() {
         </Routes>
         <footer>
           <p>Matthew Yu</p>
-          <p>
-            がんばれ！
-          </p>
+          <p>がんばれ！</p>
         </footer>
       </div>
     </>

@@ -22,6 +22,6 @@ router.post("/logout/", user_controller.user_logout);
 
 router.post("/auth/", user_controller.get_auth);
 
-// router.post("/shopping-cart/", user_controller.shopping_cart);
+router.post("/shopping-cart/", user_controller.shopping_cart);
 
 module.exports = router;

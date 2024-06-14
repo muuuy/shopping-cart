@@ -18,9 +18,10 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  // shoppingCart: {
-  //   t
-  // }
+  shoppingCart: {
+    type: Schema.Types.ObjectId,
+    ref: "Cart",
+  },
 });
 
 module.exports = mongoose.model("User", UserSchema);

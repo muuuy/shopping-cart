@@ -4,15 +4,15 @@ const { DateTime } = require("luxon");
 const Schema = mongoose.Schema;
 
 const ItemSchema = new Schema({
-  item: {
-    type: Object,
+  itemID: {
+    type: Number,
     required: true,
   },
   itemType: {
     type: String,
     required: true,
-    enum: ["Pokemon", "Item"],
-    default: "Pokemon",
+    enum: ["pokemon", "item"],
+    default: "pokemon",
   },
   cost: {
     type: Number,
@@ -26,14 +26,14 @@ const ItemSchema = new Schema({
     min: 1,
     max: 5,
   },
-  orderDate: {
-    type: Date,
-    default: null,
-  },
-  shippingDate: {
-    type: Date,
-    default: null,
-  },
+  // orderDate: {
+  //   type: Date,
+  //   default: null,
+  // },
+  // shippingDate: {
+  //   type: Date,
+  //   default: null,
+  // },
 });
 
 //Get total cost of item in cart

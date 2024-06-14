@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const Item = require("../models/item");
+const Cart = require("../models/cart");
 
 const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
@@ -59,7 +61,6 @@ exports.user_create_post = [
     const username = req.body.username;
     var password = req.body.password;
     const email = req.body.email;
-    console.log(username, password, email);
 
     if (!errors.isEmpty()) {
       res.status(401).json({ errors: errors.array() });
@@ -71,10 +72,14 @@ exports.user_create_post = [
       }
     }
 
+    const cart = new Cart();
+    await cart.save();
+
     const user = new User({
       username: username,
       password: password,
       email: email,
+      shoppingCart: cart._id,
     });
 
     await user.save();
@@ -114,7 +119,9 @@ exports.user_login = [
           });
 
           if (!user) {
-            res.status(401).json({ error: [{ msg: "User not found." }] });
+            return res
+              .status(401)
+              .json({ error: [{ msg: "User not found." }] });
           }
 
           const match = await bcrypt.compare(password, user.password);
@@ -123,8 +130,15 @@ exports.user_login = [
             res.status(401).json({ error: [{ msg: "Incorrect password." }] });
           }
 
+          const token = jwt.sign(
+            { userId: user._id },
+            process.env.JWT_SECRET_KEY,
+            { expiresIn: process.env.SESSION_EXPIRE }
+          );
+
           req.session.authenticated = true;
           req.session.user = {
+            token: token,
             username: user.username,
             email: user.email,
           };
@@ -139,17 +153,6 @@ exports.user_login = [
     }
   }),
 ];
-
-// exports.login_info = [
-//   asyncHandler(async (req, res, next) => {
-//     if (req.session.authenticated) {
-//       console.log("auth");
-//       return res.json(req.session.user);
-//     } else {
-//       return res.json({ msg: "Not Authenticated" });
-//     }
-//   }),
-// ];
 
 exports.user_forget = [
   body("username")
@@ -324,4 +327,71 @@ exports.get_auth = [
       res.status(401).send({ message: "Unauthorized" });
     }
   },
+];
+
+exports.shopping_cart = [
+  body("type")
+    .trim()
+    .custom((type) => {
+      if (type !== "pokemon" && type !== "item") {
+        throw new Error("Invalid type.");
+      } else {
+        return true;
+      }
+    }),
+
+  asyncHandler(async (req, res, next) => {
+    console.log(req.sessionID);
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.status(401).json({ errors: errors.array() });
+    }
+
+    try {
+      const decodedToken = jwt.verify(
+        req.session.user.token,
+        process.env.JWT_SECRET_KEY
+      );
+
+      if (!decodedToken) {
+        res.status(401).send({ message: "Invalid token" });
+      }
+
+      const user = await User.findById(decodedToken.userId).exec();
+
+      if (!user) {
+        res.status(401).json({ error: [{ msg: "Invalid user." }] });
+      }
+
+      console.log(1);
+
+      const item = new Item({
+        itemID: req.body.id,
+        itemType: req.body.type,
+        cost: req.body.cost,
+        quantity: req.body.quantity,
+      });
+
+      console.log(2);
+
+      await item.save();
+
+      console.log(3);
+
+      const cart = await Cart.findById(user.shoppingCart).exec();
+
+      cart.items.push(item._id);
+
+      cart.save();
+
+      // user.shoppingCart.items.push(item._id);
+
+      // await user.save();
+
+      res.status(200).json({ message: "Item was added to cart." });
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching cart" });
+    }
+  }),
 ];

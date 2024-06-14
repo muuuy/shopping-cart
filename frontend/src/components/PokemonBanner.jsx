@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import SpacerStyles from "../styles/Spacer.module.scss";
 import styles from "../styles/PokemonBanner.module.scss";
 import { v4 as uuidv4 } from "uuid";
+
+import PokemonBannerImage from "../assets/pokemon_banner.webp";
 
 import ArrowText from "../components/ArrowText";
 import Explore from "../components/Explore";
@@ -39,13 +40,16 @@ const PokemonBanner = () => {
     <>
       <div className={styles.pokeBanner_container}>
         <div className={styles.pokeBanner_description}>
-          <ArrowText
-            text={
-              <h2 className={styles.pokeBanner_header}>
-                SHOP FOR POKEMON INFO
-              </h2>
-            }
-          />
+          <div>
+            <ArrowText
+              text={
+                <h2 className={styles.pokeBanner_header}>
+                  SHOP FOR POKEMON INFO
+                </h2>
+              }
+            />
+          </div>
+          <img src={PokemonBannerImage} />
         </div>
         <section>
           <article className={styles.description}>
