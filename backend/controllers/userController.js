@@ -9,6 +9,21 @@ const session = require("express-session");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 
+const generateSessionItem = (item) => {
+  const token = jwt.sign({ itemId: item._id }, process.env.JWT_SECRET_KEY, {
+    expiresIn: process.env.SESSION_EXPIRE,
+  });
+
+  const newItem = {
+    token: token,
+    itemID: item.itemID,
+    itemType: item.itemType,
+    quantity: item.quantity,
+  };
+
+  return newItem;
+};
+
 exports.user_create_post = [
   body("username")
     .trim()
@@ -136,7 +151,8 @@ exports.user_login = [
             cart.items.map((itemID) => Item.findById(itemID).exec())
           );
 
-          const responseItems = items.map((item) => { //turn item._id into JWT tokens
+          const responseItems = items.map((item) => {
+            //turn item._id into JWT tokens
             const token = jwt.sign(
               { itemId: item._id },
               process.env.JWT_SECRET_KEY,
@@ -365,7 +381,10 @@ exports.shopping_cart = [
     }),
 
   asyncHandler(async (req, res, next) => {
-    console.log(req.sessionID);
+    if (!req.session.authenticated) {
+      res.status(500).json({ errors: [{ msg: "Not logged in." }] });
+    }
+
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -388,8 +407,6 @@ exports.shopping_cart = [
         res.status(401).json({ error: [{ msg: "Invalid user." }] });
       }
 
-      console.log(1);
-
       const item = new Item({
         itemID: req.body.id,
         itemType: req.body.type,
@@ -397,17 +414,19 @@ exports.shopping_cart = [
         quantity: req.body.quantity,
       });
 
-      console.log(2);
-
       await item.save();
 
-      console.log(3);
-
       const cart = await Cart.findById(user.shoppingCart).exec();
-
       cart.items.push(item._id);
-
       cart.save();
+
+      const newItem = generateSessionItem(item);
+
+      console.log(req.session.user.items);
+
+      req.session.user.items.push(newItem);
+
+      console.log(req.session.user.items);
       res.status(200).json({ message: "Item was added to cart." });
     } catch (error) {
       res.status(500).json({ message: "Error fetching cart" });
