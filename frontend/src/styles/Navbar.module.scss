@@ -56,7 +56,6 @@
     list-style: none;
 
     > .list_item {
-
       > .list_link {
         > .shop_arrow {
           transform: rotate(-90deg);
@@ -116,25 +115,6 @@
           &:hover {
             background-color: var(--light-gray);
             transition: background-color 0.3s ease;
-          }
-        }
-
-        > .cart_item {
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          align-items: center;
-          overflow: hidden;
-          padding: 12px;
-
-          > .cart_description {
-            > h2 {
-              font-size: 12px;
-            }
-
-            > p {
-              font-size: 10px;
-            }
           }
         }
       }

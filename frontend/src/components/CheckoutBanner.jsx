@@ -46,7 +46,7 @@ const CheckoutBanner = ({ cost = 0, setShow, date, id, type }) => {
 
       if (res.data.newItem) {
         console.log(res.data.newItem);
-        
+
         const item = await fetchItems(res.data.newItem);
 
         dispatch(cartAppend({ item: item }));
