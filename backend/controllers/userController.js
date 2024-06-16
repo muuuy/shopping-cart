@@ -419,3 +419,43 @@ exports.shopping_cart = [
     }
   }),
 ];
+
+exports.delete_item = [
+  asyncHandler(async (req, res, next) => {
+    if (!req.session.authenticated) {
+      res.status(500).json({ error: [{ message: "Not logged in." }] });
+    } else {
+      console.log(req.body.token);
+      console.log(req.body.username);
+
+      const user = await User.findOne({ username: req.body.username });
+
+      if (!user) {
+        res.status(404).json({ message: "User not found." });
+      }
+
+      const cart = await Cart.findById(user.shoppingCart).exec();
+
+      if (!cart) {
+        res.status(404).json({ message: "Cart not found." });
+      }
+
+      const decodedToken = jwt.verify(
+        req.body.token,
+        process.env.JWT_SECRET_KEY
+      );
+
+      if (!decodedToken) {
+        req.status(404).json({ message: "Item not found." });
+      }
+
+      const newCart = cart.items.filter((item) => item != decodedToken.itemId);
+      cart.items = newCart;
+      cart.save();
+
+      const deletedItem = await Item.findByIdAndDelete(decodedToken.itemId);
+
+      console.log(deletedItem);
+    }
+  }),
+];
