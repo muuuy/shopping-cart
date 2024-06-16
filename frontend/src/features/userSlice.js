@@ -21,12 +21,12 @@ const userSlice = createSlice({
       state.email = "";
       state.authenticated = false;
     },
-    addToCard(state, action) {
+    cartAppend(state, action) {
       state.cart.push(action.payload.item);
     },
   },
 });
 
-export const { authUser, removeUser } = userSlice.actions;
+export const { authUser, removeUser, cartAppend } = userSlice.actions;
 
 export default userSlice.reducer;

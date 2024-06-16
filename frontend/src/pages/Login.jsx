@@ -11,7 +11,7 @@ import LoginImage from "../assets/logIn/login_img.jpg";
 import { useDispatch } from "react-redux";
 import { authUser } from "../features/userSlice";
 
-import { fetchItem } from "../utils/fetchItems";
+import { fetchItems } from "../utils/fetchItems";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -51,9 +51,12 @@ const Login = () => {
       } else {
         console.log("yoyoyoyoy", res.data.user);
 
-        const items = res.data.user.items;
-
-        const cart = await Promise.all(items.map((item) => fetchItem(item)));
+        let cart;
+        try {
+          cart = await fetchItems(res.data.user.items);
+        } catch (err) {
+          console.log(err);
+        }
 
         console.log(cart);
 
@@ -61,7 +64,7 @@ const Login = () => {
           authUser({
             username: res.data.user.username,
             email: res.data.user.email,
-            cart: res.data.user.items,
+            cart: cart,
           })
         );
         navigate("/");

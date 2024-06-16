@@ -19,6 +19,7 @@ const generateSessionItem = (item) => {
     itemID: item.itemID,
     itemType: item.itemType,
     quantity: item.quantity,
+    cost: item.cost,
   };
 
   return newItem;
@@ -152,21 +153,7 @@ exports.user_login = [
           );
 
           const responseItems = items.map((item) => {
-            //turn item._id into JWT tokens
-            const token = jwt.sign(
-              { itemId: item._id },
-              process.env.JWT_SECRET_KEY,
-              { expiresIn: process.env.SESSION_EXPIRE }
-            );
-
-            const newItem = {
-              token: token,
-              itemID: item.itemID,
-              itemType: item.itemType,
-              quantity: item.quantity,
-            };
-
-            return newItem;
+            return generateSessionItem(item);
           });
 
           const token = jwt.sign(
@@ -422,13 +409,12 @@ exports.shopping_cart = [
 
       const newItem = generateSessionItem(item);
 
-      console.log(req.session.user.items);
-
       req.session.user.items.push(newItem);
-
-      console.log(req.session.user.items);
-      res.status(200).json({ message: "Item was added to cart." });
+      res
+        .status(200)
+        .json({ message: "Item was added to cart.", newItem: newItem });
     } catch (error) {
+      console.log(error);
       res.status(500).json({ message: "Error fetching cart" });
     }
   }),

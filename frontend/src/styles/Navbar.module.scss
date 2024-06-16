@@ -48,7 +48,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    float: left;
     margin: 20px 2% 20px 0;
     font-family: "Roboto Condensed", sans-serif;
     font-size: 20px;
@@ -57,8 +56,6 @@
     list-style: none;
 
     > .list_item {
-      float: left;
-      margin-right: 20px;
 
       > .list_link {
         > .shop_arrow {
@@ -121,6 +118,32 @@
             transition: background-color 0.3s ease;
           }
         }
+
+        > .cart_item {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+          padding: 12px;
+
+          > .cart_description {
+            > h2 {
+              font-size: 12px;
+            }
+
+            > p {
+              font-size: 10px;
+            }
+          }
+        }
+      }
+
+      > .cart {
+        max-width: 200px;
+        min-width: 200px;
+        max-height: 600px;
+        overflow: scroll;
       }
     }
 
@@ -137,18 +160,16 @@
 
     > #shopping_cart {
       text-align: center;
-      padding: 6px;
       font-size: 24px;
-      height: 40px;
-      width: 40px;
       border-radius: 120px;
       font-weight: bold;
-      margin-right: 20px;
+      max-width: 200px;
+      min-width: 200px;
+      font-size: 20px;
+      z-index: 4;
 
       &:hover {
-        background-color: var(--light-gray);
-        color: black;
-        transition: background-color 0.1s ease, color 0.1s ease;
+        color: variables.$pastel-red;
       }
     }
   }

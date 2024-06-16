@@ -9,6 +9,7 @@ import PokemonBanner from "../components/PokemonBanner";
 import ItemBanner from "../components/ItemBanner";
 import MiscBanner from "../components/MiscBanner";
 import Explore from "../components/Explore";
+import ShoppingCart from "../components/ShoppingCart";
 
 const Home = ({ userInput, itemType }) => {
   return (
@@ -38,6 +39,7 @@ const Home = ({ userInput, itemType }) => {
         {/* <section>
           <Explore input={userInput} type={itemType} />
         </section> */}
+        <ShoppingCart />
       </div>
     </>
   );

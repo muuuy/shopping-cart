@@ -23,7 +23,7 @@ import Navbar from "./components/Navbar";
 import Store from "./pages/Store";
 import ShopPokemon from "./pages/ShopPokemon";
 
-import { fetchItem } from "./utils/fetchItems";
+import { fetchItems } from "./utils/fetchItems";
 
 function App() {
   const [currentSection, setCurrentSection] = useState(0);
@@ -45,9 +45,7 @@ function App() {
         );
 
         if (res.data.user) {
-          const items = res.data.user.items;
-
-          const cart = await Promise.all(items.map((item) => fetchItem(item)));
+          const cart = await fetchItems(res.data.user.items);
 
           console.log(cart);
 

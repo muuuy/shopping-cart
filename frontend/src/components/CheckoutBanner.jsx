@@ -2,13 +2,18 @@ import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
-import { useSelector } from "react-redux";
+
+import { useDispatch, useSelector } from "react-redux";
+import { cartAppend } from "../features/userSlice";
+
+import { fetchItems } from "../utils/fetchItems";
 
 import styles from "../styles/CheckoutBanner.module.scss";
 
 const CheckoutBanner = ({ cost = 0, setShow, date, id, type }) => {
   const quantity = useRef(null);
   const authentication = useSelector((state) => state.user.authenticated);
+  const dispatch = useDispatch();
 
   const populateQuantity = () => {
     const options = [];
@@ -33,20 +38,19 @@ const CheckoutBanner = ({ cost = 0, setShow, date, id, type }) => {
         type: type,
       };
 
-      // const res = await fetch("http://localhost:3000/users/shopping-cart/", {
-      //   method: "POST",
-      //   credentials: "include",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: jsonData,
-      // });
-
       const res = await axios.post(
         "http://localhost:3000/users/shopping-cart/",
         jsonData,
         { withCredentials: true }
       );
+
+      if (res.data.newItem) {
+        console.log(res.data.newItem);
+        
+        const item = await fetchItems(res.data.newItem);
+
+        dispatch(cartAppend({ item: item }));
+      }
     } else {
       console.log("not auth");
       console.log(quantity.current.value);

@@ -9,6 +9,7 @@ import { removeUser } from "../features/userSlice";
 import styles from "../styles/Navbar.module.scss";
 
 import SearchBar from "./Searchbar";
+import ShoppingCart from "./ShoppingCart";
 
 import { BsHurricane } from "react-icons/bs";
 import { BsCart4 } from "react-icons/bs";
@@ -65,9 +66,10 @@ const Navbar = ({ setInput, setType }) => {
             </div>
           </li>
           <li className={styles.list_item} id={styles.shopping_cart}>
-            <a>
-              <BsCart4 />
+            <a className={styles.shopping_cart}>
+              <BsCart4 /> CART
             </a>
+            <ShoppingCart />
           </li>
           <li className={`${styles.list_item} ${styles.arrow_container}`}>
             {username && (
