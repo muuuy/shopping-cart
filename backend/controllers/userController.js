@@ -8,6 +8,7 @@ const bcrypt = require("bcryptjs");
 const session = require("express-session");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
+const item = require("../models/item");
 
 const generateSessionItem = (item) => {
   const token = jwt.sign({ itemId: item._id }, process.env.JWT_SECRET_KEY, {
@@ -454,6 +455,7 @@ exports.delete_item = [
       cart.save();
 
       const deletedItem = await Item.findByIdAndDelete(decodedToken.itemId);
+      deletedItem.save();
 
       console.log(deletedItem);
       res.status(200).json({ message: "No problems" });

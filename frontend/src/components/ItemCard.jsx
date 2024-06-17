@@ -1,5 +1,6 @@
 import styles from "../styles/ItemCard.module.scss";
 import PropTypes from "prop-types";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import capitalize from "../utils/capitalize";
 
@@ -20,7 +21,13 @@ const ItemCard = ({ item }) => {
         </div>
         <div className={styles.description_hide}>
           <p className={styles.item_cost}>￥500.00</p>
-          <button className={styles.buy_button}>BUY</button>
+          <Link
+            to={`/shop-item/${item.name}`}
+            state={{ item: item }}
+            style={{ textDecoration: "none" }}
+          >
+            <button className={styles.buy_button}>BUY</button>
+          </Link>
         </div>
       </div>
     </div>

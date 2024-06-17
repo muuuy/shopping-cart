@@ -10,7 +10,7 @@ import { fetchItems } from "../utils/fetchItems";
 
 import styles from "../styles/CheckoutBanner.module.scss";
 
-const CheckoutBanner = ({ cost = 0, setShow, date, id, type }) => {
+const CheckoutBanner = ({ cost = 0, setShow, date=null, id, type }) => {
   const quantity = useRef(null);
   const authentication = useSelector((state) => state.user.authenticated);
   const dispatch = useDispatch();

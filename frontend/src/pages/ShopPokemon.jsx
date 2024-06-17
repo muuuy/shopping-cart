@@ -27,7 +27,6 @@ const ShopPokemon = () => {
   const popupRef = useRef();
 
   useEffect(() => {
-    console.log("state", location.state.item);
     setPokemon(location.state.item);
 
     setCost(location.state.cost);
@@ -70,15 +69,15 @@ const ShopPokemon = () => {
   return (
     <>
       {pokemon && types && (
-        <div className={styles.shopPoke_container}>
-          <div className={styles.shop_header}>
-            <div className={styles.header_image}>
+        <div className={styles.shop__container}>
+          <div className={styles.shop__header}>
+            <div className={styles.shop__header_image}>
               <PictureMenu
                 sprites={pokemon.sprites}
                 handleHover={handleHover}
               />
-              <img src={hoverImage} className={styles.poke_sprite}></img>
-              <div className={styles.description}>
+              <img src={hoverImage} className={styles.shop__poke_sprite}></img>
+              <div className={styles.shop__description}>
                 <h1>{capitalize(pokemon.name)}</h1>
                 <h2>#{pokemon.id}</h2>
                 <div>
@@ -86,7 +85,7 @@ const ShopPokemon = () => {
                 </div>
               </div>
             </div>
-            <div className={styles.checkout_container}>
+            <div className={styles.shop__checkout_container}>
               <CheckoutBanner
                 cost={parseInt(cost)}
                 setShow={setShowPopup}
@@ -97,7 +96,7 @@ const ShopPokemon = () => {
             </div>
           </div>
           {showPopup && (
-            <div ref={popupRef} className={styles.popup_container}>
+            <div ref={popupRef} className={styles.shop__popup_container}>
               <CheckoutPopup
                 item={pokemon}
                 shipDate={futureDate}

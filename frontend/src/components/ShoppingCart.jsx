@@ -46,17 +46,25 @@ const ShoppingCart = () => {
             }}
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            <img
-              className={styles.item_image}
-              src={item.apiItem.sprites.front_default}
-            />
+            {item.itemType === "pokemon" && (
+              <img
+                className={styles.item_image}
+                src={item.apiItem.sprites.front_default}
+              />
+            )}
+            {item.itemType === "item" && (
+              <img className={styles.item_image} src={item.apiItem.sprites.default} />
+            )}
             <div className={styles.cart_description}>
               <h2 className={styles.item_name}>{item.apiItem.name}</h2>
               <p className={styles.item_price}>￥{item.cost}</p>
               <p className={styles.item_quantity}>QTY: {item.quantity}</p>
             </div>
           </Link>
-          <p className={styles.shopping_cart__delete} onClick={() => handleDelete(item)}>
+          <p
+            className={styles.shopping_cart__delete}
+            onClick={() => handleDelete(item)}
+          >
             DELETE
           </p>
         </div>
