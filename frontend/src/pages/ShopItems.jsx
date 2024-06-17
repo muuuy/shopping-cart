@@ -46,10 +46,10 @@ const ShopItems = () => {
           <div className={styles.shop__header}>
             <div className={styles.shop__header_image}>
               <img src={item.sprites.default} />
-            </div>
-            <div className={styles.shop__description}>
-              <h1>{item.name}</h1>
-              <h2>#{item.id}</h2>
+              <div className={styles.shop__description}>
+                <h1>{item.name}</h1>
+                <h2>#{item.id}</h2>
+              </div>
             </div>
           </div>
           <div className={styles.shop__checkout_container}>
