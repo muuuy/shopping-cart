@@ -80,6 +80,7 @@
 
       &:hover .dropdown {
         display: block;
+        animation: dropdown-display 0.4s ease-in forwards;
       }
 
       > .dropdown {
@@ -118,13 +119,6 @@
           }
         }
       }
-
-      > .cart {
-        max-width: 200px;
-        min-width: 200px;
-        max-height: 600px;
-        overflow: scroll;
-      }
     }
 
     > .arrow_container {
@@ -151,6 +145,48 @@
       &:hover {
         color: variables.$pastel-red;
       }
+
+      > .cart {
+        max-width: 200px;
+        min-width: 200px;
+
+        > .shopping_cart__content {
+          max-height: 600px;
+          overflow: scroll;
+
+          > .shopping_cart__item {
+            padding: 4px;
+
+            .cart_description {
+              font-size: 14px;
+            }
+
+            .shopping_cart__delete {
+              font-size: 14px;
+              letter-spacing: 4px;
+              text-indent: 4px;
+              color: variables.$pastel-red;
+            }
+
+            &:hover {
+              background-color: variables.$light-gray;
+              transition: background-color 0.4s ease-out;
+            }
+          }
+        }
+
+        > .shopping_cart__cost {
+          font-size: 12px;
+          padding: 12px;
+          border-top: 2px solid black;
+
+          > span {
+            letter-spacing: 4px;
+            text-indent: 4px;
+            color: variables.$pastel-red;
+          }
+        }
+      }
     }
   }
 }
@@ -158,4 +194,14 @@
 .welcome_text {
   font-size: 12px;
   color: variables.$dark-gray;
+}
+
+@keyframes dropdown-display {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }

@@ -24,20 +24,20 @@ const ShoppingCart = () => {
         body: JSON.stringify({ token: item.token, username: username }),
       });
 
-      dispatch(cartRemove({ item: item}));
+      dispatch(cartRemove({ item: item }));
     } catch (err) {
       console.log(err);
     }
   };
 
-  const cartContent = useMemo(() => {
+  const [totalCost, cartContent] = useMemo(() => {
     let totalCost = 0;
 
     let cart = items.map((item) => {
       totalCost += Number(item.cost);
 
       return (
-        <div key={uuidv4()}>
+        <div key={uuidv4()} className={styles.shopping_cart__item}>
           <Link
             to={`/shop-pokemon/${item.apiItem.name}`}
             state={{
@@ -56,24 +56,23 @@ const ShoppingCart = () => {
               <p className={styles.item_quantity}>QTY: {item.quantity}</p>
             </div>
           </Link>
-          <p className={styles.cart__delete} onClick={() => handleDelete(item)}>
-            Delete
+          <p className={styles.shopping_cart__delete} onClick={() => handleDelete(item)}>
+            DELETE
           </p>
         </div>
       );
     });
 
-    cart.push(
-      <div key={uuidv4()}>
-        <p>Total Cost {totalCost}</p>
-      </div>
-    );
-
-    return cart;
+    return [totalCost, cart];
   }, [items]);
 
   return (
-    <div className={`${styles.dropdown} ${styles.cart}`}>{cartContent}</div>
+    <div className={`${styles.dropdown} ${styles.cart}`}>
+      <div className={styles.shopping_cart__content}>{cartContent}</div>
+      <p className={styles.shopping_cart__cost}>
+        <span>TOTAL:</span> ￥{totalCost}
+      </p>
+    </div>
   );
 };
 

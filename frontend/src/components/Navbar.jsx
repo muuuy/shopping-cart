@@ -66,9 +66,7 @@ const Navbar = ({ setInput, setType }) => {
             </div>
           </li>
           <li className={styles.list_item} id={styles.shopping_cart}>
-            <a className={styles.shopping_cart}>
-              <BsCart4 /> CART
-            </a>
+            <BsCart4 /> CART
             <ShoppingCart />
           </li>
           <li className={`${styles.list_item} ${styles.arrow_container}`}>
