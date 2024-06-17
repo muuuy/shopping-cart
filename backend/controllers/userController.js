@@ -456,6 +456,7 @@ exports.delete_item = [
       const deletedItem = await Item.findByIdAndDelete(decodedToken.itemId);
 
       console.log(deletedItem);
+      res.status(200).json({ message: "No problems" });
     }
   }),
 ];

@@ -1,7 +1,9 @@
 import { v4 as uuidv4 } from "uuid";
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+import { cartRemove } from "../features/userSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 import styles from "../styles/Navbar.module.scss";
 
@@ -9,9 +11,9 @@ const ShoppingCart = () => {
   const username = useSelector((state) => state.user.username);
   const items = useSelector((state) => state.user.cart);
 
-  const handleDelete = async (item) => {
-    console.log("delete", item);
+  const dispatch = useDispatch();
 
+  const handleDelete = async (item) => {
     try {
       const res = await fetch(`http://localhost:3000/users/delete-item/`, {
         method: "POST",
@@ -21,6 +23,8 @@ const ShoppingCart = () => {
         credentials: "include",
         body: JSON.stringify({ token: item.token, username: username }),
       });
+
+      dispatch(cartRemove({ item: item}));
     } catch (err) {
       console.log(err);
     }

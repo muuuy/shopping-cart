@@ -24,9 +24,17 @@ const userSlice = createSlice({
     cartAppend(state, action) {
       state.cart.push(action.payload.item);
     },
+    cartRemove(state, action) {
+      const currentCart = JSON.parse(JSON.stringify(state.cart));
+      const newCart = currentCart.filter(
+        (item) => item.token !== action.payload.item.token
+      );
+      state.cart = newCart;
+    },
   },
 });
 
-export const { authUser, removeUser, cartAppend } = userSlice.actions;
+export const { authUser, removeUser, cartAppend, cartRemove } =
+  userSlice.actions;
 
 export default userSlice.reducer;
