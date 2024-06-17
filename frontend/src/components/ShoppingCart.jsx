@@ -24,7 +24,10 @@ const ShoppingCart = () => {
         body: JSON.stringify({ token: item.token, username: username }),
       });
 
-      dispatch(cartRemove({ item: item }));
+      if (res.ok) {
+        const updatedCart = items.filter((i) => i.token !== item.token);
+        dispatch(cartRemove({ cart: updatedCart }));
+      }
     } catch (err) {
       console.log(err);
     }
@@ -53,7 +56,10 @@ const ShoppingCart = () => {
               />
             )}
             {item.itemType === "item" && (
-              <img className={styles.item_image} src={item.apiItem.sprites.default} />
+              <img
+                className={styles.item_image}
+                src={item.apiItem.sprites.default}
+              />
             )}
             <div className={styles.cart_description}>
               <h2 className={styles.item_name}>{item.apiItem.name}</h2>

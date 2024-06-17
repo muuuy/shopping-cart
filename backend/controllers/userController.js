@@ -455,10 +455,20 @@ exports.delete_item = [
       cart.save();
 
       const deletedItem = await Item.findByIdAndDelete(decodedToken.itemId);
-      deletedItem.save();
 
       console.log(deletedItem);
-      res.status(200).json({ message: "No problems" });
+
+      const items = await Promise.all(
+        cart.items.map((itemID) => Item.findById(itemID).exec())
+      );
+
+      const responseItems = items.map((item) => {
+        return generateSessionItem(item);
+      });
+
+      req.session.user.items = responseItems;
+
+      res.status(200).json(req.session);
     }
   }),
 ];

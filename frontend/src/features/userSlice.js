@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
   authenticated: false,
@@ -20,16 +20,13 @@ const userSlice = createSlice({
       state.username = "";
       state.email = "";
       state.authenticated = false;
+      state.cart = [];
     },
     cartAppend(state, action) {
       state.cart.push(action.payload.item);
     },
     cartRemove(state, action) {
-      const currentCart = JSON.parse(JSON.stringify(state.cart));
-      const newCart = currentCart.filter(
-        (item) => item.token !== action.payload.item.token
-      );
-      state.cart = newCart;
+      state.cart = action.payload.cart;
     },
   },
 });
