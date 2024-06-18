@@ -59,7 +59,7 @@ const Forget = () => {
         <div className={UserFormStyles.image_container}>
           <img src={ForgetImage}></img>
         </div>
-        <h1>Forgot You Password?</h1>
+        <h1 className={UserFormStyles.form_header}>Forgot You Password?</h1>
         <p className={UserFormStyles.description}>
           We&apos;ll send you a link to your email so that you can
           <br></br>

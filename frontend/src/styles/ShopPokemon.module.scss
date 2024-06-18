@@ -1,13 +1,13 @@
 .shop__container {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   width: 100%;
+  height: calc(100vh - 80px);
 
   > .shop__header {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
 
     > .shop__header_image {
       display: flex;
@@ -34,6 +34,7 @@
       > .shop__poke_sprite {
         justify-content: flex-start;
         height: 420px;
+        
       }
 
       > .shop__description {
@@ -46,6 +47,13 @@
           padding-bottom: 12px;
           width: 100%;
           border-bottom: 1px solid white;
+        }
+
+        .shop__description_info {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 60px;
         }
       }
     }

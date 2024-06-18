@@ -1,0 +1,11 @@
+@use "variables";
+
+.category__container {
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+  padding: 2px;
+  background-color: variables.$pastel-red;
+  display: inline-block;
+}

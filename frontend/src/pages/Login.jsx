@@ -82,7 +82,7 @@ const Login = () => {
         <div className={UserFormStyles.img_container}>
           <img src={LoginImage}></img>
         </div>
-        <h1>Welcome Back!</h1>
+        <h1 className={UserFormStyles.form_header}>Welcome Back!</h1>
         <p className={UserFormStyles.description}>Good to see you again</p>
         {error}
         <form

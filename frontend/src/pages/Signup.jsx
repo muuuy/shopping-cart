@@ -71,7 +71,7 @@ const Signup = () => {
         <div className={UserFormStyles.img_container}>
           <img src={SignupImage}></img>
         </div>
-        <h1>Let&apos;s Get Started!</h1>
+        <h1 className={UserFormStyles.form_header}>Let&apos;s Get Started!</h1>
         <p className={UserFormStyles.description}>
           Create an account to start shopping
         </p>

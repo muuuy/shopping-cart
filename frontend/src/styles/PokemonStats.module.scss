@@ -1,0 +1,47 @@
+@use "variables";
+
+.stats__container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+
+  > .stats__item {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-indent: 2px;
+    text-align: center;
+    max-width: 118px;
+    min-width: 118px;
+
+    > .stats__type {
+      min-height: 40px;
+    }
+  }
+
+  > .hp {
+    color: variables.$pastel-red;
+  }
+
+  > .attack {
+    color: variables.$pastel-orange
+  }
+
+  > .defense {
+    color: variables.$purple;
+  }
+
+  > .special-attack {
+    color: variables.$blue;
+  }
+
+  > .special-defense {
+    color: variables.$gold;
+  }
+
+  > .speed {
+    color: variables.$sea-green;
+  }
+}

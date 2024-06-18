@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
 
@@ -10,6 +9,9 @@ import TypeCard from "../components/TypeCard";
 import PictureMenu from "../components/PictureMenu";
 import CheckoutBanner from "../components/CheckoutBanner";
 import CheckoutPopup from "../components/CheckoutPopup";
+
+import PokemonStats from "../components/PokemonStats";
+import PokemonAbilities from "../components/PokemonAbilities";
 
 import capitalize from "../utils/capitalize";
 
@@ -36,6 +38,8 @@ const ShopPokemon = () => {
     futureDate.setDate(currentDate.getDate() + 2); // Adding 2 days
 
     setFutureDate(futureDate);
+
+    console.log(pokemon);
   }, [location]);
 
   useEffect(() => {
@@ -82,6 +86,10 @@ const ShopPokemon = () => {
                 <h2>#{pokemon.id}</h2>
                 <div>
                   <TypeCard types={types} />
+                </div>
+                <div className={styles.shop__description_info}>
+                  <PokemonStats stats={pokemon.stats} />
+                  <PokemonAbilities abilities={pokemon.abilities} />
                 </div>
               </div>
             </div>

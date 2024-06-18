@@ -62,7 +62,7 @@ const ResetPassword = () => {
         <div className={UserFormStyles.image_container}>
           <img src={ResetImage}></img>
         </div>
-        <h1>Reset Your Password!</h1>
+        <h1 className={UserFormStyles.form_header}>Reset Your Password!</h1>
         <p className={UserFormStyles.description}></p>
         {error}
         <form
