@@ -21,15 +21,14 @@ const ShopItems = () => {
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
-    console.log(location.state);
     setItem(location.state.item);
-    console.log("Item", item);
 
     const currentDate = new Date();
     const futureDate = new Date(currentDate);
     futureDate.setDate(currentDate.getDate() + 2);
     setFutureDate(futureDate);
-  }, [location]);
+
+  }, [location.state]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {

@@ -35,9 +35,9 @@ const Home = ({ userInput, itemType }) => {
         <section className="component-container">
           <MiscBanner />
         </section>
-        {/* <section>
+        <section>
           <Explore input={userInput} type={itemType} />
-        </section> */}
+        </section>
       </div>
     </>
   );

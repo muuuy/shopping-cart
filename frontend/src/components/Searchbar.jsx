@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+import formatForSearch from "../utils/formatForSearch";
 
 import styles from "../styles/Searchbar.module.scss";
 
@@ -38,7 +41,7 @@ const SearchBar = ({ setSearchValue, setType }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    setSearchValue(input.toLowerCase());
+    setSearchValue(formatForSearch(input));
   };
 
   useEffect(() => {
