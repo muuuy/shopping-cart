@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import formatForSearch from "../utils/formatForSearch";
+
+import { useDispatch } from "react-redux";
+import { updateSearch } from "../features/searchSlice";
 
 import styles from "../styles/Searchbar.module.scss";
 
@@ -18,8 +21,10 @@ const SearchBar = ({ setSearchValue, setType }) => {
     { value: "berry", label: "Berry" },
     { value: "machine", label: "TMs" },
   ];
-
   const [selectedType, setSelectedType] = useState(options[0].value);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setType(event.target.value);
@@ -41,7 +46,14 @@ const SearchBar = ({ setSearchValue, setType }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    setSearchValue(formatForSearch(input));
+    dispatch(
+      updateSearch({
+        searchValue: formatForSearch(input),
+        searchType: selectedType,
+      })
+    );
+
+    navigate(`/search-items/temp/`);
   };
 
   useEffect(() => {

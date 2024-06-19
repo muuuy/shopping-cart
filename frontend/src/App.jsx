@@ -23,6 +23,7 @@ import Navbar from "./components/Navbar";
 import Store from "./pages/Store";
 import ShopPokemon from "./pages/ShopPokemon";
 import ShopItems from "./pages/ShopItems";
+import Search from "./pages/Search";
 
 import { fetchItems } from "./utils/fetchItems";
 
@@ -95,6 +96,7 @@ function App() {
           <Route path="/store" Component={Store} />
           <Route path="/shop-pokemon/:itemName" element={<ShopPokemon />} />
           <Route path="/shop-item/:itemName" element={<ShopItems />} />
+          <Route path="/search-items/:itemName" element={<Search />} />
         </Routes>
         <footer>
           <p>Matthew Yu</p>

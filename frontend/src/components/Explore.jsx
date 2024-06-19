@@ -8,9 +8,13 @@ const Explore = ({ input = null, type = null }) => {
   const [item, setItem] = useState(null);
 
   useEffect(() => {
+    let itemType = type;
+
     if (!type) {
       console.error("Invalid type:", type);
       return;
+    } else if(type == "berry" || type == "machine") {
+      itemType = 'item';
     }
 
     if (input === null) {
@@ -21,7 +25,7 @@ const Explore = ({ input = null, type = null }) => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    fetch(`https://pokeapi.co/api/v2/${type}/${input}`, { signal })
+    fetch(`https://pokeapi.co/api/v2/${itemType}/${input}`, { signal })
       .then((res) => {
         if (!res.ok) {
           throw new Error(`${input} not found`);
