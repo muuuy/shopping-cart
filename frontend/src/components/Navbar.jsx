@@ -69,7 +69,13 @@ const Navbar = () => {
               >
                 ITEMS
               </Link>
-              <a>BERRIES</a>
+              <Link
+                to={`/explore-berries/`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                BERRIES
+              </Link>
+
               <a>TECHNICAL MACHINES</a>
             </div>
           </li>

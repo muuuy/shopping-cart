@@ -91,8 +91,13 @@ const Banner = () => {
         >
           <BannerItem imgSrc={Dragonite} category="ITEMS" />
         </Link>
+        <Link
+          to={`/explore-berries/`}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <BannerItem imgSrc={Dragapault} category="BERRIES" />
+        </Link>
 
-        <BannerItem imgSrc={Dragapault} category="BERRIES" />
         <BannerItem imgSrc={Salemence} category="TECHICAL MACHINES" />
       </div>
       <div className={styles.icon_container}>
