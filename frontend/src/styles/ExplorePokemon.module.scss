@@ -17,10 +17,11 @@
     margin: 20px 0;
     width: 72%;
     display: grid;
+    gap: 20px;
     grid-template-columns: repeat(5, 1fr);
   }
 
   > .explore__paginate {
-    
+
   }
 }

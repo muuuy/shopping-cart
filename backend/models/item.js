@@ -17,7 +17,7 @@ const ItemSchema = new Schema({
   cost: {
     type: Number,
     required: true,
-    min: 500,
+    min: 0,
     max: 10000,
   },
   quantity: {

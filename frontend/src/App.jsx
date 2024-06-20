@@ -21,6 +21,7 @@ import ShopItems from "./pages/ShopItems";
 import Search from "./pages/Search";
 
 import ExplorePokemon from "./pages/ExplorePokemon";
+import ExploreItems from "./pages/ExploreItems";
 
 import { fetchItems } from "./utils/fetchItems";
 
@@ -88,6 +89,7 @@ function App() {
           <Route path="/search-items/" element={<Search />} />
 
           <Route path="/explore-pokemon/" element={<ExplorePokemon />} />
+          <Route path="/explore-items" element={<ExploreItems />} />
         </Routes>
         <footer>
           <p>Matthew Yu</p>

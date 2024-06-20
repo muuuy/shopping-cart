@@ -63,7 +63,12 @@ const Navbar = () => {
               >
                 POKEMON
               </Link>
-              <a>ITEMS</a>
+              <Link
+                to={`/explore-items/`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                ITEMS
+              </Link>
               <a>BERRIES</a>
               <a>TECHNICAL MACHINES</a>
             </div>

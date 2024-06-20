@@ -22,7 +22,7 @@ const ItemCard = ({ item }) => {
           <p className={styles.item_name}>{capitalize(item.name)}</p>
         </div>
         <div className={styles.description_hide}>
-          <p className={styles.item_cost}>￥500.00</p>
+          <p className={styles.item_cost}>{item.cost === 0 ? "UNAVALIABLE" : `￥${item.cost}`}</p>
           <Link
             to={`/shop-item/${item.name}`}
             state={{ item: item }}

@@ -85,7 +85,13 @@ const Banner = () => {
         >
           <BannerItem imgSrc={Charizard} category="POKEMON" />
         </Link>
-        <BannerItem imgSrc={Dragonite} category="ITEMS" />
+        <Link
+          to={`/explore-items/`}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <BannerItem imgSrc={Dragonite} category="ITEMS" />
+        </Link>
+
         <BannerItem imgSrc={Dragapault} category="BERRIES" />
         <BannerItem imgSrc={Salemence} category="TECHICAL MACHINES" />
       </div>

@@ -41,6 +41,10 @@
     background-color: var(--pastel-red);
   }
 
+  .cart__not_allowed {
+    cursor: not-allowed;
+  }
+
   .buy_button {
     margin-top: 8px;
     background-color: var(--dark-red);

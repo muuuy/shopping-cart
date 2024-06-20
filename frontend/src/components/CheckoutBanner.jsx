@@ -10,7 +10,7 @@ import { fetchItems } from "../utils/fetchItems";
 
 import styles from "../styles/CheckoutBanner.module.scss";
 
-const CheckoutBanner = ({ cost = 0, setShow, date=null, id, type }) => {
+const CheckoutBanner = ({ cost = 0, setShow, date = null, id, type }) => {
   const quantity = useRef(null);
   const authentication = useSelector((state) => state.user.authenticated);
   const dispatch = useDispatch();
@@ -30,7 +30,9 @@ const CheckoutBanner = ({ cost = 0, setShow, date=null, id, type }) => {
   };
 
   const addToCart = async () => {
-    if (authentication) {
+    if (cost === 0) {
+      console.log("unavalaible");
+    } else if (authentication) {
       const jsonData = {
         cost: cost,
         quantity: quantity.current.value,
@@ -67,7 +69,7 @@ const CheckoutBanner = ({ cost = 0, setShow, date=null, id, type }) => {
       {date !== null && (
         <div className={styles.checkout_container}>
           <p className={styles.cost}>
-            <strong>￥{cost}</strong>
+            <strong>{cost === 0 ? "UNAVALIABLE" : `￥${cost}`}</strong>
           </p>
           <p className={styles.free_text}>FREE Returns</p>
           <p className={styles.delivery_date}>
@@ -88,10 +90,19 @@ const CheckoutBanner = ({ cost = 0, setShow, date=null, id, type }) => {
           >
             {populateQuantity()}
           </select>
-          <button className={styles.cart_button} onClick={addToCart}>
+          <button
+            className={
+              cost === 0
+                ? `${styles.cart_button} ${styles.cart__not_allowed}`
+                : styles.cart_button
+            }
+            onClick={addToCart}
+          >
             Add to Cart
           </button>
-          <button className={styles.buy_button} onClick={showCheckout}>
+          <button className={cost === 0
+                ? `${styles.buy_button} ${styles.cart__not_allowed}`
+                : styles.buy_button} onClick={showCheckout}>
             Buy Now
           </button>
         </div>

@@ -2,23 +2,28 @@ import { useEffect, useState, useCallback } from "react";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 
-import Explore from "../components/Explore";
-import Pagination from "../components/Pagination";
-
 import styles from "../styles/ExplorePokemon.module.scss";
 
-const ExplorePokemon = () => {
+import Pagination from "../components/Pagination";
+import Explore from "../components/Explore";
+
+const ExploreItems = () => {
   const [items, setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 25;
-  const totalNumberOfPokemon = 1025;
+  const totalNumberOfItems = 954;
 
   const fetchItems = useCallback(async () => {
     const offset = (currentPage - 1) * itemsPerPage;
+    let numberOfItems = itemsPerPage;
+
+    if(offset + itemsPerPage > totalNumberOfItems) {
+        numberOfItems = 4;
+    }
 
     try {
       const res = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon?limit=${itemsPerPage}&offset=${offset}`
+        `https://pokeapi.co/api/v2/item?limit=${numberOfItems}&offset=${offset}`
       );
       setItems(res.data.results);
     } catch (error) {
@@ -36,16 +41,16 @@ const ExplorePokemon = () => {
 
   return (
     <div className={styles.explore__container}>
-      <h1 className={styles.explore__header}>EXPLORE POKEMON</h1>
+      <h1 className={styles.explore__header}>EXPLORE ITEMS</h1>
       <div className={styles.explore__cards}>
         {items.map((item) => (
-          <Explore key={uuidv4()} input={item.name} type="pokemon" />
+          <Explore key={uuidv4()} input={item.name} type="item" />
         ))}
       </div>
-      <div className={styles.explore__paginate}>
+      <div>
         <Pagination
           postsPerPage={itemsPerPage}
-          length={totalNumberOfPokemon}
+          length={totalNumberOfItems}
           handlePagination={handlePagination}
           currentPage={currentPage}
         />
@@ -54,4 +59,4 @@ const ExplorePokemon = () => {
   );
 };
 
-export default ExplorePokemon;
+export default ExploreItems;

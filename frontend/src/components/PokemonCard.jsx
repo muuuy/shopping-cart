@@ -36,6 +36,11 @@ const PokemonCard = ({ pokemon }) => {
     "Shaymin",
     "Mimikyu",
     "Tornadus",
+    "Pumpkaboo",
+    "Squawkabilly",
+    "Maushold",
+    "Palafin",
+    "Ogerpon",
   ];
 
   useEffect(() => {
