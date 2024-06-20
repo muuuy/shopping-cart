@@ -1,34 +1,14 @@
-import { useEffect, useState, useCallback } from "react";
-import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
+import { useState } from "react";
 
-import Explore from "../components/Explore";
 import Pagination from "../components/Pagination";
+import ExploreFetch from "../components/ExploreFetch";
 
 import styles from "../styles/Explore.module.scss";
 
 const ExplorePokemon = () => {
-  const [items, setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 25;
-  const totalNumberOfPokemon = 1025;
-
-  const fetchItems = useCallback(async () => {
-    const offset = (currentPage - 1) * itemsPerPage;
-
-    try {
-      const res = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon?limit=${itemsPerPage}&offset=${offset}`
-      );
-      setItems(res.data.results);
-    } catch (error) {
-      console.log(error);
-    }
-  }, [currentPage]);
-
-  useEffect(() => {
-    fetchItems();
-  }, [currentPage]);
+  const totalNumberOfItems = 1025;
 
   const handlePagination = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -37,15 +17,16 @@ const ExplorePokemon = () => {
   return (
     <div className={styles.explore__container}>
       <h1 className={styles.explore__header}>EXPLORE POKEMON</h1>
-      <div className={styles.explore__cards}>
-        {items.map((item) => (
-          <Explore key={uuidv4()} input={item.name} type="pokemon" />
-        ))}
-      </div>
+      <ExploreFetch
+        page={currentPage}
+        itemsPerPage={itemsPerPage}
+        totalNumberOfItems={totalNumberOfItems}
+        itemType="pokemon"
+      />
       <div className={styles.explore__paginate}>
         <Pagination
           postsPerPage={itemsPerPage}
-          length={totalNumberOfPokemon}
+          length={totalNumberOfItems}
           handlePagination={handlePagination}
           currentPage={currentPage}
         />
