@@ -1,0 +1,10 @@
+@use "variables";
+
+.error__container {
+  font-size: 32px;
+  letter-spacing: 8px;
+  text-indent: 8px;
+  font-weight: 900;
+  color: variables.$pastel-red;
+  text-align: center;
+}

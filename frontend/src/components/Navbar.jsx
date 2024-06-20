@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import axios from "axios";
 
@@ -16,7 +14,7 @@ import { BsCart4 } from "react-icons/bs";
 import { BsChevronDown } from "react-icons/bs";
 import { BsCaretDownFill } from "react-icons/bs";
 
-const Navbar = ({ setInput, setType }) => {
+const Navbar = () => {
   const username = useSelector((state) => state.user.username);
   const auth = useSelector((state) => state.user.authenticated);
 
@@ -50,7 +48,7 @@ const Navbar = ({ setInput, setType }) => {
           POKESTOP
         </Link>
         <div className={styles.search_container}>
-          <SearchBar setSearchValue={setInput} setType={setType} />
+          <SearchBar />
         </div>
         <ul className={styles.nav_list}>
           <li className={`${styles.list_item} ${styles.arrow_container}`}>
@@ -117,11 +115,6 @@ const Navbar = ({ setInput, setType }) => {
       </nav>
     </>
   );
-};
-
-Navbar.propTypes = {
-  setInput: PropTypes.func.isRequired,
-  setType: PropTypes.func.isRequired,
 };
 
 export default Navbar;

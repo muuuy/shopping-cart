@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 
@@ -12,7 +11,7 @@ import styles from "../styles/Searchbar.module.scss";
 
 import { BsSearch } from "react-icons/bs";
 
-const SearchBar = ({ setSearchValue, setType }) => {
+const SearchBar = () => {
   const [outline, setOutline] = useState("1px solid black");
   const [input, setInput] = useState("");
   const options = [
@@ -27,7 +26,6 @@ const SearchBar = ({ setSearchValue, setType }) => {
   const navigate = useNavigate();
 
   const handleChange = (event) => {
-    setType(event.target.value);
     setSelectedType(event.target.value);
   };
 
@@ -94,11 +92,6 @@ const SearchBar = ({ setSearchValue, setType }) => {
       </div>
     </>
   );
-};
-
-SearchBar.propTypes = {
-  setSearchValue: PropTypes.func.isRequired,
-  setType: PropTypes.func.isRequired,
 };
 
 export default SearchBar;

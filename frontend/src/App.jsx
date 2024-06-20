@@ -1,13 +1,8 @@
 import "./App.scss";
-import { useState, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Favicon from "react-favicon";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  BrowserRouter,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import axios from "axios";
 
 import { useDispatch } from "react-redux";
@@ -28,11 +23,6 @@ import Search from "./pages/Search";
 import { fetchItems } from "./utils/fetchItems";
 
 function App() {
-  const [currentSection, setCurrentSection] = useState(0);
-
-  const [userInput, setUserInput] = useState("pikachu");
-  const [itemType, setItemType] = useState("pokemon");
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -82,17 +72,14 @@ function App() {
       />
 
       <div>
-        <Navbar setInput={setUserInput} setType={setItemType} />
+        <Navbar />
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forget" element={<Forget />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
 
-          <Route
-            path="/"
-            element={<Home userInput={userInput} itemType={itemType} />}
-          />
+          <Route path="/" element={<Home />} />
           <Route path="/store" Component={Store} />
           <Route path="/shop-pokemon/:itemName" element={<ShopPokemon />} />
           <Route path="/shop-item/:itemName" element={<ShopItems />} />

@@ -13,8 +13,8 @@ const Explore = ({ input = null, type = null }) => {
     if (!type) {
       console.error("Invalid type:", type);
       return;
-    } else if(type == "berry" || type == "machine") {
-      itemType = 'item';
+    } else if (type == "berry" || type == "machine") {
+      itemType = "item";
     }
 
     if (input === null) {
