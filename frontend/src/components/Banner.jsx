@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { useInView } from "react-intersection-observer";
 import { v4 as uuidv4 } from "uuid";
+import { BrowserRouter as Routes, Route, Link } from "react-router-dom";
 
 import Charizard from "../assets/banner/charizard.png";
 import Dragapault from "../assets/banner/dragapault.png";
@@ -78,7 +79,12 @@ const Banner = () => {
         ))}
       </h1>
       <div className={styles.card_container}>
-        <BannerItem imgSrc={Charizard} category="POKEMON" />
+        <Link
+          to={`/explore-pokemon/`}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <BannerItem imgSrc={Charizard} category="POKEMON" />
+        </Link>
         <BannerItem imgSrc={Dragonite} category="ITEMS" />
         <BannerItem imgSrc={Dragapault} category="BERRIES" />
         <BannerItem imgSrc={Salemence} category="TECHICAL MACHINES" />

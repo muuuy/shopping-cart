@@ -57,7 +57,12 @@ const Navbar = () => {
               &nbsp;SHOP
             </a>
             <div className={styles.dropdown}>
-              <a>POKEMON</a>
+              <Link
+                to={"/explore-pokemon/"}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                POKEMON
+              </Link>
               <a>ITEMS</a>
               <a>BERRIES</a>
               <a>TECHNICAL MACHINES</a>

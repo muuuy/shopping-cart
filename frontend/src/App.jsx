@@ -20,6 +20,8 @@ import ShopPokemon from "./pages/ShopPokemon";
 import ShopItems from "./pages/ShopItems";
 import Search from "./pages/Search";
 
+import ExplorePokemon from "./pages/ExplorePokemon";
+
 import { fetchItems } from "./utils/fetchItems";
 
 function App() {
@@ -84,6 +86,8 @@ function App() {
           <Route path="/shop-pokemon/:itemName" element={<ShopPokemon />} />
           <Route path="/shop-item/:itemName" element={<ShopItems />} />
           <Route path="/search-items/" element={<Search />} />
+
+          <Route path="/explore-pokemon/" element={<ExplorePokemon />} />
         </Routes>
         <footer>
           <p>Matthew Yu</p>

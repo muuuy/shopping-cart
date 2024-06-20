@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import TypeCard from "./TypeCard";
 
 import calculateCost from "../utils/calculateCost";
-// 1025 Pokemon Total
 
 const PokemonCard = ({ pokemon }) => {
   const [types, setTypes] = useState([]);
