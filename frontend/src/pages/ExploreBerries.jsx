@@ -10,7 +10,7 @@ const ExploreBerries = () => {
   const itemsPerPage = 25;
   const totalNumberOfItems = 63;
   const leftOver = 13;
-  const startValue = 126;
+  const startValue = 125;
 
   const handlePagination = (pageNumber) => {
     setCurrentPage(pageNumber);

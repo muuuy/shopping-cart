@@ -75,8 +75,12 @@ const Navbar = () => {
               >
                 BERRIES
               </Link>
-
-              <a>TECHNICAL MACHINES</a>
+              <Link
+                to={`/explore-tms/`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                TECHNICAL MACHINES
+              </Link>
             </div>
           </li>
           <li className={styles.list_item} id={styles.shopping_cart}>

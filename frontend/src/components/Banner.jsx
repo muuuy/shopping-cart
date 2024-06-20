@@ -97,8 +97,12 @@ const Banner = () => {
         >
           <BannerItem imgSrc={Dragapault} category="BERRIES" />
         </Link>
-
-        <BannerItem imgSrc={Salemence} category="TECHICAL MACHINES" />
+        <Link
+          to={`/explore-tms/`}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <BannerItem imgSrc={Salemence} category="TECHICAL MACHINES" />
+        </Link>
       </div>
       <div className={styles.icon_container}>
         <img src={Pokeball}></img>

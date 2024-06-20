@@ -23,6 +23,7 @@ import Search from "./pages/Search";
 import ExplorePokemon from "./pages/ExplorePokemon";
 import ExploreItems from "./pages/ExploreItems";
 import ExploreBerries from "./pages/ExploreBerries";
+import ExploreTMs from "./pages/ExploreTMs";
 
 import { fetchItems } from "./utils/fetchItems";
 
@@ -92,6 +93,7 @@ function App() {
           <Route path="/explore-pokemon/" element={<ExplorePokemon />} />
           <Route path="/explore-items/" element={<ExploreItems />} />
           <Route path="/explore-berries/" element={<ExploreBerries />} />
+          <Route path="/explore-tms/" element={<ExploreTMs />} />
         </Routes>
         <footer>
           <p>Matthew Yu</p>
