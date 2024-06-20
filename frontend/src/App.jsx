@@ -96,7 +96,7 @@ function App() {
           <Route path="/store" Component={Store} />
           <Route path="/shop-pokemon/:itemName" element={<ShopPokemon />} />
           <Route path="/shop-item/:itemName" element={<ShopItems />} />
-          <Route path="/search-items/:itemName" element={<Search />} />
+          <Route path="/search-items/" element={<Search />} />
         </Routes>
         <footer>
           <p>Matthew Yu</p>

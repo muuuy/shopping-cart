@@ -53,7 +53,7 @@ const SearchBar = ({ setSearchValue, setType }) => {
       })
     );
 
-    navigate(`/search-items/temp/`);
+    navigate(`/search-items?input=${input}&type=${selectedType}`);
   };
 
   useEffect(() => {

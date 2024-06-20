@@ -1,23 +1,21 @@
-import PropTypes from "prop-types";
-
-import { useSelector } from "react-redux";
-
 import Explore from "../components/Explore";
+import { useSearchParams } from "react-router-dom";
 
-const Search = ({}) => {
-  const item = useSelector((state) => state.search.searchValue);
-  const type = useSelector((state) => state.search.searchType);
+import formatForSearch from "../utils/formatForSearch";
+
+import styles from "../styles/Search.module.scss";
+
+const Search = () => {
+  const [searchParams] = useSearchParams();
+
+  const item = searchParams.get(`input`);
+  const type = searchParams.get(`type`);
 
   return (
-    <div>
-      <Explore input={item} type={type} />
+    <div className={styles.search__container}>
+      <Explore input={formatForSearch(item)} type={type} />
     </div>
   );
 };
-
-// Search.propTypes = {
-//   item: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-//   type: PropTypes.string.isRequired,
-// };
 
 export default Search;
