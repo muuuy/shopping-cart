@@ -35,13 +35,14 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
-    border-bottom: 2px solid variables.$pastel-red;
     color: black;
     opacity: 0;
 
     > h1 {
       letter-spacing: 20px;
       text-indent: 20px;
+      font-size: 40px;
+      font-weight: 900;
     }
 
     > h2 {

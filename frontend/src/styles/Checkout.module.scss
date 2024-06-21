@@ -1,0 +1,45 @@
+@use "variables";
+
+.checkout__container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  > .checkout__form {
+    > div:not(:last-child) {
+      display: flex;
+      flex-direction: column;
+
+      > label {
+        font-size: 12px;
+        letter-spacing: 4px;
+        text-indent: 4px;
+      }
+
+      > input {
+        font-size: 16px;
+        padding: 4px;
+        width: 400px;
+      }
+    }
+
+    > .checkout__place_order {
+      padding: 8px;
+      font-size: 20px;
+      letter-spacing: 4px;
+      text-indent: 4px;
+      font-weight: 800;
+      border: none;
+      outline: none;
+      background-color: variables.$pastel-red;
+      cursor: pointer;
+      margin: 12px 0;
+      border-radius: 40px;
+
+      &:hover {
+        background-color: variables.$fighting;
+      }
+    }
+  }
+}

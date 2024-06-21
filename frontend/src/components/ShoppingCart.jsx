@@ -1,9 +1,11 @@
 import { v4 as uuidv4 } from "uuid";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import { cartRemove } from "../features/userSlice";
 import { useSelector, useDispatch } from "react-redux";
+
+import Checkout from "../pages/Checkout";
 
 import styles from "../styles/Navbar.module.scss";
 
@@ -11,7 +13,13 @@ const ShoppingCart = () => {
   const username = useSelector((state) => state.user.username);
   const items = useSelector((state) => state.user.cart);
 
+  const [showPopup, setShowPopup] = useState(false);
+
   const dispatch = useDispatch();
+
+  const handlePopup = () => {
+    setShowPopup(!showPopup);
+  };
 
   const handleDelete = async (item) => {
     try {
@@ -81,11 +89,18 @@ const ShoppingCart = () => {
   }, [items]);
 
   return (
-    <div className={`${styles.dropdown} ${styles.cart}`}>
+    <div
+      className={`${styles.dropdown} ${styles.cart}`}
+      style={{ display: showPopup ? "block" : "" , animation: showPopup ? "none" : ""}}
+    >
       <div className={styles.shopping_cart__content}>{cartContent}</div>
       <p className={styles.shopping_cart__cost}>
         <span>TOTAL:</span> ￥{totalCost}
       </p>
+      <button className={styles.shopping_cart__checkout} onClick={handlePopup}>CHECKOUT</button>
+      <div>
+        <Checkout show={showPopup} onClose={handlePopup} />
+      </div>
     </div>
   );
 };

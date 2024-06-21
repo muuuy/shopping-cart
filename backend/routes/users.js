@@ -24,4 +24,6 @@ router.post("/shopping-cart/", user_controller.shopping_cart);
 
 router.post("/delete-item/", user_controller.delete_item)
 
+router.post("/upload-order/", user_controller.upload_order);
+
 module.exports = router;

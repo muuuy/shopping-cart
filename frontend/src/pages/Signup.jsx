@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import styles from "../styles/Signup.module.scss";
 import UserFormStyles from "../styles/Userform.module.scss";
 
-import SignupImage from "../assets/signUp/signup_img.png";
+import SignupImage from "../assets/signUp/signup_img.jpg";
 
 const Signup = () => {
   const [formData, setFormData] = useState({

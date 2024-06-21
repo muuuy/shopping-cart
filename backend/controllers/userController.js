@@ -472,3 +472,36 @@ exports.delete_item = [
     }
   }),
 ];
+
+exports.upload_order = [
+  body("name")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Name is not long enough."),
+  body("email")
+    .trim()
+    .isLength({ min: 2, max: 254 })
+    .escape()
+    .withMessage("Invalid email address."),
+  body("country")
+    .trim()
+    .isLength({ min: 2, max: 56 })
+    .escape()
+    .withMessage("Invalid country."),
+  body("state")
+    .trim()
+    .isLength({ min: 6, max: 20 })
+    .escape()
+    .withMessage("Invalid state."),
+  body("zip")
+    .trim()
+    .isLength({ min: 5, max: 10 })
+    .escape()
+    .withMessage("Invalid ZIP code."),
+
+  asyncHandler(async (req, res, next) => {
+    console.log(req);
+    return;
+  }),
+];
