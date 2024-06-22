@@ -5,6 +5,33 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border: 2px solid black;
+  padding: 8px 20px 20px 20px;
+
+  > .checkout__close {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    background-color: variables.$pastel-red;
+    font-weight: 900;
+    color: white;
+    cursor: pointer;
+    align-self: flex-end;
+    margin: 0 -8px 20px 0;
+
+    &:hover {
+      background-color: variables.$fighting;
+    }
+  }
 
   > .checkout__form {
     > div:not(:last-child) {
@@ -21,6 +48,41 @@
         font-size: 16px;
         padding: 4px;
         width: 400px;
+        border: 1px solid black;
+      }
+    }
+
+    > .checkout__state_zip {
+      display: flex;
+      flex-direction: row !important;
+      gap: 20px;
+
+      > div {
+        display: flex;
+        flex-direction: column;
+
+        > label {
+          font-size: 12px;
+          letter-spacing: 4px;
+          text-indent: 4px;
+        }
+
+        > input {
+          border: 1px solid black;
+          padding: 4px;
+        }
+      }
+
+      > .checkout__state {
+        > input {
+          width: 260px;
+        }
+      }
+
+      > .checkout__zip {
+        > input {
+          width: 120px;
+        }
       }
     }
 

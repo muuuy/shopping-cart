@@ -36,7 +36,7 @@ const Checkout = ({ show, onClose }) => {
     <>
       {show && (
         <div className={styles.checkout__container}>
-          <button onClick={onClose}>CLOSE</button>
+          <button onClick={onClose} className={styles.checkout__close}>X</button>
           <form
             method="POST"
             onSubmit={handleSubmit}
@@ -87,7 +87,7 @@ const Checkout = ({ show, onClose }) => {
               />
             </div>
             <div className={styles.checkout__state_zip}>
-              <div>
+              <div className={styles.checkout__state}>
                 <label htmlFor="checkout-state">STATE</label>
                 <input
                   type="text"
@@ -101,7 +101,7 @@ const Checkout = ({ show, onClose }) => {
                   onChange={handleChange}
                 />
               </div>
-              <div>
+              <div className={styles.checkout__zip}>
                 <label>ZIP</label>
                 <input
                   type="number"
