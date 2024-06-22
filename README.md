@@ -49,7 +49,31 @@ Before starting, ensure you have the following installed on your machine:
 ### Steps
 
 1. **Clone the repository:**
-
-   ```bash
-   $ git clone https://github.com/username/repository.git
+   ```
+   $ git clone git@github.com:muuuy/shopping-cart.git
    $ cd repository
+   ```
+
+2. **Install dependencies:**
+   ```
+   $ npm install
+   # or
+   $ yarn install
+   ```
+
+3. **Start the backend server:**
+   ```
+   $ cd .\backend\
+   $ npm run serverstart
+   ```
+
+4. **Start the frontend development server:**
+   ```
+   $ cd .\frontend\
+   $ npm run dev
+   ```
+
+5. **Open your browser and visit:**
+   ```
+   http://localhost:5173/
+   ```
