@@ -118,7 +118,7 @@ const Login = () => {
               maxLength={32}
               value={formData.password}
             ></input>
-            <Link to="/signup" className={styles.forgot_password}>
+            <Link to="/forget" className={styles.forgot_password}>
               Forgot Password?
             </Link>
           </div>
