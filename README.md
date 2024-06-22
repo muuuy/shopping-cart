@@ -77,3 +77,29 @@ Before starting, ensure you have the following installed on your machine:
    ```
    http://localhost:5173/
    ```
+
+---
+
+## Images
+
+![Home Page](/store-images/homescreen.png)
+
+![Explore Categories](/store-images/categories.png)
+
+![Explore Pokemon](/store-images/explore-pokemon.png)
+
+![Explore Items](/store-images/explore-items.png)
+
+![Explore Berries and TMs](/store-images/explore-berries-tms.png)
+
+![Store](/store-images/store.png)
+
+![Shop Pokemon](/store-images/shop-pokemon.png)
+
+![Shop Items](/store-images/shop-items.png)
+
+![Shop Berries](/store-images/shop-berries.png)
+
+![Shop TMs](/store-images/shop-tms.png)
+
+![Cart](/store-images/cart.png) ![Sign Up](/store-images/sign-up.png) ![Log in](/store-images/sign-in.png) ![Forgot Password](/store-images/forgot.png) ![Reset Password](/store-images/reset.png)
