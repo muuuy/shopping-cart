@@ -18,6 +18,11 @@ const ShoppingCart = () => {
   const dispatch = useDispatch();
 
   const handlePopup = () => {
+    if (items.length === 0) {
+      console.log("No items in cart");
+      return;
+    }
+
     setShowPopup(!showPopup);
   };
 
@@ -91,13 +96,18 @@ const ShoppingCart = () => {
   return (
     <div
       className={`${styles.dropdown} ${styles.cart}`}
-      style={{ display: showPopup ? "block" : "" , animation: showPopup ? "none" : ""}}
+      style={{
+        display: showPopup ? "block" : "",
+        animation: showPopup ? "none" : "",
+      }}
     >
       <div className={styles.shopping_cart__content}>{cartContent}</div>
       <p className={styles.shopping_cart__cost}>
         <span>TOTAL:</span> ￥{totalCost}
       </p>
-      <button className={styles.shopping_cart__checkout} onClick={handlePopup}>CHECKOUT</button>
+      <button className={styles.shopping_cart__checkout} onClick={handlePopup}>
+        CHECKOUT
+      </button>
       <div>
         <Checkout show={showPopup} onClose={handlePopup} />
       </div>

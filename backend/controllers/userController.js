@@ -519,6 +519,8 @@ exports.upload_order = [
         const cart = await Cart.findById(user.shoppingCart).exec();
         if (!cart) {
           res.status(404).json({ errors: "Invalid cart." });
+        } else if (cart.items.length === 0) {
+          res.status(400).json({ errors: "Cart is empty." });
         }
 
         const order = new Order({
