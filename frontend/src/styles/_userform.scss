@@ -1,3 +1,5 @@
+@use "variables";
+
 @mixin containerTheme($theme: #ff4d6d) {
   position: absolute;
   top: 50%;
@@ -28,4 +30,12 @@
     color: white;
     transition: background-color 0.5s ease-in, color 0.5s ease-in;
   }
+}
+
+@mixin headerTheme() {
+  margin-top: 40px;
+  letter-spacing: 8px;
+  text-indent: 8px;
+  font-weight: 900;
+  color: #ff4d6d;
 }

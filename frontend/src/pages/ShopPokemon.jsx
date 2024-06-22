@@ -1,7 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
-import { useDispatch } from "react-redux";
 
 import styles from "../styles/ShopPokemon.module.scss";
 
@@ -23,8 +21,6 @@ const ShopPokemon = () => {
   const [hoverImage, setHoveredImage] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [futureDate, setFutureDate] = useState(null);
-
-  const dispatch = useDispatch();
 
   const popupRef = useRef();
 

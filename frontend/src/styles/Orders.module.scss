@@ -1,0 +1,12 @@
+@use "variables";
+@use "userform";
+
+.order__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .order__header {
+    @include userform.headerTheme;
+  }
+}
