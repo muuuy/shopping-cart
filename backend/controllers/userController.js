@@ -156,6 +156,30 @@ exports.user_login = [
             return generateSessionItem(item);
           });
 
+          const orders = await Promise.all(
+            user.orders.map(async (orderID) => {
+              const order = await Order.findById(orderID).exec();
+              return order;
+            })
+          );
+          const orderItems = await Promise.all(
+            orders.map(async (order) => {
+              const items = await Promise.all(
+                order.items.map(async (itemID) => {
+                  const item = await Item.findById(itemID).exec();
+                  return item;
+                })
+              );
+              return items;
+            })
+          );
+          const responseOrders = orderItems.map((items) => {
+            const responseOrderItems = items.map((item) => {
+              return generateSessionItem(item);
+            });
+            return responseOrderItems;
+          });
+
           const token = jwt.sign(
             { userId: user._id },
             process.env.JWT_SECRET_KEY,
@@ -168,12 +192,14 @@ exports.user_login = [
             username: user.username,
             email: user.email,
             items: responseItems,
+            orders: responseOrders,
           };
 
           console.log(req.session);
 
           res.status(200).json(req.session);
         } catch (error) {
+          console.log(error);
           res.status(400).json({ message: "Error loggin in." });
         }
       }
@@ -329,11 +355,8 @@ exports.user_reset = [
 
 exports.user_logout = [
   asyncHandler(async (req, res, next) => {
-    console.log(req.sessionID);
-
     req.session.destroy((err) => {
       if (err) {
-        console.error(err);
         return res.status(400).send({ msg: "Logout Failed" });
       } else {
         res.clearCookie("connect.sid");
@@ -346,7 +369,6 @@ exports.user_logout = [
 exports.get_auth = [
   (req, res, next) => {
     console.log(req.sessionID);
-
     if (req.session.authenticated) {
       res.status(200).json(req.session);
     } else {
@@ -490,7 +512,7 @@ exports.upload_order = [
     .withMessage("Invalid country."),
   body("state")
     .trim()
-    .isLength({ min: 6, max: 20 })
+    .isLength({ min: 2, max: 2 })
     .escape()
     .withMessage("Invalid state."),
   body("zip")
@@ -541,13 +563,27 @@ exports.upload_order = [
         cart.save();
 
         req.session.user.items = [];
-        res.status(200).json(req.session);
+
+        const items = await Promise.all(
+          order.items.map(async (itemID) => {
+            const item = await Item.findById(itemID).exec();
+            return item;
+          })
+        );
+        const responseOrder = await Promise.all(
+          items.map((item) => {
+            return generateSessionItem(item);
+          })
+        );
+
+        req.session.user.orders.push(responseOrder);
+
+        res.status(200).json({ session: req.session, addOrder: responseOrder });
       } catch (error) {
         console.log(error);
         res.status(500).json({ errors: "Something went wrong." });
       }
     }
-
     return;
   }),
 ];

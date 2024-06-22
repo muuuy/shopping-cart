@@ -28,10 +28,12 @@ const Checkout = ({ show, onClose }) => {
       );
 
       if (res.status === 200) {
-        console.log("order worked");
-        dispatch(resetCart());
+        console.log(res);
+        dispatch(resetCart({ order: res.data.addOrder }));
         setFormData({ name: "", email: "", country: "", state: "", zip: "" });
       }
+
+      return;
     } catch (error) {
       console.log(error);
     }
@@ -105,7 +107,7 @@ const Checkout = ({ show, onClose }) => {
                   type="text"
                   name="state"
                   id="checkout-state"
-                  autoComplete="state"
+                  autoComplete="address-level1"
                   required
                   minLength={6}
                   maxLength={20}
@@ -114,15 +116,15 @@ const Checkout = ({ show, onClose }) => {
                 />
               </div>
               <div className={styles.checkout__zip}>
-                <label>ZIP</label>
+                <label htmlFor="checkout-zip">ZIP</label>
                 <input
                   type="number"
                   name="zip"
                   id="checkout-zip"
                   autoComplete="postal-code"
                   required
-                  minLength={5}
-                  maxLength={10}
+                  minLength={2}
+                  maxLength={2}
                   value={formData.zip}
                   onChange={handleChange}
                 />

@@ -103,6 +103,8 @@
           background-color: variables.$pastel-red;
           color: white;
           cursor: pointer;
+          border: none;
+          border-top: 2px solid black;
         }
 
         > a {

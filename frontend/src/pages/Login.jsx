@@ -65,6 +65,7 @@ const Login = () => {
             username: res.data.user.username,
             email: res.data.user.email,
             cart: cart,
+            orders: res.data.user.orders,
           })
         );
         navigate("/");

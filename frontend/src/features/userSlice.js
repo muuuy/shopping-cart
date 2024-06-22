@@ -5,6 +5,7 @@ const initialState = {
   username: "",
   email: "",
   cart: [],
+  orders: [],
 };
 const userSlice = createSlice({
   name: "users",
@@ -15,6 +16,7 @@ const userSlice = createSlice({
       state.email = action.payload.email;
       state.authenticated = true;
       state.cart = action.payload.cart;
+      state.orders = action.payload.orders;
     },
     removeUser(state) {
       state.username = "";
@@ -28,8 +30,9 @@ const userSlice = createSlice({
     cartRemove(state, action) {
       state.cart = action.payload.cart;
     },
-    resetCart(state) {
+    resetCart(state, action) {
       state.cart = [];
+      state.orders.push(action.payload.order);
     },
   },
 });

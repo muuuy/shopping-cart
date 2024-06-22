@@ -26,14 +26,6 @@ const ItemSchema = new Schema({
     min: 1,
     max: 30,
   },
-  // orderDate: {
-  //   type: Date,
-  //   default: null,
-  // },
-  // shippingDate: {
-  //   type: Date,
-  //   default: null,
-  // },
 });
 
 //Get total cost of item in cart

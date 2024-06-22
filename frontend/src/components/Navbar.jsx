@@ -98,6 +98,12 @@ const Navbar = () => {
                   <BsCaretDownFill size={12} />
                 </div>
                 <div className={styles.dropdown}>
+                  <Link
+                    to={"/orders/"}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    ORDERS
+                  </Link>
                   <button className={styles.log_out} onClick={handleLogOut}>
                     LOG OUT
                   </button>

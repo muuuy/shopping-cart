@@ -19,6 +19,7 @@ import Store from "./pages/Store";
 import ShopPokemon from "./pages/ShopPokemon";
 import ShopItems from "./pages/ShopItems";
 import Search from "./pages/Search";
+import Orders from "./pages/Orders";
 
 import ExplorePokemon from "./pages/ExplorePokemon";
 import ExploreItems from "./pages/ExploreItems";
@@ -51,6 +52,7 @@ function App() {
               username: res.data.user.username,
               email: res.data.user.email,
               cart: cart,
+              orders: res.data.user.orders,
             })
           );
         }
@@ -89,6 +91,7 @@ function App() {
           <Route path="/shop-pokemon/:itemName" element={<ShopPokemon />} />
           <Route path="/shop-item/:itemName" element={<ShopItems />} />
           <Route path="/search-items/" element={<Search />} />
+          <Route path="/orders/" element={<Orders />} />
 
           <Route path="/explore-pokemon/" element={<ExplorePokemon />} />
           <Route path="/explore-items/" element={<ExploreItems />} />

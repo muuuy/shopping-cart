@@ -26,6 +26,10 @@ const ShoppingCart = () => {
     setShowPopup(!showPopup);
   };
 
+  const handleClose = () => {
+    setShowPopup(false);
+  }
+
   const handleDelete = async (item) => {
     try {
       const res = await fetch(`http://localhost:3000/users/delete-item/`, {
@@ -109,7 +113,7 @@ const ShoppingCart = () => {
         CHECKOUT
       </button>
       <div>
-        <Checkout show={showPopup} onClose={handlePopup} />
+        <Checkout show={showPopup} onClose={handleClose} />
       </div>
     </div>
   );
