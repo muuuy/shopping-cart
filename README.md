@@ -10,23 +10,33 @@ This project is a full-stack e-commerce site built using modern web development 
 - Order placement and management
 - Login / Signup / Forgot Passowrd / Reset Password
 <br/>
-## Technologies Used
+** Technologies Used **
 <br/>
-### Frontend:
+** Frontend: **
 <br/>
 - React.js
+<br/>
 - Redux
+<br/>
 - CSS/SASS
+<br/>
 - HTML
+<br/>
 - Javascript
-### Backend:
+<br/>
+** Backend: **
+<br/>
 - Node.js
+<br/>
 - Express.js
+<br/>
 - MongoDB
+<br/>
 - JWT
+<br/>
 - Bcrypt
 <br/>
-## Installation:
+** Installation: **
 Make sure you have the following installed on your machine:
 - Node.js
 - npm/yarn
