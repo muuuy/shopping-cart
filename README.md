@@ -1,46 +1,55 @@
-# Pokemon Shop <br/>
-An E-commerce site project that utilizes https://pokeapi.co/. This README file provides an overview of the project, instillation instructions, usage guidlines, and other important information.
-<br/>
-<br/>
+# Pokemon Shop
+
+An E-commerce site project that utilizes [PokeAPI](https://pokeapi.co/). This README file provides an overview of the project, installation instructions, usage guidelines, and other important information.
+
+---
+
 ## Project Overview
+
 This project is a full-stack e-commerce site built using modern web development technologies. It includes features like user authentication, product listing, a shopping cart, and order management.
-- User authenticationa and authorization
-- Product browising and searching
+
+### Features
+
+- User authentication and authorization
+- Product browsing and searching
 - Shopping cart functionality
 - Order placement and management
-- Login / Signup / Forgot Passowrd / Reset Password
-<br/>
-** Technologies Used **
-<br/>
-** Frontend: **
-<br/>
+- Login / Signup / Forgot Password / Reset Password
+
+---
+
+## Technologies Used
+
+### Frontend
+
 - React.js
-<br/>
 - Redux
-<br/>
 - CSS/SASS
-<br/>
 - HTML
-<br/>
-- Javascript
-<br/>
-** Backend: **
-<br/>
+- JavaScript
+
+### Backend
+
 - Node.js
-<br/>
 - Express.js
-<br/>
 - MongoDB
-<br/>
-- JWT
-<br/>
+- JWT (JSON Web Tokens)
 - Bcrypt
-<br/>
-** Installation: **
-Make sure you have the following installed on your machine:
+
+---
+
+## Installation
+
+Before starting, ensure you have the following installed on your machine:
+
 - Node.js
-- npm/yarn
+- npm or yarn
 - MongoDB
-<br/>
-Steps:
-- Clone the repository
+
+### Steps
+
+1. **Clone the repository:**
+
+   ```bash
+   $ git clone https://github.com/username/repository.git
+   $ cd repository
