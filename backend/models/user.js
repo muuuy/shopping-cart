@@ -22,6 +22,13 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Cart",
   },
+  orders: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Order",
+      default: [],
+    },
+  ],
 });
 
 module.exports = mongoose.model("User", UserSchema);

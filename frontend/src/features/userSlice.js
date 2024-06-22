@@ -28,10 +28,13 @@ const userSlice = createSlice({
     cartRemove(state, action) {
       state.cart = action.payload.cart;
     },
+    resetCart(state) {
+      state.cart = [];
+    },
   },
 });
 
-export const { authUser, removeUser, cartAppend, cartRemove } =
+export const { authUser, removeUser, cartAppend, cartRemove, resetCart } =
   userSlice.actions;
 
 export default userSlice.reducer;

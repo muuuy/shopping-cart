@@ -2,6 +2,9 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import axios from "axios";
 
+import { useDispatch } from "react-redux";
+import { resetCart } from "../features/userSlice";
+
 import styles from "../styles/Checkout.module.scss";
 
 const Checkout = ({ show, onClose }) => {
@@ -12,6 +15,7 @@ const Checkout = ({ show, onClose }) => {
     state: "",
     zip: "",
   });
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,6 +26,12 @@ const Checkout = ({ show, onClose }) => {
         formData,
         { withCredentials: true }
       );
+
+      if (res.status === 200) {
+        console.log("order worked");
+        dispatch(resetCart());
+        setFormData({ name: "", email: "", country: "", state: "", zip: "" });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -36,7 +46,9 @@ const Checkout = ({ show, onClose }) => {
     <>
       {show && (
         <div className={styles.checkout__container}>
-          <button onClick={onClose} className={styles.checkout__close}>X</button>
+          <button onClick={onClose} className={styles.checkout__close}>
+            X
+          </button>
           <form
             method="POST"
             onSubmit={handleSubmit}

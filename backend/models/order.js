@@ -28,4 +28,13 @@ const OrderSchema = new Schema({
     type: Date,
     required: true,
   },
+  items: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Item",
+      default: [],
+    },
+  ],
 });
+
+module.exports = mongoose.model("Order", OrderSchema);

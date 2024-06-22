@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const Item = require("../models/item");
 const Cart = require("../models/cart");
+const Order = require("../models/order");
 
 const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
@@ -147,12 +148,10 @@ exports.user_login = [
             res.status(401).json({ error: [{ msg: "Incorrect password." }] });
           }
 
-          const cart = await Cart.findById(user.shoppingCart).exec();
-
+          const cart = await Cart.findById(user.shoppingCart).exec(); //add cart items to session
           const items = await Promise.all(
             cart.items.map((itemID) => Item.findById(itemID).exec())
           );
-
           const responseItems = items.map((item) => {
             return generateSessionItem(item);
           });
@@ -501,7 +500,52 @@ exports.upload_order = [
     .withMessage("Invalid ZIP code."),
 
   asyncHandler(async (req, res, next) => {
-    console.log(req);
+    if (!req.session.authenticated) {
+      res.status(401).json({ msg: "Not logged in." });
+    }
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.status(401).json({ errors: errors.array() });
+    } else {
+      try {
+        const user = await User.findOne({
+          username: req.session.user.username,
+        });
+        if (!user) {
+          res.status(404).json({ errors: "Invalid user." });
+        }
+
+        const cart = await Cart.findById(user.shoppingCart).exec();
+        if (!cart) {
+          res.status(404).json({ errors: "Invalid cart." });
+        }
+
+        const order = new Order({
+          name: req.body.name,
+          email: req.body.email,
+          country: req.body.country,
+          state: req.body.state,
+          zip: req.body.zip,
+          orderDate: new Date(),
+          items: cart.items,
+        });
+        order.save();
+
+        user.orders.push(order._id);
+        user.save();
+
+        cart.items = [];
+        cart.save();
+
+        req.session.user.items = [];
+        res.status(200).json(req.session);
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ errors: "Something went wrong." });
+      }
+    }
+
     return;
   }),
 ];
