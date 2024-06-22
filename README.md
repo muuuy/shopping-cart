@@ -10,7 +10,7 @@ This project is a full-stack e-commerce site built using modern web development 
 - Order placement and management
 - Login / Signup / Forgot Passowrd / Reset Password
 <br/>
-## Technologies Used
+# Technologies Used
 ### Frontend:
 - React.js
 - Redux
