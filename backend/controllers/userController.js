@@ -3,13 +3,29 @@ const Item = require("../models/item");
 const Cart = require("../models/cart");
 const Order = require("../models/order");
 
+const {
+  validateUsername,
+  validatePassword,
+  validateType,
+  validateOrder,
+  validatePasswordReset,
+  validateUser,
+} = require("../middleware/validate");
+
 const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
 const session = require("express-session");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
-const item = require("../models/item");
+
+const handleErrors = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(401).json({ errors: errors.array() });
+  }
+  next();
+};
 
 const generateSessionItem = (item) => {
   const token = jwt.sign({ itemId: item._id }, process.env.JWT_SECRET_KEY, {
@@ -27,67 +43,83 @@ const generateSessionItem = (item) => {
   return newItem;
 };
 
+const generateCartItemTokens = async (cart) => {
+  const items = await Promise.all(
+    cart.items.map((itemID) => Item.findById(itemID).exec())
+  );
+  const responseItems = items.map((item) => {
+    return generateSessionItem(item);
+  });
+
+  return responseItems;
+};
+
+const generateOrderItemTokens = async (orders) => {};
+
+const getOrders = async (user) => {
+  const orders = await Promise.all(
+    user.orders.map(async (orderID) => {
+      const order = await Order.findById(orderID).exec();
+      return order;
+    })
+  );
+
+  return orders;
+};
+
+const getOrderItems = async (order) => {
+  const items = await Promise.all(
+    order.items.map(async (itemID) => {
+      const item = await Item.findById(itemID).exec();
+      return item;
+    })
+  );
+
+  return items;
+};
+
+const getUserOrderItems = async (orders) => {
+  const orderItems = await Promise.all(
+    orders.map(async (order) => {
+      const items = await getOrderItems(order);
+      return items;
+    })
+  );
+
+  return orderItems;
+};
+
+const getOrderTokens = (orderItems) => {
+  const responseOrders = orderItems.map((items) => {
+    const responseOrderItems = items.map((item) => {
+      return generateSessionItem(item);
+    });
+    return responseOrderItems;
+  });
+
+  return responseOrders;
+};
+
+const generateSessionToken = (userID) => {
+  const token = jwt.sign({ userId: userID }, process.env.JWT_SECRET_KEY, {
+    expiresIn: process.env.SESSION_EXPIRE,
+  });
+
+  return token;
+};
+
 exports.user_create_post = [
-  body("username")
-    .trim()
-    .isLength({ min: 5, max: 15 })
-    .escape()
-    .withMessage("Username must be specified.")
-    .isAlphanumeric()
-    .withMessage("Username can only contain letters and numbers.")
-    .custom(async (username) => {
-      const existingUser = await User.findOne({ username: username });
-      if (existingUser) {
-        throw new Error("Username already in use.");
-      }
-      return true;
-    }),
-  body("password")
-    .trim()
-    .isLength({ min: 8, max: 32 })
-    .escape()
-    .withMessage("Password must be specified."),
-  body("verifyPassword")
-    .trim()
-    .isLength({ min: 8, max: 32 })
-    .escape()
-    .withMessage("You must verify your password.")
-    .custom((value, { req }) => {
-      if (value !== req.body.password) {
-        throw new Error("Passwords do not match.");
-      }
-      return true;
-    }),
-  body("email")
-    .trim()
-    .isLength({ min: 2, max: 254 })
-    .escape()
-    .withMessage("Email must be specified.")
-    .isEmail()
-    .withMessage("You must enter a valid Email address.")
-    .custom(async (email) => {
-      const existingEmail = await User.findOne({ email: email });
-      if (existingEmail) {
-        throw new Error("Email already in use.");
-      }
-      return true;
-    }),
-
+  ...validateUser,
+  handleErrors,
   asyncHandler(async (req, res, next) => {
-    const errors = validationResult(req);
-
     const username = req.body.username;
     var password = req.body.password;
     const email = req.body.email;
 
-    if (!errors.isEmpty()) {
-      res.status(401).json({ errors: errors.array() });
-    } else {
-      try {
-        password = await bcrypt.hash(password, 13);
-      } catch (err) {
-        console.log("Error while hashing:", err);
-      }
+    try {
+      password = await bcrypt.hash(password, 13);
+    } catch (err) {
+      console.log("Error while hashing:", err);
     }
 
     const cart = new Cart();
@@ -106,103 +138,54 @@ exports.user_create_post = [
 ];
 
 exports.user_login = [
-  body("username")
-    .trim()
-    .isLength({ min: 2, max: 254 })
-    .escape()
-    .withMessage("Invalid Username/Email."),
-  body("password")
-    .trim()
-    .isLength({ min: 8, max: 32 })
-    .escape()
-    .withMessage("Password must be specified."),
-
+  validateUsername,
+  validatePassword,
+  handleErrors,
   asyncHandler(async (req, res, next) => {
-    console.log(req.sessionID);
-
-    const errors = validationResult(req);
-
     const username = req.body.username;
     var password = req.body.password;
 
-    if (!errors.isEmpty()) {
-      res.status(401).json({ errors: errors.array() });
-    } else {
-      if (req.session.authenticated) {
-        res.status(200).json(req.session);
-      } else {
-        try {
-          const user = await User.findOne({
-            $or: [{ username: username }, { email: username }],
-          });
+    if (req.session.authenticated) {
+      return res.status(200).json(req.session);
+    }
 
-          if (!user) {
-            return res
-              .status(401)
-              .json({ error: [{ msg: "User not found." }] });
-          }
-
-          const match = await bcrypt.compare(password, user.password);
-
-          if (!match) {
-            res.status(401).json({ error: [{ msg: "Incorrect password." }] });
-          }
-
-          const cart = await Cart.findById(user.shoppingCart).exec(); //add cart items to session
-          const items = await Promise.all(
-            cart.items.map((itemID) => Item.findById(itemID).exec())
-          );
-          const responseItems = items.map((item) => {
-            return generateSessionItem(item);
-          });
-
-          const orders = await Promise.all(
-            user.orders.map(async (orderID) => {
-              const order = await Order.findById(orderID).exec();
-              return order;
-            })
-          );
-          const orderItems = await Promise.all(
-            orders.map(async (order) => {
-              const items = await Promise.all(
-                order.items.map(async (itemID) => {
-                  const item = await Item.findById(itemID).exec();
-                  return item;
-                })
-              );
-              return items;
-            })
-          );
-          const responseOrders = orderItems.map((items) => {
-            const responseOrderItems = items.map((item) => {
-              return generateSessionItem(item);
-            });
-            return responseOrderItems;
-          });
-
-          const token = jwt.sign(
-            { userId: user._id },
-            process.env.JWT_SECRET_KEY,
-            { expiresIn: process.env.SESSION_EXPIRE }
-          );
-
-          req.session.authenticated = true;
-          req.session.user = {
-            token: token,
-            username: user.username,
-            email: user.email,
-            items: responseItems,
-            orders: responseOrders,
-          };
-
-          console.log(req.session);
-
-          res.status(200).json(req.session);
-        } catch (error) {
-          console.log(error);
-          res.status(400).json({ message: "Error loggin in." });
-        }
+    try {
+      const user = await User.findOne({
+        $or: [{ username: username }, { email: username }],
+      });
+      if (!user) {
+        return res.status(401).json({ error: [{ msg: "User not found." }] });
       }
+      const match = await bcrypt.compare(password, user.password);
+
+      if (!match) {
+        return res.status(401).json({ error: [{ msg: "Incorrect password." }] });
+      }
+
+      const cart = await Cart.findById(user.shoppingCart).exec(); //add cart items to session
+      const responseItems = await generateCartItemTokens(cart);
+
+      const orders = await getOrders(user);
+      const orderItems = await getUserOrderItems(orders);
+      const responseOrders = getOrderTokens(orderItems);
+
+      const token = generateSessionToken(user._id);
+
+      req.session.authenticated = true;
+      req.session.user = {
+        token: token,
+        username: user.username,
+        email: user.email,
+        items: responseItems,
+        orders: responseOrders,
+      };
+
+      console.log(req.session);
+
+      return res.status(200).json(req.session);
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json({ message: "Error loggin in." });
     }
   }),
 ];
