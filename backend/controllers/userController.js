@@ -54,8 +54,6 @@ const generateCartItemTokens = async (cart) => {
   return responseItems;
 };
 
-const generateOrderItemTokens = async (orders) => {};
-
 const getOrders = async (user) => {
   const orders = await Promise.all(
     user.orders.map(async (orderID) => {
@@ -89,12 +87,17 @@ const getUserOrderItems = async (orders) => {
   return orderItems;
 };
 
-const getOrderTokens = (orderItems) => {
+const getOrderTokens = (items) => {
+  const responseOrderItems = items.map((item) => {
+    return generateSessionItem(item);
+  });
+
+  return responseOrderItems;
+};
+
+const getAllOrderTokens = (orderItems) => {
   const responseOrders = orderItems.map((items) => {
-    const responseOrderItems = items.map((item) => {
-      return generateSessionItem(item);
-    });
-    return responseOrderItems;
+    return getOrderTokens(items);
   });
 
   return responseOrders;
@@ -169,7 +172,7 @@ exports.user_login = [
 
       const orders = await getOrders(user);
       const orderItems = await getUserOrderItems(orders);
-      const responseOrders = getOrderTokens(orderItems);
+      const responseOrders = getAllOrderTokens(orderItems);
 
       const token = generateSessionToken(user._id);
 
@@ -254,23 +257,22 @@ exports.user_reset = [
         req.params.token,
         process.env.JWT_SECRET_KEY
       );
-
       if (!decodedToken) {
-        res.status(401).send({ message: "Invalid token" });
+        return res.status(401).send({ error: [{ msg: "Invalid token." }] });
       }
 
       const user = await User.findOne({
         $or: [{ username: req.body.username }, { email: req.body.username }],
       });
-
       if (!user) {
-        res.status(401).json({ error: [{ msg: "Invalid Username/Email." }] });
+        return res
+          .status(401)
+          .json({ error: [{ msg: "Invalid Username/Email." }] });
       }
 
       const match = await bcrypt.compare(req.body.password, user.password);
-
       if (match) {
-        res.status(401).json({
+        return res.status(401).json({
           errors: [
             {
               msg: "New password cannot be the same as the current password.",
@@ -280,18 +282,21 @@ exports.user_reset = [
       }
 
       var password;
-
       try {
         password = await bcrypt.hash(req.body.password, 13);
       } catch (err) {
-        console.log("Error while hashing:", err);
+        return res
+          .status(500)
+          .json({ errors: [{ msg: "Error while hashing." }] });
       }
 
       user.password = password;
 
       await user.save();
     } catch (error) {
-      res.status(500).json({ message: "Error resetting user information." });
+      res
+        .status(500)
+        .json({ errors: [{ msg: "Error resetting user information." }] });
     }
 
     res.redirect("http://localhost:5173/");
@@ -302,10 +307,10 @@ exports.user_logout = [
   asyncHandler(async (req, res, next) => {
     req.session.destroy((err) => {
       if (err) {
-        return res.status(400).send({ msg: "Logout Failed" });
+        return res.status(400).send({ errors: [{ msg: "Logout Failed" }] });
       } else {
         res.clearCookie("connect.sid");
-        res.status(200).send({ message: "Logout successful" });
+        return res.status(200).send({ msg: "Logout successful" });
       }
     });
   }),
@@ -313,36 +318,20 @@ exports.user_logout = [
 
 exports.get_auth = [
   (req, res, next) => {
-    console.log(req.sessionID);
     if (req.session.authenticated) {
-      res.status(200).json(req.session);
+      return res.status(200).json(req.session);
     } else {
-      console.log("Unauth");
-      res.status(401).send({ message: "Unauthorized" });
+      return res.status(401).send({ errors: [{ msg: "Unauthorized" }] });
     }
   },
 ];
 
 exports.shopping_cart = [
-  body("type")
-    .trim()
-    .custom((type) => {
-      if (type !== "pokemon" && type !== "item") {
-        throw new Error("Invalid type.");
-      } else {
-        return true;
-      }
-    }),
-
+  validateType,
+  handleErrors,
   asyncHandler(async (req, res, next) => {
     if (!req.session.authenticated) {
-      res.status(500).json({ errors: [{ msg: "Not logged in." }] });
-    }
-
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      res.status(401).json({ errors: errors.array() });
+      return res.status(500).json({ errors: [{ msg: "Not logged in." }] });
     }
 
     try {
@@ -350,15 +339,13 @@ exports.shopping_cart = [
         req.session.user.token,
         process.env.JWT_SECRET_KEY
       );
-
       if (!decodedToken) {
-        res.status(401).send({ message: "Invalid token" });
+        return res.status(401).send({ errors: [{ msg: "Invalid token" }] });
       }
 
       const user = await User.findById(decodedToken.userId).exec();
-
       if (!user) {
-        res.status(401).json({ error: [{ msg: "Invalid user." }] });
+        return res.status(401).json({ error: [{ msg: "Invalid user." }] });
       }
 
       const item = new Item({
@@ -367,7 +354,6 @@ exports.shopping_cart = [
         cost: req.body.cost,
         quantity: req.body.quantity,
       });
-
       await item.save();
 
       const cart = await Cart.findById(user.shoppingCart).exec();
@@ -379,10 +365,9 @@ exports.shopping_cart = [
       req.session.user.items.push(newItem);
       res
         .status(200)
-        .json({ message: "Item was added to cart.", newItem: newItem });
+        .json({ msg: "Item was added to cart.", newItem: newItem });
     } catch (error) {
-      console.log(error);
-      res.status(500).json({ message: "Error fetching cart" });
+      res.status(500).json({ errors: [{ msg: "Error fetching cart" }] });
     }
   }),
 ];
@@ -390,145 +375,100 @@ exports.shopping_cart = [
 exports.delete_item = [
   asyncHandler(async (req, res, next) => {
     if (!req.session.authenticated) {
-      res.status(500).json({ error: [{ message: "Not logged in." }] });
+      return res.status(500).json({ errors: [{ msg: "Not logged in." }] });
     } else {
-      console.log(req.body.token);
-      console.log(req.body.username);
-
       const user = await User.findOne({ username: req.body.username });
-
       if (!user) {
-        res.status(404).json({ message: "User not found." });
+        return res.status(404).json({ errors: [{ msg: "User not found." }] });
       }
 
       const cart = await Cart.findById(user.shoppingCart).exec();
-
       if (!cart) {
-        res.status(404).json({ message: "Cart not found." });
+        return res.status(404).json({ errors: [{ msg: "Cart not found." }] });
       }
 
       const decodedToken = jwt.verify(
         req.body.token,
         process.env.JWT_SECRET_KEY
       );
-
       if (!decodedToken) {
-        req.status(404).json({ message: "Item not found." });
+        return req.status(404).json({ errors: [{ msg: "Item not found." }] });
       }
 
       const newCart = cart.items.filter((item) => item != decodedToken.itemId);
       cart.items = newCart;
       cart.save();
 
-      const deletedItem = await Item.findByIdAndDelete(decodedToken.itemId);
-
-      console.log(deletedItem);
+      await Item.findByIdAndDelete(decodedToken.itemId);
 
       const items = await Promise.all(
         cart.items.map((itemID) => Item.findById(itemID).exec())
       );
-
       const responseItems = items.map((item) => {
         return generateSessionItem(item);
       });
 
       req.session.user.items = responseItems;
 
-      res.status(200).json(req.session);
+      return res.status(200).json(req.session);
     }
   }),
 ];
 
 exports.upload_order = [
-  body("name")
-    .trim()
-    .isLength({ min: 1 })
-    .escape()
-    .withMessage("Name is not long enough."),
-  body("email")
-    .trim()
-    .isLength({ min: 2, max: 254 })
-    .escape()
-    .withMessage("Invalid email address."),
-  body("country")
-    .trim()
-    .isLength({ min: 2, max: 56 })
-    .escape()
-    .withMessage("Invalid country."),
-  body("state")
-    .trim()
-    .isLength({ min: 2, max: 2 })
-    .escape()
-    .withMessage("Invalid state."),
-  body("zip")
-    .trim()
-    .isLength({ min: 5, max: 10 })
-    .escape()
-    .withMessage("Invalid ZIP code."),
-
+  ...validateOrder,
+  handleErrors,
   asyncHandler(async (req, res, next) => {
     if (!req.session.authenticated) {
-      res.status(401).json({ msg: "Not logged in." });
+      return res.status(401).json({ errors: [{ msg: "Not logged in." }] });
     }
 
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      res.status(401).json({ errors: errors.array() });
-    } else {
-      try {
-        const user = await User.findOne({
-          username: req.session.user.username,
-        });
-        if (!user) {
-          res.status(404).json({ errors: "Invalid user." });
-        }
-
-        const cart = await Cart.findById(user.shoppingCart).exec();
-        if (!cart) {
-          res.status(404).json({ errors: "Invalid cart." });
-        } else if (cart.items.length === 0) {
-          res.status(400).json({ errors: "Cart is empty." });
-        }
-
-        const order = new Order({
-          name: req.body.name,
-          email: req.body.email,
-          country: req.body.country,
-          state: req.body.state,
-          zip: req.body.zip,
-          orderDate: new Date(),
-          items: cart.items,
-        });
-        order.save();
-
-        user.orders.push(order._id);
-        user.save();
-
-        cart.items = [];
-        cart.save();
-
-        req.session.user.items = [];
-
-        const items = await Promise.all(
-          order.items.map(async (itemID) => {
-            const item = await Item.findById(itemID).exec();
-            return item;
-          })
-        );
-        const responseOrder = await Promise.all(
-          items.map((item) => {
-            return generateSessionItem(item);
-          })
-        );
-
-        req.session.user.orders.push(responseOrder);
-
-        res.status(200).json({ session: req.session, addOrder: responseOrder });
-      } catch (error) {
-        console.log(error);
-        res.status(500).json({ errors: "Something went wrong." });
+    try {
+      const user = await User.findOne({
+        username: req.session.user.username,
+      });
+      if (!user) {
+        return res.status(404).json({ errors: [{ msg: "Invalid user." }] });
       }
+
+      const cart = await Cart.findById(user.shoppingCart).exec();
+      if (!cart) {
+        return res.status(404).json({ errors: [{ msg: "Invalid cart." }] });
+      } else if (cart.items.length === 0) {
+        return res.status(400).json({ errors: [{ msg: "Cart is empty." }] });
+      }
+
+      const order = new Order({
+        name: req.body.name,
+        email: req.body.email,
+        country: req.body.country,
+        state: req.body.state,
+        zip: req.body.zip,
+        orderDate: new Date(),
+        items: cart.items,
+      });
+      order.save();
+
+      user.orders.push(order._id);
+      user.save();
+
+      cart.items = [];
+      cart.save();
+
+      req.session.user.items = [];
+
+      const items = await getOrderItems(order);
+      const responseOrder = getOrderTokens(items);
+
+      req.session.user.orders.push(responseOrder);
+
+      return res
+        .status(200)
+        .json({ session: req.session, addOrder: responseOrder });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ errors: [{ msg: "Something went wrong." }] });
     }
-    return;
   }),
 ];

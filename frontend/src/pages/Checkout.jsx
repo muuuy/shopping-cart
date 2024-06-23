@@ -109,8 +109,8 @@ const Checkout = ({ show, onClose }) => {
                   id="checkout-state"
                   autoComplete="address-level1"
                   required
-                  minLength={6}
-                  maxLength={20}
+                  minLength={2}
+                  maxLength={2}
                   value={formData.state}
                   onChange={handleChange}
                 />
@@ -123,8 +123,8 @@ const Checkout = ({ show, onClose }) => {
                   id="checkout-zip"
                   autoComplete="postal-code"
                   required
-                  minLength={2}
-                  maxLength={2}
+                  minLength={5}
+                  maxLength={10}
                   value={formData.zip}
                   onChange={handleChange}
                 />
