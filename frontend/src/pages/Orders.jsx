@@ -11,6 +11,7 @@ import styles from "../styles/Orders.module.scss";
 const Orders = () => {
   const orders = useSelector((state) => state.user.orders);
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const populateItems = useCallback(async () => {
     console.log(orders);
@@ -28,16 +29,25 @@ const Orders = () => {
     );
 
     setItems([...apiOrders]);
+    setLoading(false);
   }, [orders]);
 
   const createOrderCards = useMemo(() => {
-    return orders.map((order, index) => (
-      <OrderCards key={uuidv4()} order={order} items={items[index]} />
-    ));
-  }, [orders, items]);
+    if (loading) return <p>Loading...</p>;
+    else if (items.length === 0) return <p>No Orders Found.</p>;
+    else {
+      return orders.map((order, index) => (
+        <OrderCards key={uuidv4()} order={order} items={items[index]} />
+      ));
+    }
+  }, [orders, items, loading]);
 
   useEffect(() => {
-    populateItems();
+    const fetchItems = async () => {
+      await populateItems();
+    };
+
+    fetchItems();
   }, [populateItems]);
 
   useEffect(() => {
@@ -48,7 +58,7 @@ const Orders = () => {
   return (
     <div className={styles.order__container}>
       <h1 className={styles.order__header}>YOUR ORDERS</h1>
-      {items.length !== 0 ? createOrderCards : <p>No Orders found</p>}
+      {createOrderCards}
     </div>
   );
 };
