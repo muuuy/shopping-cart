@@ -18,7 +18,7 @@ const fetchItem = async (item) => {
   }
 };
 
-export const fetchItems = async (items) => {
+export const fetchItems = async (items) => { 
   if (Array.isArray(items)) {
     return Promise.all(items.map((item) => fetchItem(item)));
   } else {
@@ -26,7 +26,7 @@ export const fetchItems = async (items) => {
   }
 };
 
-export const fetchOrderItem = async (item) => {
+export const fetchOrderItem = async (item) => { 
   try {
     const res = await fetch(
       `https://pokeapi.co/api/v2/${item.itemType}/${item.itemID}`
@@ -37,7 +37,15 @@ export const fetchOrderItem = async (item) => {
     }
 
     const apiItem = await res.json();
-    return apiItem;
+
+    const orderItem = {
+      itemType: item.itemType,
+      quantity: item.quantity,
+      cost: item.cost,
+      apiItem: apiItem,
+    };
+
+    return orderItem;
   } catch (error) {
     console.log(error);
   }

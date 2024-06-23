@@ -18,7 +18,6 @@ const bcrypt = require("bcryptjs");
 const session = require("express-session");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
-const order = require("../models/order");
 
 const handleErrors = (req, res, next) => {
   const errors = validationResult(req);
