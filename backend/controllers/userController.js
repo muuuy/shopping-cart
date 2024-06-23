@@ -18,6 +18,7 @@ const bcrypt = require("bcryptjs");
 const session = require("express-session");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
+const order = require("../models/order");
 
 const handleErrors = (req, res, next) => {
   const errors = validationResult(req);
@@ -103,6 +104,19 @@ const getAllOrderTokens = (orderItems) => {
   return responseOrders;
 };
 
+const generateOrderInfo = (items, order) => {
+  const orderInfo = {
+    name: order.name,
+    country: order.country,
+    state: order.state,
+    zip: order.zip,
+    orderDate: order.Date,
+    items: items,
+  };
+
+  return orderInfo;
+};
+
 const generateSessionToken = (userID) => {
   const token = jwt.sign({ userId: userID }, process.env.JWT_SECRET_KEY, {
     expiresIn: process.env.SESSION_EXPIRE,
@@ -157,14 +171,14 @@ exports.user_login = [
         $or: [{ username: username }, { email: username }],
       });
       if (!user) {
-        return res.status(401).json({ error: [{ msg: "User not found." }] });
+        return res.status(401).json({ errors: [{ msg: "User not found." }] });
       }
       const match = await bcrypt.compare(password, user.password);
 
       if (!match) {
         return res
           .status(401)
-          .json({ error: [{ msg: "Incorrect password." }] });
+          .json({ errors: [{ msg: "Incorrect password." }] });
       }
 
       const cart = await Cart.findById(user.shoppingCart).exec(); //add cart items to session
@@ -174,6 +188,17 @@ exports.user_login = [
       const orderItems = await getUserOrderItems(orders);
       const responseOrders = getAllOrderTokens(orderItems);
 
+      if (responseOrders.length !== orders.length) {
+        return res
+          .status(500)
+          .json({ errors: [{ msg: "Problem with orders" }] });
+      }
+
+      const allOrderInfo = [];
+      for (let i = 0; i < orders.length; i++) {
+        allOrderInfo.push(generateOrderInfo(responseOrders[i], orders[i]));
+      }
+
       const token = generateSessionToken(user._id);
 
       req.session.authenticated = true;
@@ -182,15 +207,12 @@ exports.user_login = [
         username: user.username,
         email: user.email,
         items: responseItems,
-        orders: responseOrders,
+        orders: allOrderInfo,
       };
-
-      console.log(req.session);
 
       return res.status(200).json(req.session);
     } catch (error) {
-      console.log(error);
-      return res.status(400).json({ message: "Error loggin in." });
+      return res.status(400).json({ errors: [{ msg: "Error loggin in." }] });
     }
   }),
 ];
@@ -460,11 +482,20 @@ exports.upload_order = [
       const items = await getOrderItems(order);
       const responseOrder = getOrderTokens(items);
 
-      req.session.user.orders.push(responseOrder);
+      const orderInfo = {
+        name: order.name,
+        country: order.country,
+        state: order.state,
+        zip: order.zip,
+        orderDate: order.Date,
+        items: responseOrder,
+      };
+
+      req.session.user.orders.push(orderInfo);
 
       return res
         .status(200)
-        .json({ session: req.session, addOrder: responseOrder });
+        .json({ session: req.session, addOrder: orderInfo });
     } catch (error) {
       return res
         .status(500)
