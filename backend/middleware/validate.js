@@ -58,11 +58,7 @@ const validateOrder = [
 ];
 
 const validatePasswordReset = [
-  body("password")
-    .trim()
-    .isLength({ min: 8, max: 32 })
-    .escape()
-    .withMessage("Password must be specified."),
+  validatePassword,
   body("verifyPassword")
     .trim()
     .isLength({ min: 8, max: 32 })

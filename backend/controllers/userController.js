@@ -159,7 +159,9 @@ exports.user_login = [
       const match = await bcrypt.compare(password, user.password);
 
       if (!match) {
-        return res.status(401).json({ error: [{ msg: "Incorrect password." }] });
+        return res
+          .status(401)
+          .json({ error: [{ msg: "Incorrect password." }] });
       }
 
       const cart = await Cart.findById(user.shoppingCart).exec(); //add cart items to session
@@ -191,67 +193,51 @@ exports.user_login = [
 ];
 
 exports.user_forget = [
-  body("username")
-    .trim()
-    .isLength({ min: 2, max: 254 })
-    .escape()
-    .withMessage("Invalid Username/Email."),
-
+  validateUsername,
+  handleErrors,
   asyncHandler(async (req, res, next) => {
-    const errors = validationResult(req);
+    try {
+      const user = await User.findOne({
+        $or: [{ username: req.body.username }, { email: req.body.username }],
+      });
 
-    if (!errors.isEmpty()) {
-      res.status(401).json({ errors: errors.array() });
-    } else {
-      try {
-        const user = await User.findOne({
-          $or: [{ username: req.body.username }, { email: req.body.username }],
-        });
+      if (!user) {
+        return res
+          .status(401)
+          .json({ errors: [{ msg: "Invalid Username/Email." }] });
+      }
 
-        if (!user) {
-          res
-            .status(401)
-            .json({ errors: [{ msg: "Invalid Username/Email." }] });
-        }
+      const token = generateSessionToken(user._id);
 
-        console.log(user);
+      const transporter = nodemailer.createTransport({
+        host: "smtp.ethereal.email",
+        port: 587,
+        secure: false,
+        auth: {
+          user: process.env.EMAIL_ADDRESS,
+          pass: process.env.EMAIL_PASSWORD,
+        },
+      });
 
-        const token = jwt.sign(
-          { userId: user._id },
-          process.env.JWT_SECRET_KEY,
-          { expiresIn: process.env.JWT_EXPIRE }
-        );
-
-        const transporter = nodemailer.createTransport({
-          host: "smtp.ethereal.email",
-          port: 587,
-          secure: false,
-          auth: {
-            user: process.env.EMAIL_ADDRESS,
-            pass: process.env.EMAIL_PASSWORD,
-          },
-        });
-
-        const mailOptions = {
-          from: process.env.EMAIL_ADDRESS,
-          to: user.email,
-          subject: "Reset Password",
-          html: `<h1>Reset Your Password</h1>
+      const mailOptions = {
+        from: process.env.EMAIL_ADDRESS,
+        to: user.email,
+        subject: "Reset Password",
+        html: `<h1>Reset Your Password</h1>
           <p>Click on the following link to reset your password:</p>
           <a href="http://localhost:5173/reset-password/${token}">http://localhost:5000/reset-password/${token}</a>
           <p>If you didn't request a password reset, please ignore this email.</p>`,
-        };
+      };
 
-        transporter.sendMail(mailOptions, (err, info) => {
-          if (err) {
-            res.status(500).send({ message: err.message });
-          }
-          console.log("Message sent: %s", info.messageId);
-          console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-        });
-      } catch (error) {
-        console.log(error);
-      }
+      transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+          res.status(500).send({ message: err.message });
+        }
+        console.log("Message sent: %s", info.messageId);
+        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+      });
+    } catch (error) {
+      console.log(error);
     }
 
     res.redirect("http://localhost:5173/");
@@ -259,79 +245,55 @@ exports.user_forget = [
 ];
 
 exports.user_reset = [
-  body("username")
-    .trim()
-    .isLength({ min: 2, max: 254 })
-    .escape()
-    .withMessage("Invalid Username/Email."),
-  body("password")
-    .trim()
-    .isLength({ min: 8, max: 32 })
-    .escape()
-    .withMessage("Password must be specified."),
-  body("verifyPassword")
-    .trim()
-    .isLength({ min: 8, max: 32 })
-    .escape()
-    .withMessage("You must verify your password.")
-    .custom((value, { req }) => {
-      if (value !== req.body.password) {
-        throw new Error("Passwords do not match.");
-      }
-      return true;
-    }),
-
+  validateUsername,
+  ...validatePasswordReset,
+  handleErrors,
   asyncHandler(async (req, res, next) => {
-    const errors = validationResult(req);
+    try {
+      const decodedToken = jwt.verify(
+        req.params.token,
+        process.env.JWT_SECRET_KEY
+      );
 
-    if (!errors.isEmpty()) {
-      res.status(401).json({ errors: errors.array() });
-    } else {
-      try {
-        const decodedToken = jwt.verify(
-          req.params.token,
-          process.env.JWT_SECRET_KEY
-        );
-
-        if (!decodedToken) {
-          res.status(401).send({ message: "Invalid token" });
-        }
-
-        const user = await User.findOne({
-          $or: [{ username: req.body.username }, { email: req.body.username }],
-        });
-
-        if (!user) {
-          res.status(401).json({ error: [{ msg: "Invalid Username/Email." }] });
-        }
-
-        const match = await bcrypt.compare(req.body.password, user.password);
-
-        if (match) {
-          res.status(401).json({
-            errors: [
-              {
-                msg: "New password cannot be the same as the current password.",
-              },
-            ],
-          });
-        }
-
-        var password;
-
-        try {
-          password = await bcrypt.hash(req.body.password, 13);
-        } catch (err) {
-          console.log("Error while hashing:", err);
-        }
-
-        user.password = password;
-
-        await user.save();
-      } catch (error) {
-        res.status(500).json({ message: "Error resetting user information." });
+      if (!decodedToken) {
+        res.status(401).send({ message: "Invalid token" });
       }
+
+      const user = await User.findOne({
+        $or: [{ username: req.body.username }, { email: req.body.username }],
+      });
+
+      if (!user) {
+        res.status(401).json({ error: [{ msg: "Invalid Username/Email." }] });
+      }
+
+      const match = await bcrypt.compare(req.body.password, user.password);
+
+      if (match) {
+        res.status(401).json({
+          errors: [
+            {
+              msg: "New password cannot be the same as the current password.",
+            },
+          ],
+        });
+      }
+
+      var password;
+
+      try {
+        password = await bcrypt.hash(req.body.password, 13);
+      } catch (err) {
+        console.log("Error while hashing:", err);
+      }
+
+      user.password = password;
+
+      await user.save();
+    } catch (error) {
+      res.status(500).json({ message: "Error resetting user information." });
     }
+
     res.redirect("http://localhost:5173/");
   }),
 ];
