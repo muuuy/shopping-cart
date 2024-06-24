@@ -69,8 +69,19 @@
   background-color: var(--dark-gray);
 }
 
-::-webkit-scrollbar {
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 4;
   display: none;
+}
+
+.overlay.active {
+  display: block;
 }
 
 footer {
@@ -84,12 +95,16 @@ footer {
   text-align: center;
 }
 
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+::-webkit-scrollbar {
+  display: none;
 }
 
-input[type=number] {
-    -moz-appearance: textfield; /* Firefox */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
 }

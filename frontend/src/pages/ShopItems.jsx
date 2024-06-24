@@ -27,8 +27,6 @@ const ShopItems = () => {
     const futureDate = new Date(currentDate);
     futureDate.setDate(currentDate.getDate() + 2);
     setFutureDate(futureDate);
-
-    console.log(item);
   }, [location.state]);
 
   useEffect(() => {
@@ -46,14 +44,12 @@ const ShopItems = () => {
 
   return (
     <>
+      <div className={`overlay ${showPopup ? "active" : ""}`}></div>
       {item && (
         <div className={styles.shop__container}>
           <div className={styles.shop__header}>
             <div className={styles.shop__header_image}>
-              <img
-                src={item.sprites.default}
-                className={styles.shop__poke_sprite}
-              />
+              <img src={item.sprites.default} className={styles.shop__sprite} />
               <div className={styles.shop__description}>
                 <h1>{capitalize(item.name)}</h1>
                 <h2>#{item.id}</h2>
@@ -76,7 +72,7 @@ const ShopItems = () => {
             </div>
           </div>
           {showPopup && (
-            <div ref={popupRef} className={styles}>
+            <div ref={popupRef} className={styles.shop__popup_container}>
               <CheckoutPopup
                 item={item}
                 shipDate={futureDate}

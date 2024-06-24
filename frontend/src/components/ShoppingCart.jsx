@@ -28,7 +28,7 @@ const ShoppingCart = () => {
 
   const handleClose = () => {
     setShowPopup(false);
-  }
+  };
 
   const handleDelete = async (item) => {
     try {
@@ -98,24 +98,30 @@ const ShoppingCart = () => {
   }, [items]);
 
   return (
-    <div
-      className={`${styles.dropdown} ${styles.cart}`}
-      style={{
-        display: showPopup ? "block" : "",
-        animation: showPopup ? "none" : "",
-      }}
-    >
-      <div className={styles.shopping_cart__content}>{cartContent}</div>
-      <p className={styles.shopping_cart__cost}>
-        <span>TOTAL:</span> ￥{totalCost}
-      </p>
-      <button className={styles.shopping_cart__checkout} onClick={handlePopup}>
-        CHECKOUT
-      </button>
-      <div>
-        <Checkout show={showPopup} onClose={handleClose} />
+    <>
+      <div className={`overlay ${showPopup ? "active" : ""}`}></div>
+      <div
+        className={`${styles.dropdown} ${styles.cart}`}
+        style={{
+          display: showPopup ? "block" : "",
+          animation: showPopup ? "none" : "",
+        }}
+      >
+        <div className={styles.shopping_cart__content}>{cartContent}</div>
+        <p className={styles.shopping_cart__cost}>
+          <span>TOTAL:</span> ￥{totalCost}
+        </p>
+        <button
+          className={styles.shopping_cart__checkout}
+          onClick={handlePopup}
+        >
+          CHECKOUT
+        </button>
+        <div>
+          <Checkout show={showPopup} onClose={handleClose} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

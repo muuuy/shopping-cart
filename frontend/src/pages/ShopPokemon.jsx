@@ -34,8 +34,6 @@ const ShopPokemon = () => {
     futureDate.setDate(currentDate.getDate() + 2); // Adding 2 days
 
     setFutureDate(futureDate);
-
-    console.log(pokemon);
   }, [location]);
 
   useEffect(() => {
@@ -68,6 +66,7 @@ const ShopPokemon = () => {
 
   return (
     <>
+      <div className={`overlay ${showPopup ? "active" : ""}`}></div>
       {pokemon && types && (
         <div className={styles.shop__container}>
           <div className={styles.shop__header}>
@@ -76,7 +75,7 @@ const ShopPokemon = () => {
                 sprites={pokemon.sprites}
                 handleHover={handleHover}
               />
-              <img src={hoverImage} className={styles.shop__poke_sprite}></img>
+              <img src={hoverImage} className={styles.shop__sprite}></img>
               <div className={styles.shop__description}>
                 <h1>{capitalize(pokemon.name)}</h1>
                 <h2>#{pokemon.id}</h2>
