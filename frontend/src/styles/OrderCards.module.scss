@@ -1,0 +1,17 @@
+.order_cards__container {
+    > .order_cards__header {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        text-align: center;
+        width: 1000px;
+
+
+        > .order_cards__date {
+            border: 1px solid black;
+            max-width: 300px;
+            min-width: 300px;
+        }
+    }
+}

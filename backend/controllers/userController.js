@@ -109,7 +109,7 @@ const generateOrderInfo = (items, order) => {
     country: order.country,
     state: order.state,
     zip: order.zip,
-    orderDate: order.Date,
+    orderDate: order.orderDate,
     items: items,
   };
 
@@ -486,7 +486,7 @@ exports.upload_order = [
         country: order.country,
         state: order.state,
         zip: order.zip,
-        orderDate: order.Date,
+        orderDate: order.orderDate,
         items: responseOrder,
       };
 

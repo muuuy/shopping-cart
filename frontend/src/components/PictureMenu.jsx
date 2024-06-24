@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 
-import styles from "../styles/ShopPokemon.module.scss";
+import styles from "../styles/Shop.module.scss";
 
 const PictureMenu = ({ sprites, handleHover }) => {
   const populate = () => {
