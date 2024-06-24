@@ -9,4 +9,11 @@
   .order__header {
     @include userform.headerTheme;
   }
+
+  > .order__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+  }
 }

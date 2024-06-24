@@ -14,19 +14,21 @@ const Orders = () => {
   const [loading, setLoading] = useState(true);
 
   const populateItems = useCallback(async () => {
-    console.log(orders);
-
-    const apiOrders = await Promise.all(
-      orders.map(async (order) => {
-        const fetchedItems = await Promise.all(
-          order.items.map(async (item) => {
-            const fetchedItem = await fetchOrderItem(item);
-            return fetchedItem;
-          })
-        );
-        return fetchedItems;
-      })
-    );
+    try {
+      var apiOrders = await Promise.all(
+        orders.map(async (order) => {
+          const fetchedItems = await Promise.all(
+            order.items.map(async (item) => {
+              const fetchedItem = await fetchOrderItem(item);
+              return fetchedItem;
+            })
+          );
+          return fetchedItems;
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
 
     setItems([...apiOrders]);
     setLoading(false);
@@ -47,18 +49,13 @@ const Orders = () => {
       await populateItems();
     };
 
-    fetchItems();
+    fetchItems().catch((error) => console.log(error));
   }, [populateItems]);
-
-  useEffect(() => {
-    console.log("items", items);
-    console.log("items[0]", items[0]);
-  }, [items]);
 
   return (
     <div className={styles.order__container}>
       <h1 className={styles.order__header}>YOUR ORDERS</h1>
-      {createOrderCards}
+      <div className={styles.order__cards}>{createOrderCards}</div>
     </div>
   );
 };

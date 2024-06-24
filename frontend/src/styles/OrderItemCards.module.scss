@@ -1,0 +1,28 @@
+.item__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  > .item__sprite {
+    > img {
+      height: 80px;
+    }
+  }
+
+  > .item__description {
+    font-size: 12px;
+    max-width: 200px;
+    min-width: 200px;
+
+    > p {
+      font-weight: 700;
+
+      > span {
+        font-size: 10px;
+        letter-spacing: 2px;
+        font-weight: 600;
+      }
+    }
+  }
+}

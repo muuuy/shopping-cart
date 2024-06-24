@@ -4,8 +4,6 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import capitalize from "../utils/capitalize";
 
-//2159 TOTAL ITEMS
-
 const ItemCard = ({ item }) => {
   return (
     <div className={styles.item_container}>

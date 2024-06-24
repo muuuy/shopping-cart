@@ -1,17 +1,91 @@
+@use "variables";
+
 .order_cards__container {
-    > .order_cards__header {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        text-align: center;
-        width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
+  > .order_cards__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
 
-        > .order_cards__date {
-            border: 1px solid black;
-            max-width: 300px;
-            min-width: 300px;
-        }
+    > .order_cards__date {
+      max-width: 240px;
+      min-width: 240px;
     }
+
+    > .order_cards__shipping {
+      max-width: 200px;
+      min-width: 200px;
+
+      > .order_cards__user {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+
+        > .order_cards__name {
+          display: flex;
+          align-items: center;
+          color: variables.$blue;
+        }
+
+        > .order_cards__dropdown {
+          display: none;
+          position: absolute;
+          background-color: white;
+          z-index: 2;
+          text-align: center;
+          top: 100%;
+          border: 1px solid black;
+          border-radius: 8px;
+          padding: 8px;
+
+          > p:first-child {
+            font-weight: 700;
+          }
+        }
+      }
+
+      .order_cards__user:hover .order_cards__dropdown {
+        display: block;
+      }
+    }
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 12px;
+      > .order_cards__header {
+        font-weight: 900;
+      }
+    }
+  }
+
+  > .order_cards__items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+  }
+
+  > p {
+    font-size: 12px;
+    margin-bottom: 8px;
+    font-weight: 900;
+
+    > span {
+      letter-spacing: 4px;
+      text-indent: 4px;
+      font-weight: 700;
+    }
+  }
+}
+
+.order_cards__container:not(:last-child) {
+  border-bottom: 1px solid black;
 }
