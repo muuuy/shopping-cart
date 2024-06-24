@@ -16,8 +16,7 @@ import ResetPassword from "./pages/ResetPassword";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Store from "./pages/Store";
-import ShopPokemon from "./pages/ShopPokemon";
-import ShopItems from "./pages/ShopItems";
+import Shop from "./pages/Shop";
 import Search from "./pages/Search";
 import Orders from "./pages/Orders";
 
@@ -88,8 +87,7 @@ function App() {
 
           <Route path="/" element={<Home />} />
           <Route path="/store" Component={Store} />
-          <Route path="/shop-pokemon/:itemName" element={<ShopPokemon />} />
-          <Route path="/shop-item/:itemName" element={<ShopItems />} />
+          <Route path="/shop/:itemName" element={<Shop />} />
           <Route path="/search-items/" element={<Search />} />
           <Route path="/orders/" element={<Orders />} />
 

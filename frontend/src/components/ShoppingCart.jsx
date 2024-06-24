@@ -59,7 +59,7 @@ const ShoppingCart = () => {
       return (
         <div key={uuidv4()} className={styles.shopping_cart__item}>
           <Link
-            to={`/shop-pokemon/${item.apiItem.name}`}
+            to={`/shop/${item.apiItem.name}`}
             state={{
               item: item.apiItem,
               cost: item.cost,

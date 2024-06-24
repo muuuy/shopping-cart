@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
-import styles from "../styles/ShopPokemon.module.scss";
+import styles from "../styles/Shop.module.scss";
 
 import TypeCard from "../components/TypeCard";
 import PictureMenu from "../components/PictureMenu";
@@ -11,41 +11,43 @@ import CheckoutPopup from "../components/CheckoutPopup";
 import PokemonStats from "../components/PokemonStats";
 import PokemonAbilities from "../components/PokemonAbilities";
 
+import ItemCategory from "../components/ItemCategory";
+import ItemEffect from "../components/ItemEffect";
+
 import capitalize from "../utils/capitalize";
 
-const ShopPokemon = () => {
+const Shop = () => {
   const location = useLocation();
-  const [pokemon, setPokemon] = useState(null);
+  const [item, setItem] = useState(null);
   const [cost, setCost] = useState(null);
   const [types, setTypes] = useState(null);
   const [hoverImage, setHoveredImage] = useState(null);
-  const [showPopup, setShowPopup] = useState(false);
   const [futureDate, setFutureDate] = useState(null);
+  const [isPokemon, setIsPokemon] = useState(false);
 
+  const [showPopup, setShowPopup] = useState(false);
   const popupRef = useRef();
 
   useEffect(() => {
-    setPokemon(location.state.item);
+    setItem(location.state.item);
 
-    setCost(location.state.cost);
+    setCost(location.state.cost || location.state.item.cost);
+
+    setIsPokemon(location.state.isPokemon);
 
     const currentDate = new Date();
     const futureDate = new Date(currentDate);
-    futureDate.setDate(currentDate.getDate() + 2); // Adding 2 days
-
+    futureDate.setDate(currentDate.getDate() + 2);
     setFutureDate(futureDate);
-  }, [location]);
+  }, [location, item]);
 
   useEffect(() => {
-    const populateTypes = () => {
-      if (pokemon) {
-        const typeNames = pokemon.types.map((type) => type.type.name);
-        setTypes((prev) => typeNames);
-        setHoveredImage(pokemon.sprites.front_default);
-      }
-    };
-    populateTypes();
-  }, [pokemon]);
+    if (isPokemon && item) {
+      const typeNames = item.types.map((type) => type.type.name);
+      setTypes(typeNames);
+      setHoveredImage(item.sprites.front_default);
+    }
+  }, [item, isPokemon]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -56,7 +58,7 @@ const ShopPokemon = () => {
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mosuedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [popupRef]);
 
@@ -67,24 +69,40 @@ const ShopPokemon = () => {
   return (
     <>
       <div className={`overlay ${showPopup ? "active" : ""}`}></div>
-      {pokemon && types && (
+      {item && (
         <div className={styles.shop__container}>
           <div className={styles.shop__header}>
             <div className={styles.shop__header_image}>
-              <PictureMenu
-                sprites={pokemon.sprites}
-                handleHover={handleHover}
-              />
-              <img src={hoverImage} className={styles.shop__sprite}></img>
+              {isPokemon ? (
+                <>
+                  <PictureMenu
+                    sprites={item.sprites}
+                    handleHover={handleHover}
+                  />
+                  <img src={hoverImage} className={styles.shop__sprite}></img>
+                </>
+              ) : (
+                <img
+                  src={item.sprites.default}
+                  className={styles.shop__sprite}
+                />
+              )}
               <div className={styles.shop__description}>
-                <h1>{capitalize(pokemon.name)}</h1>
-                <h2>#{pokemon.id}</h2>
+                <h1>{capitalize(item.name)}</h1>
+                <h2>#{item.id}</h2>
                 <div>
-                  <TypeCard types={types} />
+                  {isPokemon && types && <TypeCard types={types} />}
+                  {!isPokemon && <ItemCategory category={item.category} />}
                 </div>
                 <div className={styles.shop__description_info}>
-                  <PokemonStats stats={pokemon.stats} />
-                  <PokemonAbilities abilities={pokemon.abilities} />
+                  {isPokemon ? (
+                    <>
+                      <PokemonStats stats={item.stats} />
+                      <PokemonAbilities abilities={item.abilities} />
+                    </>
+                  ) : (
+                    <ItemEffect item={item} />
+                  )}
                 </div>
               </div>
             </div>
@@ -93,18 +111,20 @@ const ShopPokemon = () => {
                 cost={parseInt(cost)}
                 setShow={setShowPopup}
                 date={futureDate}
-                id={pokemon.id}
-                type="pokemon"
+                id={item.id}
+                type={isPokemon ? "pokemon" : "item"}
               />
             </div>
           </div>
           {showPopup && (
             <div ref={popupRef} className={styles.shop__popup_container}>
               <CheckoutPopup
-                item={pokemon}
+                item={item}
                 shipDate={futureDate}
                 cost={parseInt(cost)}
-                pic={pokemon.sprites.front_default}
+                pic={
+                  isPokemon ? item.sprites.front_default : item.sprites.default
+                }
               />
             </div>
           )}
@@ -114,4 +134,4 @@ const ShopPokemon = () => {
   );
 };
 
-export default ShopPokemon;
+export default Shop;

@@ -47,7 +47,7 @@ const PokemonCard = ({ pokemon }) => {
     const populateTypes = () => {
       if (pokemon.types) {
         const typeNames = pokemon.types.map((type) => type.type.name);
-        setTypes((prev) => typeNames);
+        setTypes(typeNames);
         setCost((Math.round(calculateCost(pokemon) * 100) / 100).toFixed(2));
       }
     };
@@ -96,8 +96,8 @@ const PokemonCard = ({ pokemon }) => {
           </div>
           <p className={styles.pokemon_cost}>￥{cost}</p>
           <Link
-            to={`/shop-pokemon/${pokemon.name}`}
-            state={{ item: pokemon, cost: cost }}
+            to={`/shop/${pokemon.name}`}
+            state={{ item: pokemon, cost: cost, isPokemon: true }}
             style={{ textDecoration: "none" }}
           >
             <button className={styles.buy_button}>BUY</button>

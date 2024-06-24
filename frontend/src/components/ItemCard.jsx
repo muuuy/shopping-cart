@@ -7,8 +7,6 @@ import capitalize from "../utils/capitalize";
 //2159 TOTAL ITEMS
 
 const ItemCard = ({ item }) => {
-
-
   return (
     <div className={styles.item_container}>
       <img
@@ -22,10 +20,12 @@ const ItemCard = ({ item }) => {
           <p className={styles.item_name}>{capitalize(item.name)}</p>
         </div>
         <div className={styles.description_hide}>
-          <p className={styles.item_cost}>{item.cost === 0 ? "UNAVALIABLE" : `￥${item.cost}`}</p>
+          <p className={styles.item_cost}>
+            {item.cost === 0 ? "UNAVALIABLE" : `￥${item.cost}`}
+          </p>
           <Link
-            to={`/shop-item/${item.name}`}
-            state={{ item: item }}
+            to={`/shop/${item.name}`}
+            state={{ item: item, isPokemon: false }}
             style={{ textDecoration: "none" }}
           >
             <button className={styles.buy_button}>BUY</button>
