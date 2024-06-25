@@ -34,7 +34,9 @@ exports.user_create_post = [
     try {
       password = await bcrypt.hash(password, 13);
     } catch (err) {
-      console.log("Error while hashing:", err);
+      return res
+        .status(404)
+        .json({ errors: [{ msg: "Error while hashing." }] });
     }
 
     const cart = new Cart();
