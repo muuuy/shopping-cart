@@ -1,4 +1,5 @@
 @use "variables";
+@use "breakpoints";
 
 .banner_container {
   display: flex;
@@ -89,4 +90,8 @@
   100% {
     transform: translateY(0);
   }
+}
+
+@media screen and (max-width: breakpoints.$phone) {
+    
 }

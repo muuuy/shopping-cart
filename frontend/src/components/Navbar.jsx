@@ -43,6 +43,39 @@ const Navbar = () => {
   return (
     <>
       <nav className={styles.nav_container}>
+        <div className={styles.sidebar__container}>
+          <ul className={styles.sidebar__list}>
+            <li className={styles.sidebar__list_item}>
+              <a className={styles.sidebar__list_link}>SHOP</a>
+              <div className={styles.sidebare__list_dropdown}>
+                <Link
+                  to={"/explore-pokemon/"}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  POKEMON
+                </Link>
+                <Link
+                  to={`/explore-items/`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  ITEMS
+                </Link>
+                <Link
+                  to={`/explore-berries/`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  BERRIES
+                </Link>
+                <Link
+                  to={`/explore-tms/`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  TECHNICAL MACHINES
+                </Link>
+              </div>
+            </li>
+          </ul>
+        </div>
         <Link to="/" className={styles.logo} style={{ textDecoration: "none" }}>
           <BsHurricane className={styles.logo_img} />
           POKESTOP

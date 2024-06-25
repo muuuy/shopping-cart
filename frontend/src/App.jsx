@@ -77,7 +77,7 @@ function App() {
         }
       />
 
-      <div>
+      <div className="app-container">
         <Navbar />
         <Routes>
           <Route path="/signup" element={<Signup />} />
