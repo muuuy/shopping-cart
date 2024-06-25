@@ -1,6 +1,6 @@
 # Pokemon Shop
 
-An E-commerce site project that utilizes [PokeAPI](https://pokeapi.co/). This README file provides an overview of the project, installation instructions, usage guidelines, and other important information.
+An E-commerce site project that utilizes [PokeAPI](https://pokeapi.co/), which was used because it is free and it has a large amount of data. This README file provides an overview of the project, installation instructions, usage guidelines, and other important information.
 
 ---
 
@@ -61,19 +61,33 @@ Before starting, ensure you have the following installed on your machine:
    $ yarn install
    ```
 
-3. **Start the backend server:**
+2. **Install dependencies:**
+
+   Create a ```.env``` file in ```.\backend\``` folder.
+
+   Populate the ```.env``` file with the following:
+   ```
+   MONGODB_URI={YOUR MongoDB connection.}
+   EMAIL_ADDRESS={YOUR email address to send emails to users}
+   EMAIL_PASSWORD={YOUR email password.}
+   JWT_SECRET_KEY={KEY for JWT.}
+   JWT_EXPIRE={Amount of time before JWT expires.}
+   SESSION_EXPIRE={Amount of time before Express Session expires.}
+   ```
+   
+4. **Start the backend server:**
    ```
    $ cd .\backend\
    $ npm run serverstart
    ```
 
-4. **Start the frontend development server:**
+5. **Start the frontend development server:**
    ```
    $ cd .\frontend\
    $ npm run dev
    ```
 
-5. **Open your browser and visit:**
+6. **Open your browser and visit:**
    ```
    http://localhost:5173/
    ```
