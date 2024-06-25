@@ -12,6 +12,7 @@ require("dotenv").config();
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+var cartRouter = require("./routes/cart");
 var ordersRouter = require("./routes/orders");
 
 var app = express();
@@ -53,6 +54,7 @@ app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/cart", cartRouter);
 app.use("/orders", ordersRouter);
 
 app.listen(port, () => {

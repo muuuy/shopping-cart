@@ -4,6 +4,7 @@ const Cart = require("../models/cart");
 const Order = require("../models/order");
 
 const {
+  handleErrors,
   validateUsername,
   validatePassword,
   validateType,
@@ -12,117 +13,24 @@ const {
   validateUser,
 } = require("../middleware/validate");
 
-const { body, validationResult } = require("express-validator");
+const {
+  generateSessionItem,
+  generateSessionToken,
+} = require("../middleware/generateSessionItem");
+const { generateCartItemTokens } = require("../middleware/generateCartTokens");
+const {
+  getOrders,
+  getOrderItems,
+  getUserOrderItems,
+  getOrderTokens,
+  getAllOrderTokens,
+  generateOrderInfo,
+} = require("../middleware/generateOrderTokens");
+
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcryptjs");
-const session = require("express-session");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
-
-const handleErrors = (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(401).json({ errors: errors.array() });
-  }
-  next();
-};
-
-const generateSessionItem = (item) => {
-  const token = jwt.sign({ itemId: item._id }, process.env.JWT_SECRET_KEY, {
-    expiresIn: process.env.SESSION_EXPIRE,
-  });
-
-  const newItem = {
-    token: token,
-    itemID: item.itemID,
-    itemType: item.itemType,
-    quantity: item.quantity,
-    cost: item.cost,
-  };
-
-  return newItem;
-};
-
-const generateCartItemTokens = async (cart) => {
-  const items = await Promise.all(
-    cart.items.map((itemID) => Item.findById(itemID).exec())
-  );
-  const responseItems = items.map((item) => {
-    return generateSessionItem(item);
-  });
-
-  return responseItems;
-};
-
-const getOrders = async (user) => {
-  const orders = await Promise.all(
-    user.orders.map(async (orderID) => {
-      const order = await Order.findById(orderID).exec();
-      return order;
-    })
-  );
-
-  return orders;
-};
-
-const getOrderItems = async (order) => {
-  const items = await Promise.all(
-    order.items.map(async (itemID) => {
-      const item = await Item.findById(itemID).exec();
-      return item;
-    })
-  );
-
-  return items;
-};
-
-const getUserOrderItems = async (orders) => {
-  const orderItems = await Promise.all(
-    orders.map(async (order) => {
-      const items = await getOrderItems(order);
-      return items;
-    })
-  );
-
-  return orderItems;
-};
-
-const getOrderTokens = (items) => {
-  const responseOrderItems = items.map((item) => {
-    return generateSessionItem(item);
-  });
-
-  return responseOrderItems;
-};
-
-const getAllOrderTokens = (orderItems) => {
-  const responseOrders = orderItems.map((items) => {
-    return getOrderTokens(items);
-  });
-
-  return responseOrders;
-};
-
-const generateOrderInfo = (items, order) => {
-  const orderInfo = {
-    name: order.name,
-    country: order.country,
-    state: order.state,
-    zip: order.zip,
-    orderDate: order.orderDate,
-    items: items,
-  };
-
-  return orderInfo;
-};
-
-const generateSessionToken = (userID) => {
-  const token = jwt.sign({ userId: userID }, process.env.JWT_SECRET_KEY, {
-    expiresIn: process.env.SESSION_EXPIRE,
-  });
-
-  return token;
-};
 
 exports.user_create_post = [
   ...validateUser,
