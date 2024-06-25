@@ -47,7 +47,7 @@ const Navbar = () => {
           <ul className={styles.sidebar__list}>
             <li className={styles.sidebar__list_item}>
               <a className={styles.sidebar__list_link}>SHOP</a>
-              <div className={styles.sidebare__list_dropdown}>
+              <div className={styles.sidebar__list_dropdown}>
                 <Link
                   to={"/explore-pokemon/"}
                   style={{ textDecoration: "none", color: "inherit" }}
