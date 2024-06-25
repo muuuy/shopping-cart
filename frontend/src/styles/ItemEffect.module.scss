@@ -1,0 +1,19 @@
+.description__container {
+  min-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+
+    > p:first-child {
+      font-weight: 900;
+      letter-spacing: 4px;
+      text-indent: 4px;
+    }
+  }
+}

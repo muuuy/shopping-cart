@@ -39,6 +39,8 @@ const Shop = () => {
     const futureDate = new Date(currentDate);
     futureDate.setDate(currentDate.getDate() + 2);
     setFutureDate(futureDate);
+
+    console.log(item);
   }, [location, item]);
 
   useEffect(() => {
