@@ -41,7 +41,7 @@ const CheckoutBanner = ({ cost = 0, setShow, date = null, id, type }) => {
       };
 
       const res = await axios.post(
-        "http://localhost:3000/users/shopping-cart/",
+        "http://localhost:3000/cart/shopping-cart/",
         jsonData,
         { withCredentials: true }
       );

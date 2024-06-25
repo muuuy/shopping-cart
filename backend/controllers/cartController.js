@@ -2,8 +2,10 @@ const Item = require("../models/item");
 const Cart = require("../models/cart");
 const User = require("../models/user");
 
+const { generateSessionItem } = require("../middleware/generateSessionItem");
 const { handleErrors, validateType } = require("../middleware/validate");
 const asyncHandler = require("express-async-handler");
+const jwt = require("jsonwebtoken");
 
 exports.shopping_cart = [
   validateType,

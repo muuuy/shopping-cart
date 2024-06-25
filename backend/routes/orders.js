@@ -1,8 +1,8 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 
-router.get("/", function(req, res, next) {
-    res.send("API is working properly");
-});
+const order_controller = require("../controllers/orderController");
+
+router.post("/upload-order/", order_controller.upload_order);
 
 module.exports = router;

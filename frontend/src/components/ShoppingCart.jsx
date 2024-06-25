@@ -32,7 +32,7 @@ const ShoppingCart = () => {
 
   const handleDelete = async (item) => {
     try {
-      const res = await fetch(`http://localhost:3000/users/delete-item/`, {
+      const res = await fetch(`http://localhost:3000/cart/delete-item/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

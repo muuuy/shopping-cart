@@ -32,7 +32,7 @@ const userSlice = createSlice({
     },
     resetCart(state, action) {
       state.cart = [];
-      state.orders.push(action.payload.order);
+      state.orders.unshift(action.payload.order);
     },
   },
 });

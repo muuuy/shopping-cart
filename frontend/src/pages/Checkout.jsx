@@ -22,7 +22,7 @@ const Checkout = ({ show, onClose }) => {
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/users/upload-order/",
+        "http://localhost:3000/orders/upload-order/",
         formData,
         { withCredentials: true }
       );

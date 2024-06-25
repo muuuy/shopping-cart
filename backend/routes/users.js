@@ -3,11 +3,6 @@ const router = express.Router();
 
 const user_controller = require("../controllers/userController");
 
-/* GET users listing. */
-router.get("/", function (req, res, next) {
-  res.send("respond with a resource");
-});
-
 router.post("/signup/", user_controller.user_create_post);
 
 router.post("/login/", user_controller.user_login);
@@ -19,11 +14,5 @@ router.post("/reset-password/:token", user_controller.user_reset);
 router.post("/logout/", user_controller.user_logout);
 
 router.post("/auth/", user_controller.get_auth);
-
-router.post("/shopping-cart/", user_controller.shopping_cart);
-
-router.post("/delete-item/", user_controller.delete_item)
-
-router.post("/upload-order/", user_controller.upload_order);
 
 module.exports = router;

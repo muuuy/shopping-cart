@@ -1,28 +1,19 @@
 const User = require("../models/user");
-const Item = require("../models/item");
 const Cart = require("../models/cart");
-const Order = require("../models/order");
 
 const {
   handleErrors,
   validateUsername,
   validatePassword,
-  validateType,
-  validateOrder,
   validatePasswordReset,
   validateUser,
 } = require("../middleware/validate");
 
-const {
-  generateSessionItem,
-  generateSessionToken,
-} = require("../middleware/generateSessionItem");
+const { generateSessionToken } = require("../middleware/generateSessionItem");
 const { generateCartItemTokens } = require("../middleware/generateCartTokens");
 const {
   getOrders,
-  getOrderItems,
   getUserOrderItems,
-  getOrderTokens,
   getAllOrderTokens,
   generateOrderInfo,
 } = require("../middleware/generateOrderTokens");
@@ -88,10 +79,11 @@ exports.user_login = [
           .json({ errors: [{ msg: "Incorrect password." }] });
       }
 
-      const cart = await Cart.findById(user.shoppingCart).exec(); //add cart items to session
+      const cart = await Cart.findById(user.shoppingCart).exec();
       const responseItems = await generateCartItemTokens(cart);
 
-      const orders = await getOrders(user);
+      let orders = await getOrders(user);
+      orders.reverse();
       const orderItems = await getUserOrderItems(orders);
       const responseOrders = getAllOrderTokens(orderItems);
 
@@ -253,160 +245,4 @@ exports.get_auth = [
       return res.status(401).send({ errors: [{ msg: "Unauthorized" }] });
     }
   },
-];
-
-exports.shopping_cart = [
-  validateType,
-  handleErrors,
-  asyncHandler(async (req, res, next) => {
-    if (!req.session.authenticated) {
-      return res.status(500).json({ errors: [{ msg: "Not logged in." }] });
-    }
-
-    try {
-      const decodedToken = jwt.verify(
-        req.session.user.token,
-        process.env.JWT_SECRET_KEY
-      );
-      if (!decodedToken) {
-        return res.status(401).send({ errors: [{ msg: "Invalid token" }] });
-      }
-
-      const user = await User.findById(decodedToken.userId).exec();
-      if (!user) {
-        return res.status(401).json({ error: [{ msg: "Invalid user." }] });
-      }
-
-      const item = new Item({
-        itemID: req.body.id,
-        itemType: req.body.type,
-        cost: req.body.cost,
-        quantity: req.body.quantity,
-      });
-      await item.save();
-
-      const cart = await Cart.findById(user.shoppingCart).exec();
-      cart.items.push(item._id);
-      cart.save();
-
-      const newItem = generateSessionItem(item);
-
-      req.session.user.items.push(newItem);
-      res
-        .status(200)
-        .json({ msg: "Item was added to cart.", newItem: newItem });
-    } catch (error) {
-      res.status(500).json({ errors: [{ msg: "Error fetching cart" }] });
-    }
-  }),
-];
-
-exports.delete_item = [
-  asyncHandler(async (req, res, next) => {
-    if (!req.session.authenticated) {
-      return res.status(500).json({ errors: [{ msg: "Not logged in." }] });
-    } else {
-      const user = await User.findOne({ username: req.body.username });
-      if (!user) {
-        return res.status(404).json({ errors: [{ msg: "User not found." }] });
-      }
-
-      const cart = await Cart.findById(user.shoppingCart).exec();
-      if (!cart) {
-        return res.status(404).json({ errors: [{ msg: "Cart not found." }] });
-      }
-
-      const decodedToken = jwt.verify(
-        req.body.token,
-        process.env.JWT_SECRET_KEY
-      );
-      if (!decodedToken) {
-        return req.status(404).json({ errors: [{ msg: "Item not found." }] });
-      }
-
-      const newCart = cart.items.filter((item) => item != decodedToken.itemId);
-      cart.items = newCart;
-      cart.save();
-
-      await Item.findByIdAndDelete(decodedToken.itemId);
-
-      const items = await Promise.all(
-        cart.items.map((itemID) => Item.findById(itemID).exec())
-      );
-      const responseItems = items.map((item) => {
-        return generateSessionItem(item);
-      });
-
-      req.session.user.items = responseItems;
-
-      return res.status(200).json(req.session);
-    }
-  }),
-];
-
-exports.upload_order = [
-  ...validateOrder,
-  handleErrors,
-  asyncHandler(async (req, res, next) => {
-    if (!req.session.authenticated) {
-      return res.status(401).json({ errors: [{ msg: "Not logged in." }] });
-    }
-
-    try {
-      const user = await User.findOne({
-        username: req.session.user.username,
-      });
-      if (!user) {
-        return res.status(404).json({ errors: [{ msg: "Invalid user." }] });
-      }
-
-      const cart = await Cart.findById(user.shoppingCart).exec();
-      if (!cart) {
-        return res.status(404).json({ errors: [{ msg: "Invalid cart." }] });
-      } else if (cart.items.length === 0) {
-        return res.status(400).json({ errors: [{ msg: "Cart is empty." }] });
-      }
-
-      const order = new Order({
-        name: req.body.name,
-        email: req.body.email,
-        country: req.body.country,
-        state: req.body.state,
-        zip: req.body.zip,
-        orderDate: new Date(),
-        items: cart.items,
-      });
-      order.save();
-
-      user.orders.push(order._id);
-      user.save();
-
-      cart.items = [];
-      cart.save();
-
-      req.session.user.items = [];
-
-      const items = await getOrderItems(order);
-      const responseOrder = getOrderTokens(items);
-
-      const orderInfo = {
-        name: order.name,
-        country: order.country,
-        state: order.state,
-        zip: order.zip,
-        orderDate: order.orderDate,
-        items: responseOrder,
-      };
-
-      req.session.user.orders.push(orderInfo);
-
-      return res
-        .status(200)
-        .json({ session: req.session, addOrder: orderInfo });
-    } catch (error) {
-      return res
-        .status(500)
-        .json({ errors: [{ msg: "Something went wrong." }] });
-    }
-  }),
 ];
