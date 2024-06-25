@@ -116,4 +116,6 @@ Before starting, ensure you have the following installed on your machine:
 
 ![Shop TMs](/store-images/shop-tms.png)
 
+![Orders](/store-images/orders.png)
+
 ![Cart](/store-images/cart.png) ![Sign Up](/store-images/sign-up.png) ![Log in](/store-images/sign-in.png) ![Forgot Password](/store-images/forgot.png) ![Reset Password](/store-images/reset.png)
