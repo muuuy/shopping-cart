@@ -50,7 +50,8 @@ exports.user_create_post = [
     });
 
     await user.save();
-    res.redirect("http://localhost:5173/");
+    return res.status(200).json({ msg: "Succesfully created user." });
+    // res.redirect("http://localhost:5173/");
   }),
 ];
 
