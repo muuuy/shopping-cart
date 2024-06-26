@@ -18,12 +18,18 @@ describe("POST /user/signup", () => {
       email: "test@example.com",
     };
 
-    await request(app)
-      .post("/users/signup/")
-      .send(userInfo)
-      .expect(200)
-      .then((response) => {
-        console.log("Response Body:", response.request.url);
-      });
+    await request(app).post("/users/signup/").send(userInfo).expect(200);
+  });
+
+  test("should fail to create a new user", async () => {
+    const userInfo = {
+      username: "testuser",
+      password: "testpassword",
+      verifyPassword: "testpassword",
+      email: "matthewwangyu@gmail.coom",
+    };
+
+    await request(app).post("/users/signup/").send(userInfo).expect(401);
   });
 });
+
