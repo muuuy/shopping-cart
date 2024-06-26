@@ -21,6 +21,21 @@ const Checkout = ({ show, onClose }) => {
     e.preventDefault();
 
     try {
+      const stripeRes = await axios.post(
+        `http://localhost:3000/stripe/create-payment-intent/`,
+        null,
+        {
+          withCredentials: true,
+        }
+      );
+
+      if (stripeRes.status !== 200) {
+        console.log("something went wrong w/ stripe.");
+        return;
+      } else {
+        console.log(stripeRes);
+      }
+
       const res = await axios.post(
         "http://localhost:3000/orders/upload-order/",
         formData,

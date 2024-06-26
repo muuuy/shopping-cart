@@ -14,6 +14,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var cartRouter = require("./routes/cart");
 var ordersRouter = require("./routes/orders");
+var stripeRouter = require("./routes/stripe");
 
 var app = express();
 
@@ -50,12 +51,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+const corsOptions = {
+  origin: "http://localhost:5173",
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/cart", cartRouter);
 app.use("/orders", ordersRouter);
+app.use("/stripe", stripeRouter);
 
 app.listen(port, () => {
   console.log("listening to:", port);
