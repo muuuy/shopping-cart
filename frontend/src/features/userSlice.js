@@ -6,6 +6,7 @@ const initialState = {
   email: "",
   cart: [],
   orders: [],
+  currentOrderInfo: "",
 };
 const userSlice = createSlice({
   name: "users",
@@ -34,10 +35,13 @@ const userSlice = createSlice({
       state.cart = [];
       state.orders.unshift(action.payload.order);
     },
+    setCurrentOrderInfo(state, action) {
+      state.currentOrderInfo = action.payload.orderInfo;
+    }
   },
 });
 
-export const { authUser, removeUser, cartAppend, cartRemove, resetCart } =
+export const { authUser, removeUser, cartAppend, cartRemove, resetCart, setCurrentOrderInfo } =
   userSlice.actions;
 
 export default userSlice.reducer;

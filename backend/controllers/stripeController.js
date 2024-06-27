@@ -5,9 +5,6 @@ const YOUR_DOMAIN = "http://localhost:5173";
 
 exports.create_payment_intent = [
   asyncHandler(async (req, res, next) => {
-    console.log("test");
-    console.log(req.session.user.items);
-    console.log(req.session.body);
 
     const session = await stripe.checkout.sessions.create({
       line_items: req.session.user.items.map((item) => {

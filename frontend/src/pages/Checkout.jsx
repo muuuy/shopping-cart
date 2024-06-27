@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 
 import { useDispatch } from "react-redux";
-import { resetCart } from "../features/userSlice";
+import { resetCart, setCurrentOrderInfo } from "../features/userSlice";
 
 import styles from "../styles/Checkout.module.scss";
 
@@ -34,7 +34,7 @@ const Checkout = ({ show, onClose }) => {
         return;
       } else {
         window.open(stripeRes.data, "_blank", "noopener, noreferrer");
-        // console.log(stripeRes.data);
+        dispatch(setCurrentOrderInfo({ orderInfo: formData }));
       }
 
       const res = await axios.post(
