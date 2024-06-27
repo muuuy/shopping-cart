@@ -7,18 +7,19 @@ exports.create_payment_intent = [
   asyncHandler(async (req, res, next) => {
     console.log("test");
     console.log(req.session.user.items);
+    console.log(req.session.body);
 
     const session = await stripe.checkout.sessions.create({
       line_items: req.session.user.items.map((item) => {
         return {
           quantity: item.quantity,
           price_data: {
-            currency: 'usd',
+            currency: "usd",
             product_data: {
-              name: item.itemID
+              name: item.itemID,
             },
-            unit_amount: item.cost
-          }
+            unit_amount: item.cost,
+          },
         };
       }),
       payment_method_types: ["card"],

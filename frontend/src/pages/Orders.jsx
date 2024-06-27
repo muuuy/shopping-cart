@@ -38,9 +38,15 @@ const Orders = () => {
     if (loading) return <p>Loading...</p>;
     else if (items.length === 0) return <p>No Orders Found.</p>;
     else {
-      return orders.map((order, index) => (
-        <OrderCards key={uuidv4()} order={order} items={items[index]} />
-      ));
+      return orders.map((order, index) => {
+        if (items[index] === undefined) {
+          return;
+        } else {
+          return (
+            <OrderCards key={uuidv4()} order={order} items={items[index]} />
+          );
+        }
+      });
     }
   }, [orders, items, loading]);
 

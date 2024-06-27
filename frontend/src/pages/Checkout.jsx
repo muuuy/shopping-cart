@@ -23,7 +23,7 @@ const Checkout = ({ show, onClose }) => {
     try {
       const stripeRes = await axios.post(
         `http://localhost:3000/stripe/create-payment-intent/`,
-        null,
+        formData,
         {
           withCredentials: true,
         }
@@ -33,7 +33,8 @@ const Checkout = ({ show, onClose }) => {
         console.log("something went wrong w/ stripe.");
         return;
       } else {
-        console.log(stripeRes);
+        window.open(stripeRes.data, "_blank", "noopener, noreferrer");
+        // console.log(stripeRes.data);
       }
 
       const res = await axios.post(
