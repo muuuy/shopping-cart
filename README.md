@@ -15,6 +15,7 @@ This project is a full-stack e-commerce site built using modern web development 
 - Shopping cart functionality
 - Order placement and management
 - Login / Signup / Forgot Password / Reset Password
+- Payment Processing through Stripe
 
 ---
 
