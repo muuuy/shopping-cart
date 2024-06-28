@@ -3,6 +3,8 @@ import { useRef } from "react";
 
 import styles from "../styles/Sidebar.module.scss";
 
+import User from "./User";
+
 import { BsList } from "react-icons/bs";
 
 const Sidebar = () => {
@@ -22,34 +24,36 @@ const Sidebar = () => {
         className={styles.sidebar__burger}
       />
       <div className={styles.sidebar__dropdown} ref={dropdown}>
-        <p>SHOP</p>
-        <Link
-          to={"/explore-pokemon/"}
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
-          POKEMON
-        </Link>
-        <Link
-          to={`/explore-items/`}
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
-          ITEMS
-        </Link>
-        <Link
-          to={`/explore-berries/`}
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
-          BERRIES
-        </Link>
-        <Link
-          to={`/explore-tms/`}
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
-          TECHNICAL MACHINES
-        </Link>
-      </div>
-      <div className={styles.sidebar__dropdown} ref={dropdown}>
-        
+        <div className={styles.sidebar__dropdown_shop}>
+          <p>SHOP</p>
+          <Link
+            to={"/explore-pokemon/"}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            POKEMON
+          </Link>
+          <Link
+            to={`/explore-items/`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            ITEMS
+          </Link>
+          <Link
+            to={`/explore-berries/`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            BERRIES
+          </Link>
+          <Link
+            to={`/explore-tms/`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            TECHNICAL MACHINES
+          </Link>
+        </div>
+        <div className={styles.sidebar__dropdown}>
+          <User />
+        </div>
       </div>
     </div>
   );

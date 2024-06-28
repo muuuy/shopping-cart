@@ -14,26 +14,39 @@
 
   > .sidebar__dropdown {
     display: none;
-    flex-direction: column;
+    flex-direction: row;
     position: absolute;
-    background-color: white;
+    // background-color: white;
     top: 64px;
     padding: 20px 0;
-    border: 1px solid black;
+    // border: 1px solid black;
     border-radius: 40px;
     overflow: hidden;
     z-index: 2;
 
-    > p {
-      font-size: 20px;
-      font-weight: 900;
-      text-align: center;
-      padding-bottom: 20px;
-      border-bottom: 1px solid black;
+    > .sidebar__dropdown_shop {
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      border-radius: 40px;
+      border: 1px solid black;
+      overflow: hidden;
+
+      > p {
+        font-size: 20px;
+        font-weight: 900;
+        text-align: center;
+        padding-bottom: 20px;
+        border-bottom: 1px solid black;
+      }
+
+      > a {
+        @include userform.dropdownLetterTheme();
+      }
     }
 
-    > a {
-      @include userform.dropdownLetterTheme();
+    > .sidebar__dropdown_user {
+      
     }
   }
 }
