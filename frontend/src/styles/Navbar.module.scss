@@ -89,7 +89,6 @@
       > .dropdown {
         position: absolute;
         display: none;
-        // margin-right: 12px;
         color: black;
         background-color: white;
         border: 2px solid black;
@@ -213,10 +212,10 @@
       }
     }
   }
+}
 
-  > .sidebar__container {
-    display: none;
-  }
+.nav__sidebar {
+  display: none;
 }
 
 .welcome_text {
@@ -235,11 +234,8 @@
 }
 
 @media screen and (max-width: 568px) {
-  
   .nav_container {
     width: 568px;
-
-
 
     > .logo {
       font-size: 16px;

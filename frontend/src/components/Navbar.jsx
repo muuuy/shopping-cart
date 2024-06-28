@@ -6,6 +6,7 @@ import { removeUser } from "../features/userSlice";
 
 import styles from "../styles/Navbar.module.scss";
 
+import Sidebar from "./Sidebar";
 import SearchBar from "./Searchbar";
 import ShoppingCart from "./ShoppingCart";
 
@@ -25,15 +26,12 @@ const Navbar = () => {
       throw new Error("Not logged in");
     } else {
       try {
-        const res = await axios.post(
-          "http://localhost:3000/users/logout/",
-          null,
-          {
-            withCredentials: true,
-          }
-        ); //post to logout via backend
+        await axios.post("http://localhost:3000/users/logout/", null, {
+          withCredentials: true,
+        });
       } catch (error) {
         console.log(error);
+        return;
       }
 
       dispatch(removeUser());
@@ -43,38 +41,8 @@ const Navbar = () => {
   return (
     <>
       <nav className={styles.nav_container}>
-        <div className={styles.sidebar__container}>
-          <ul className={styles.sidebar__list}>
-            <li className={styles.sidebar__list_item}>
-              <a className={styles.sidebar__list_link}>SHOP</a>
-              <div className={styles.sidebar__list_dropdown}>
-                <Link
-                  to={"/explore-pokemon/"}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  POKEMON
-                </Link>
-                <Link
-                  to={`/explore-items/`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  ITEMS
-                </Link>
-                <Link
-                  to={`/explore-berries/`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  BERRIES
-                </Link>
-                <Link
-                  to={`/explore-tms/`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  TECHNICAL MACHINES
-                </Link>
-              </div>
-            </li>
-          </ul>
+        <div className={styles.nav__sidebar}>
+          <Sidebar />
         </div>
         <Link to="/" className={styles.logo} style={{ textDecoration: "none" }}>
           <BsHurricane className={styles.logo_img} />

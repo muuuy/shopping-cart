@@ -1,0 +1,39 @@
+@use "userform";
+
+.sidebar__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+  z-index: 2;
+  padding-left: 12px;
+  height: 100%;
+
+  > .sidebar__burger {
+    cursor: pointer;
+  }
+
+  > .sidebar__dropdown {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    background-color: white;
+    top: 64px;
+    padding: 20px 0;
+    border: 1px solid black;
+    border-radius: 40px;
+    overflow: hidden;
+
+    > p {
+      font-size: 20px;
+      font-weight: 900;
+      text-align: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid black;
+    }
+
+    > a {
+      @include userform.dropdownLetterTheme();
+    }
+  }
+}
