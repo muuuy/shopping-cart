@@ -235,7 +235,7 @@
 
 @media screen and (max-width: 568px) {
   .nav_container {
-    width: 568px;
+    gap: 0;
 
     > .logo {
       font-size: 16px;
@@ -248,7 +248,21 @@
 
   .search_container {
     position: absolute;
-    top: 80px;
+    top: 84px;
     width: 100%;
+  }
+
+  .list_item:first-child {
+    display: none;
+  }
+
+  .nav__sidebar {
+    display: block;
+  }
+
+  #shopping_cart {
+    > span {
+      display: none;
+    }
   }
 }

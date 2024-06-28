@@ -48,6 +48,9 @@ const Sidebar = () => {
           TECHNICAL MACHINES
         </Link>
       </div>
+      <div className={styles.sidebar__dropdown} ref={dropdown}>
+        
+      </div>
     </div>
   );
 };

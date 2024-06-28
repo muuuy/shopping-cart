@@ -1,43 +1,17 @@
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import axios from "axios";
-
-import { useSelector, useDispatch } from "react-redux";
-import { removeUser } from "../features/userSlice";
 
 import styles from "../styles/Navbar.module.scss";
 
 import Sidebar from "./Sidebar";
 import SearchBar from "./Searchbar";
 import ShoppingCart from "./ShoppingCart";
+import User from "./User";
 
 import { BsHurricane } from "react-icons/bs";
 import { BsCart4 } from "react-icons/bs";
 import { BsChevronDown } from "react-icons/bs";
-import { BsCaretDownFill } from "react-icons/bs";
 
 const Navbar = () => {
-  const username = useSelector((state) => state.user.username);
-  const auth = useSelector((state) => state.user.authenticated);
-
-  const dispatch = useDispatch();
-
-  const handleLogOut = async () => {
-    if (!auth) {
-      throw new Error("Not logged in");
-    } else {
-      try {
-        await axios.post("http://localhost:3000/users/logout/", null, {
-          withCredentials: true,
-        });
-      } catch (error) {
-        console.log(error);
-        return;
-      }
-
-      dispatch(removeUser());
-    }
-  };
-
   return (
     <>
       <nav className={styles.nav_container}>
@@ -85,58 +59,12 @@ const Navbar = () => {
             </div>
           </li>
           <li className={styles.list_item} id={styles.shopping_cart}>
-            <BsCart4 /> CART
+            <BsCart4 />
+            <span>CART</span>
             <ShoppingCart />
           </li>
           <li className={`${styles.list_item} ${styles.arrow_container}`}>
-            {username && (
-              <>
-                <div>
-                  <span className={styles.welcome_text}>WELCOME BACK</span>
-                  <br></br>
-                  {username.toUpperCase()}
-                  &nbsp;
-                  <BsCaretDownFill size={12} />
-                </div>
-                <div className={styles.dropdown}>
-                  <Link
-                    to={"/orders/"}
-                    style={{ textDecoration: "none", color: "inherit" }}
-                  >
-                    ORDERS
-                  </Link>
-                  <button className={styles.log_out} onClick={handleLogOut}>
-                    LOG OUT
-                  </button>
-                </div>
-              </>
-            )}
-            {!username && (
-              <>
-                <Link
-                  to={"/login"}
-                  style={{
-                    textDecoration: "none",
-                    color: "inherit",
-                    fontSize: "20px",
-                  }}
-                >
-                  SIGN IN&nbsp;
-                  <BsCaretDownFill size={12} />
-                </Link>
-                <div className={styles.dropdown}>
-                  <Link
-                    to={"/signup"}
-                    style={{
-                      textDecoration: "none",
-                      color: "inherit",
-                    }}
-                  >
-                    SIGN UP
-                  </Link>
-                </div>
-              </>
-            )}
+            <User />
           </li>
         </ul>
       </nav>

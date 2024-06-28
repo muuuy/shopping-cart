@@ -21,7 +21,7 @@ const GreetingBanner = () => {
   return (
     <div className={styles.banner_container}>
       <div className={styles.image_header}>
-        <img src={Pokeball}></img>
+        <img className={styles.banner__icon} src={Pokeball}></img>
         <img src={Pikachu}></img>
         <img src={Meowth}></img>
         <img src={Dratini}></img>
