@@ -16,28 +16,27 @@
     display: none;
     flex-direction: row;
     position: absolute;
-    // background-color: white;
     top: 64px;
     padding: 20px 0;
-    // border: 1px solid black;
-    border-radius: 40px;
     overflow: hidden;
     z-index: 2;
+    gap: 12px;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    justify-content: space-evenly;
 
     > .sidebar__dropdown_shop {
       display: flex;
       flex-direction: column;
-      background-color: white;
-      border-radius: 40px;
-      border: 1px solid black;
-      overflow: hidden;
 
       > p {
         font-size: 20px;
         font-weight: 900;
         text-align: center;
         padding-bottom: 20px;
-        border-bottom: 1px solid black;
       }
 
       > a {
@@ -46,7 +45,8 @@
     }
 
     > .sidebar__dropdown_user {
-      
+      display: flex;
+      flex-direction: column;
     }
   }
 }

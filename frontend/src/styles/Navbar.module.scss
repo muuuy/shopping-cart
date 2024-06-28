@@ -1,4 +1,5 @@
 @use "variables";
+@use "userform";
 @use "breakpoints";
 
 @import url("https://fonts.googleapis.com/css2?family=Jersey+15&display=swap");
@@ -84,44 +85,6 @@
       &:hover .dropdown {
         display: block;
         animation: dropdown-display 0.4s ease-in forwards;
-      }
-
-      > .dropdown {
-        position: absolute;
-        display: none;
-        color: black;
-        background-color: white;
-        border: 2px solid black;
-        max-width: 140px;
-        min-width: 140px;
-        z-index: 101;
-
-        > .log_out {
-          width: 100%;
-          padding: 8px;
-          letter-spacing: 4px;
-          text-indent: 4px;
-          font-weight: 900;
-          background-color: variables.$pastel-red;
-          color: white;
-          cursor: pointer;
-          border: none;
-          border-top: 2px solid black;
-        }
-
-        > a {
-          display: block;
-          text-align: center;
-          padding: 16px 4px;
-          font-size: 12px;
-          letter-spacing: 4px;
-          text-indent: 4px;
-
-          &:hover {
-            background-color: var(--light-gray);
-            transition: background-color 0.3s ease;
-          }
-        }
       }
     }
 
@@ -218,6 +181,101 @@
   display: none;
 }
 
+.sidebar__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+  padding-left: 12px;
+  height: 100%;
+
+  > .sidebar__burger {
+    cursor: pointer;
+  }
+
+  > .sidebar__dropdown {
+    display: none;
+    flex-direction: row;
+    position: absolute;
+    top: 64px;
+    padding: 20px 0;
+    overflow: hidden;
+    z-index: 2;
+    gap: 12px;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    justify-content: space-evenly;
+
+    > .sidebar__dropdown_shop {
+      display: flex;
+      flex-direction: column;
+
+      > p {
+        font-size: 20px;
+        font-weight: 900;
+        text-align: center;
+        padding-bottom: 20px;
+      }
+
+      > a {
+        @include userform.dropdownLetterTheme();
+      }
+    }
+
+    > .sidebar__dropdown_user {
+      display: flex;
+      flex-direction: column;
+
+      &:hover .dropdown {
+        display: block;
+        top: 60px;
+        animation: dropdown-display 0.4s ease-in forwards;
+      }
+    }
+  }
+}
+
+.dropdown {
+  position: absolute;
+  display: none;
+  color: black;
+  background-color: white;
+  border: 2px solid black;
+  max-width: 140px;
+  min-width: 140px;
+  z-index: 101;
+
+  > .log_out {
+    width: 100%;
+    padding: 8px;
+    letter-spacing: 4px;
+    text-indent: 4px;
+    font-weight: 900;
+    background-color: variables.$pastel-red;
+    color: white;
+    cursor: pointer;
+    border: none;
+    border-top: 2px solid black;
+  }
+
+  > a {
+    display: block;
+    text-align: center;
+    padding: 16px 4px;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-indent: 4px;
+
+    &:hover {
+      background-color: var(--light-gray);
+      transition: background-color 0.3s ease;
+    }
+  }
+}
+
 .welcome_text {
   font-size: 12px;
   color: variables.$dark-gray;
@@ -253,6 +311,10 @@
   }
 
   .list_item:first-child {
+    display: none;
+  }
+
+  .list_item:last-child {
     display: none;
   }
 

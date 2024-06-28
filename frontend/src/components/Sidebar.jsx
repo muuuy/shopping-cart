@@ -1,9 +1,10 @@
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { useRef } from "react";
 
-import styles from "../styles/Sidebar.module.scss";
+import styles from "../styles/Navbar.module.scss";
 
 import User from "./User";
+import ShoppingCart from "./ShoppingCart";
 
 import { BsList } from "react-icons/bs";
 
@@ -51,7 +52,7 @@ const Sidebar = () => {
             TECHNICAL MACHINES
           </Link>
         </div>
-        <div className={styles.sidebar__dropdown}>
+        <div className={styles.sidebar__dropdown_user}>
           <User />
         </div>
       </div>
