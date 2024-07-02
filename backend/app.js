@@ -6,8 +6,6 @@ const cors = require("cors");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 
-const port = 5173;
-
 require("dotenv").config();
 
 var indexRouter = require("./routes/index");
@@ -62,10 +60,6 @@ app.use("/users", usersRouter);
 app.use("/cart", cartRouter);
 app.use("/orders", ordersRouter);
 app.use("/stripe", stripeRouter);
-
-app.listen(port, () => {
-  console.log("listening to:", port);
-});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

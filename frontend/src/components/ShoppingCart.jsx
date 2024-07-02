@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef, useEffect } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import { cartRemove } from "../features/userSlice";
@@ -13,9 +13,25 @@ const ShoppingCart = () => {
   const username = useSelector((state) => state.user.username);
   const items = useSelector((state) => state.user.cart);
 
+  const checkoutRef = useRef(null);
+
   const [showPopup, setShowPopup] = useState(false);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const handleClick = (event) => {
+      event.preventDefault();
+      if (checkoutRef.current && !checkoutRef.current.contains(event.target))
+        setShowPopup(false);
+    };
+
+    document.addEventListener("mousedown", handleClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+    };
+  }, [showPopup]);
 
   const handlePopup = () => {
     if (items.length === 0) {
@@ -117,7 +133,7 @@ const ShoppingCart = () => {
         >
           CHECKOUT
         </button>
-        <div>
+        <div ref={checkoutRef}>
           <Checkout show={showPopup} onClose={handleClose} />
         </div>
       </div>
